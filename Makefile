@@ -7,15 +7,17 @@ SRCS =	minishell.c \
 		utils/get_next_line/get_next_line_utils.c \
 		utils/file.c \
 		utils/little_func.c
-INC	= -ledit
+INC	= -I /Users/$$USER/.brew/opt/readline/include
+
+LIB	= -lreadline -L/Users/$$USER/.brew/opt/readline/lib
 
 OBJS = ${SRCS:.c=.o}
 
 .c.o:
-	${CC} ${CFLAGS} -g3 -c $< -o ${<:.c=.o}
+	${CC} ${CFLAGS} ${INC} -g3 -c $< -o ${<:.c=.o}
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(INC)
+	$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME)
 
 all: $(NAME)
 

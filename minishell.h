@@ -5,10 +5,10 @@
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
-# include <readline/readline.h>
 # include "utils/get_next_line/get_next_line.h"
 # include <stdbool.h>
 # include <fcntl.h>
+# include <readline/readline.h>
 
 struct s_minishell
 {
@@ -19,6 +19,7 @@ struct s_minishell
 }	t_minishell;
 
 void	ctrl_c();
+void	ctrl_d();
 void	go_to_end_of_file(int fd);
 bool	write_to_histo(char *str, int fd);
 bool	is_space(char c);

@@ -5,6 +5,10 @@
 
 void	ctrl_c()
 {
-	printf("salut\n");
+	//printf("salut\n");
+}
+
+void	ctrl_d()
+{
 	exit(2);
 }
