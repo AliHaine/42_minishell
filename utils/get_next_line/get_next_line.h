@@ -3,30 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/20 12:56:57 by ayagmur           #+#    #+#             */
-/*   Updated: 2022/11/20 12:56:58 by ayagmur          ###   ########.fr       */
+/*   Created: 2022/11/21 17:48:25 by mbouaza           #+#    #+#             */
+/*   Updated: 2023/01/19 03:32:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+/* Creation of my buffer_size, used for read() */
+
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 2
+#  define BUFFER_SIZE 5
 # endif
+
+/* include */
 
 # include <stdlib.h>
 # include <stdio.h>
-# include <string.h>
 # include <unistd.h>
 
+/* Lib for get_next_line */
+
+// char //
+
+char	*ft_strjoin(char *s1, char *s2);
 char	*get_next_line(int fd);
-int		ft_strchr(const char *str, int strchar);
-size_t	ft_strlen(const char *c);
-char	*ft_strjoin(char const *s1, char const *s2);
-void	*ft_calloc(size_t count, size_t size);
-void	*ft_memset(void *pointer, int value, size_t size);
+
+// int //
+
+int		check_newline(char c, char *s);
+
+// size_t //
+
+size_t	ft_strlen(const char *s);
 
 #endif
