@@ -45,13 +45,13 @@ int main (int argc, char **argv, char **env)
 
 	sigaction_manager(&ms);
 	ms.histo_fd =  open(".history", O_RDWR);
-	ms.env = env;
-	ms.exit = 1;
 	if (ms.histo_fd == -1)
 	{
 		printf("Error file history\n");
 		return (1);
 	}
+	ms.env = env;
+	ms.exit = 1;
 	go_to_end_of_file(ms.histo_fd);
 	main_process(&ms);
 	return (0);
