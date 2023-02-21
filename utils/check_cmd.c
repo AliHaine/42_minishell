@@ -7,6 +7,8 @@ int	ft_strcmp(char *a, char *b)
 	int	i;
 
 	i = 0;
+	if (!b || is_blank(b))
+		return (0);
 	if (ft_strlen(a) != ft_strlen(b))
 		return (0);
 	while (a[i])
@@ -20,6 +22,7 @@ int	ft_strcmp(char *a, char *b)
 
 void check_bulltin(char **cmd)
 {
+	printf("nn\n");
 	if (ft_strcmp("echo", cmd[0]) == 1)
 		echo(cmd);
 	else if (ft_strcmp("pwd", cmd[0]) == 1)
@@ -32,7 +35,7 @@ void check_bulltin(char **cmd)
 
 // check_all_cmd //
 
-void check_all_cmd(char *line)
+void	check_all_cmd(char *line)
 {
 	char **args;
 
@@ -40,5 +43,5 @@ void check_all_cmd(char *line)
 	if (!args)
 		return ;
 	check_bulltin(args);
-	free(args);
+	free_tt(args);
 }

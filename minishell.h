@@ -23,7 +23,12 @@ void	ctrl_c();
 void	ctrl_d();
 void	go_to_end_of_file(int fd);
 bool	write_to_histo(char *str, int fd);
+
+// little_func //
+
 bool	is_space(char c);
+bool	is_blank(char *str);
+void	free_tt(char **str);
 
 /* utils */
 
@@ -34,7 +39,7 @@ char	**ft_split(char *s, char c);
 // check_all_cmd //
 
 int	ft_strcmp(char *a, char *b);
-void check_all_cmd(char *line);
+void	check_all_cmd(char *line);
 
 /* bulltin */
 
