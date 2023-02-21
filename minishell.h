@@ -9,6 +9,7 @@
 # include <stdbool.h>
 # include <fcntl.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 
 struct s_minishell
 {
@@ -23,5 +24,30 @@ void	ctrl_d();
 void	go_to_end_of_file(int fd);
 bool	write_to_histo(char *str, int fd);
 bool	is_space(char c);
+
+/* utils */
+
+// ft_split //
+
+char	**ft_split(char *s, char c);
+
+// check_all_cmd //
+
+int	ft_strcmp(char *a, char *b);
+void check_all_cmd(char *line);
+
+/* bulltin */
+
+// exit //
+
+void exit_shell(void);
+
+// pwd //
+
+void pwd(void);
+
+// echo //
+
+void echo(char **tab);
 
 #endif

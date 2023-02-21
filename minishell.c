@@ -30,13 +30,15 @@ static int	main_process(struct s_minishell *ms)
 
 	while (ms->exit > 0)
 	{
-		histo = readline("\U0001F1F9\U0001F1F7  >>");
+		histo = readline("\U0001F1F9\U0001F1F7  >> ");
+		check_all_cmd(histo);
 		if (check_validity(histo))
 		{
 			add_history(histo);
 			write_to_histo((char *) histo, ms->histo_fd);
 		}
 	}
+	return (1);
 }
 
 int main (int argc, char **argv, char **env)

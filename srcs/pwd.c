@@ -1,8 +1,8 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 /* pwd */
 
-void pwd()
+void pwd(void)
 {
 	char	*path;
 	
