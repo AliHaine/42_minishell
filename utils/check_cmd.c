@@ -22,7 +22,6 @@ int	ft_strcmp(char *a, char *b)
 
 void check_bulltin(char **cmd)
 {
-	printf("nn\n");
 	if (ft_strcmp("echo", cmd[0]) == 1)
 		echo(cmd);
 	else if (ft_strcmp("pwd", cmd[0]) == 1)
