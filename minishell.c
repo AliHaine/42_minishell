@@ -24,13 +24,15 @@ static bool	check_validity(char *str)
 	return (true);
 }
 
+// tkt \U0001F1F9\U0001F1F7 il est la 
+
 static int	main_process(struct s_minishell *ms)
 {
 	char *histo;
 
 	while (ms->exit > 0)
 	{
-		histo = readline("\U0001F1F9\U0001F1F7  >> ");
+		histo = readline(g_d_e());
 		if (!histo)
 			break;
 		if (check_validity(histo))
@@ -38,7 +40,7 @@ static int	main_process(struct s_minishell *ms)
 			add_history(histo);
 			write_to_histo((char *) histo, ms->histo_fd);
 		}
-		check_all_cmd(histo);
+		check_all_cmd(histo, env, ms);
 	}
 	return (1);
 }

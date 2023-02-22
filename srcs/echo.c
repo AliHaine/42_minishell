@@ -1,6 +1,38 @@
 #include "../minishell.h"
 
-/* -n -n -n -n error */
+// guillemet // 
+
+/* var type $PATH and var '"$PATH"' 'PATH' */
+
+/* trime cote */
+
+static int get_env_var(char **env, char *var)
+{
+	int len;
+	int i;
+	int j;
+
+	j = 0;
+	len = 0;
+	i = 0;
+	while (var[j] != '=' && var[j])
+		j++;
+	while (env[i])
+	{
+		len = 0;
+		while (var[len])
+		{
+			if (env[i][len] && env[i][len] == var[len])
+				len++; 
+			else
+				break;
+			if (env[i][len] && env[i][len] == '=' && len < j)
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
 
 /* bulltin echo part 2 */
 
@@ -41,8 +73,13 @@ void echo(char **tab)
 		printf("\n");
 		return ;
 	}
+
+	// pour les guillemet : en cour //
+
+	/*while (tab[i])
+		trime_quotation(tab[i++]);*/
+	i = 1;
 	bulltin = echo_2(tab, bulltin);
-	printf("bulltin = %d\n", bulltin);
 	if (bulltin > 0)
 		i += bulltin;
 	while (tab[i])

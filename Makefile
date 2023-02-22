@@ -1,6 +1,11 @@
+# j'ai mis des echo pour la compilemais c pas definitif c juste comme ça fait moin de messages
+
 NAME = minishell
-CC = gcc
+
+CC = @gcc
+
 CFLAGS =
+
 SRCS =	minishell.c \
 		srcs/signal.c \
 		utils/get_next_line/get_next_line.c \
@@ -9,10 +14,14 @@ SRCS =	minishell.c \
 		utils/little_func.c \
 		utils/error_manager.c \
 		srcs/echo.c \
-		srcs/exit.c \
 		srcs/pwd.c \
 		utils/ft_split.c \
-		utils/check_cmd.c
+		utils/check_cmd.c \
+		srcs/env.c \
+		srcs/unset.c \
+		srcs/export.c \
+		srcs/cd.c \
+		utils/utils.c
 
 #utils/file.c \#
 
@@ -27,6 +36,7 @@ OBJS = ${SRCS:.c=.o}
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME)
+	@echo "minshell compiled!"
 
 debug: $(OBJS)
 	$(CC) $(CFLAGS) -fsanitize=address $(OBJS) $(LIB) -o $(NAME)
@@ -36,10 +46,12 @@ all: $(NAME)
 bonus: all
 
 clean:
-	rm -rf $(OBJS) $(OBJS_BONUS)
+	@rm -rf $(OBJS) $(OBJS_BONUS)
+	@echo "minshell cleaned!"
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
+	@echo "minshell fcleaned!"
 
 re: fclean all
 
