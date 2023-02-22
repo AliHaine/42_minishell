@@ -55,4 +55,8 @@ void pwd(void);
 
 void echo(char **tab);
 
+// pipe manager //
+
+bool	pipe_main(struct s_minishell *ms, char *cmds);
+
 #endif

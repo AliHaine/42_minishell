@@ -6,24 +6,6 @@ bool	sigaction_manager(struct s_minishell *ms)
 	return (true);
 }
 
-static bool	check_validity(char *str)
-{
-	int i;
-	int size;
-
-	i = 0;
-	size = 0;
-	while (str[i])
-	{
-		if (!is_space(str[i]))
-			size++;
-		i++;
-	}
-	if (size == 0)
-		return (false);
-	return (true);
-}
-
 static int	main_process(struct s_minishell *ms)
 {
 	char *histo;
@@ -33,12 +15,14 @@ static int	main_process(struct s_minishell *ms)
 		histo = readline("\U0001F1F9\U0001F1F7  >> ");
 		if (!histo)
 			break;
-		if (check_validity(histo))
+		if (!is_blank(histo))
 		{
+			pipe_main(ms, histo);
 			add_history(histo);
 			write_to_histo((char *) histo, ms->histo_fd);
 		}
-		check_all_cmd(histo);
+		if (pipe_main(ms, histo) == true)
+			check_all_cmd(histo);
 	}
 	return (1);
 }
