@@ -5,23 +5,38 @@
 
 bool	check_all_pipe(char *cmds)
 {
+	int	i;
+	int o;
+	char *str;
+
+	i = 0;
+	o = 0;
+	while (cmds[o])
+	{
+		while (cmds[o + i] && !is_space(cmds[o + i]))
+			i++;
+		str = malloc(sizeof(char) * (i + 1));
+		str[i] = '\0';
+		i--;
+		while (i > -1)
+		{
+			printf("%d\n", i);
+			str[i] = cmds[o];
+			o++;
+			i--;
+		}
+		printf("ss %s\n", str);
+		if (get_cmd(str) == 0)
+			return (false) ;
+	}
 	return (true);
 }
 
 bool	pipe_main(struct s_minishell *ms, char *cmds)
 {
 	int pipefd[2];
-	int i;
-	int size;
-	char *cmd;
 
-	i = 0;
-	size = 0;
-	while (is_blank(cmds))
-		size++;
-	cmd = malloc(sizeof(char) * size);
-	while ()
-	//check if exist
-
-	return (true);
+	if (check_all_pipe(cmds) == true)
+		return (true);
+	return (false);
 }

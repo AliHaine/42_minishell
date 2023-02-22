@@ -18,28 +18,47 @@ int	ft_strcmp(char *a, char *b)
 	return (1);
 }
 
+int get_cmd(char *cmd)
+{
+	if (ft_strcmp("echo", cmd))
+		return (1);
+	else if (ft_strcmp("pwd", cmd))
+		return (2);
+	else if (ft_strcmp("exit", cmd))
+		return (3);
+	else if (ft_strcmp("env", cmd))
+		return (4);
+	else if (ft_strcmp("unset", cmd))
+		return (5);
+	else if (ft_strcmp("export", cmd))
+		return (6);
+	else if (ft_strcmp("cd", cmd))
+		return (7);
+	return (0);
+}
+
 static void check_bulltin(char **cmd, char **env, struct s_minishell *ms)
 {
 	if (!cmd[0])
 		return ;
-	else if (ft_strcmp("echo", cmd[0]) == 1)
+	else if (get_cmd(cmd[0]) == 1)
 		echo(cmd);
-	else if (ft_strcmp("pwd", cmd[0]) == 1)
+	else if (get_cmd(cmd[0]) == 2)
 		pwd();
-	else if (ft_strcmp("exit", cmd[0]) == 1)
+	else if (get_cmd(cmd[0]) == 3)
 		ms->exit = 0;
-	else if (ft_strcmp("env", cmd[0]) == 1)
+	else if (get_cmd(cmd[0]) == 4)
 		print_env(env);
-	else if (ft_strcmp("unset", cmd[0]) == 1)
+	else if (get_cmd(cmd[0]) == 5)
 	{
 		if (cmd[1] && env[0])
 			unset(cmd[1] ,env, 0);
 		else
 			printf("\n");
 	}
-	else if (ft_strcmp("export", cmd[0]) == 1)
+	else if (get_cmd(cmd[0]) == 6)
 		export(cmd, env);//
-	else if (ft_strcmp("cd", cmd[0]) == 1)
+	else if (get_cmd(cmd[0]) == 7)
 		cd(cmd, env);
 	else
 		printf("minishell: %s: command not found\n", cmd[0]);

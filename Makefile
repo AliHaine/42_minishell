@@ -21,6 +21,7 @@ SRCS =	minishell.c \
 		srcs/unset.c \
 		srcs/export.c \
 		srcs/cd.c \
+		srcs/pipe_manager.c \
 		utils/utils.c
 
 #utils/file.c \#

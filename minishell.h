@@ -30,6 +30,10 @@ bool	is_space(char c);
 bool	is_blank(char *str);
 void	free_tt(char **str);
 
+// pipe_manager //
+
+bool	pipe_main(struct s_minishell *ms, char *cmds);
+
 // utils //
 
 char	*ft_strchr(const char *s, int c);
@@ -45,6 +49,7 @@ char	**ft_split(char *s, char c);
 // check_all_cmd //
 
 int	ft_strcmp(char *a, char *b);
+int get_cmd(char *cmd);
 void check_all_cmd(char *line, char **env, struct s_minishell *ms);
 
 /* bulltin */
