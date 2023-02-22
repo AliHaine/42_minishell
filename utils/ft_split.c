@@ -1,8 +1,28 @@
 #include "../minishell.h"
 
-/* split you know ... */
+// ft_strdup //
 
-// copy of substr, but can free if my malloc fail //
+char	*ft_strdup(const char *s1)
+{
+	int		len;
+	int		i;
+	char	*dest;
+
+	len = ft_strlen(s1);
+	i = 0;
+	dest = malloc(sizeof(char) * (len + 1));
+	if (!dest)
+		return (NULL);
+	while (i < len)
+	{
+		dest[i] = s1[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+// ft_substr_can_free //
 
 static char	*ft_substr_can_free(char *s, unsigned int start, size_t len)
 {
@@ -30,7 +50,7 @@ static char	*ft_substr_can_free(char *s, unsigned int start, size_t len)
 	return (str);
 }
 
-// free all words in my **tab and free my **tab //
+// free_all  //
 
 static void	*free_all(char **tab, int w)
 {
@@ -46,7 +66,7 @@ static void	*free_all(char **tab, int w)
 	return (NULL);
 }
 
-// count all word without my separator //
+// ft_count_word //
 
 static int	ft_count_word(char *s, char c)
 {

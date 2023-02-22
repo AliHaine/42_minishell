@@ -30,16 +30,22 @@ bool	is_space(char c);
 bool	is_blank(char *str);
 void	free_tt(char **str);
 
-/* utils */
+// utils //
+
+char	*ft_strchr(const char *s, int c);
+char	*ft_strrchr(const char *s, int c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strtrim(char const *s1, char const *set);
 
 // ft_split //
 
+char	*ft_strdup(const char *s1);
 char	**ft_split(char *s, char c);
 
 // check_all_cmd //
 
 int	ft_strcmp(char *a, char *b);
-void	check_all_cmd(char *line);
+void check_all_cmd(char *line, char **env, struct s_minishell *ms);
 
 /* bulltin */
 
@@ -50,13 +56,34 @@ void exit_shell(void);
 // pwd //
 
 void pwd(void);
+char *g_d_e(void);
+
+/* 
+
+en cour
+
+void trime_quotation(char *str);
+
+*/
 
 // echo //
 
 void echo(char **tab);
 
-// pipe manager //
+// env //
 
-bool	pipe_main(struct s_minishell *ms, char *cmds);
+void print_env(char **env);
+
+// unset //
+
+int unset(char *path, char **env, int i);
+
+// export //
+
+void export(char **argv, char **env);
+
+// cd //
+
+int cd(char **cmd, char **env);
 
 #endif
