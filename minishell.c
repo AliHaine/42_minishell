@@ -26,7 +26,7 @@ static bool	check_validity(char *str)
 
 // tkt \U0001F1F9\U0001F1F7 il est la 
 
-static int	main_process(struct s_minishell *ms)
+static int	main_process(struct s_minishell *ms, char **env)
 {
 	char *histo;
 
@@ -50,6 +50,8 @@ int main (int argc, char **argv, char **env)
 	struct s_minishell ms;
 
 	sigaction_manager(&ms);
+
+	// pas def la variable //
 	rl_catch_signals = 0;
 	ms.histo_fd =  open(".history", O_RDWR);
 	if (ms.histo_fd == -1)
@@ -60,7 +62,7 @@ int main (int argc, char **argv, char **env)
 	ms.env = env;
 	ms.exit = 1;
 	go_to_end_of_file(ms.histo_fd);
-	main_process(&ms);
+	main_process(&ms, env);
 	close(ms.histo_fd);
 	return (0);
 }
