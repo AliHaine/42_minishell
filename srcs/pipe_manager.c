@@ -3,31 +3,31 @@
 //
 #include "../minishell.h"
 
-bool	check_all_pipe(char *cmds)
+static bool	check_all_pipe(char *cmds, int i, int o)
 {
-	int	i;
-	int o;
 	char *str;
 
-	i = 0;
-	o = 0;
 	while (cmds[o])
 	{
 		while (cmds[o + i] && !is_space(cmds[o + i]))
 			i++;
-		str = malloc(sizeof(char) * (i + 1));
-		str[i] = '\0';
-		i--;
-		while (i > -1)
-		{
-			printf("%d\n", i);
-			str[i] = cmds[o];
-			o++;
-			i--;
-		}
-		printf("ss %s\n", str);
+		str = ft_substr(cmds, o, i);
 		if (get_cmd(str) == 0)
-			return (false) ;
+		{
+			free(str);
+			return (false);
+		}
+		free(str);
+		while (cmds[o])
+		{
+			if (cmds[o] == '|')
+			{
+				o += 2;
+				break;
+			}
+			o++;
+		}
+		i = 0;
 	}
 	return (true);
 }
@@ -36,7 +36,9 @@ bool	pipe_main(struct s_minishell *ms, char *cmds)
 {
 	int pipefd[2];
 
-	if (check_all_pipe(cmds) == true)
+	if (check_all_pipe(cmds, 0, 0) == true)
 		return (true);
+	else
+		printf("minishell: command not found\n");
 	return (false);
 }
