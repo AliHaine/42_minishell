@@ -105,3 +105,50 @@ echo | cd
 echo | cd | e
 echo | cd 
 echo salut | echo salut2 
+echo | ss
+echo salut | ls
+echo salut | ls | 
+echo salut | ls | ls
+echo salut | echo | echo
+echo salut | echo | echo
+echo salut | echo s | echo s
+echo s
+echo s | echo s
+echo s | echo sa
+echo sa | echo sa
+echo ls | echo ls
+ls | ls 
+ls | ls | ls
+cd | cd
+ls | ls | ls
+
+echo sa | echo sa
+echo sa | echo sa | echo sa
+echo sa | echo sa | echo sa | pwd
+echo sa | echo sa | echo sa | pwd
+echo sa | echo sa | echo sa | pwd
+
+echo sa | echo sa | echo sa | pwd
+
+
+pwd | pwd | pwd
+
+pwd | pwd | pwd
+pwd
+pwd | pwd
+pwd | pwd | pwd
+pwd | pwd | pwd | pwd
+pwd | pwd | pwd | pwd
+pwd | pwd
+pwd | pwd
+pwd | pwd
+pwd | pwd
+pwd | pwd | pwd
+pwd | pwd | pwd
+pwd | pwd | pwd
+pwd | pwd
+pwd | pwd
+pwd | pwd
+pwd | pwd | pwd
+pwd | pwd | pwd
+pwd | pwd | pw

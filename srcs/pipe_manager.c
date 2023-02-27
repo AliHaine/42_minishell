@@ -3,41 +3,51 @@
 //
 #include "../minishell.h"
 
-static bool	check_all_pipe(char *cmds, int i, int o)
+static bool	set_cmds_to_tab(char **tab, char *cmds, int size)
+{
+	
+	return (true);
+}
+
+static int	check_all_pipe(char *cmds, struct s_three_int *ti)
 {
 	char *str;
 
-	while (cmds[o])
+	while (cmds[ti->a])
 	{
-		while (cmds[o + i] && !is_space(cmds[o + i]))
-			i++;
-		str = ft_substr(cmds, o, i);
+		while (cmds[ti->a + ti->b] && !is_space(cmds[ti->a + ti->b]))
+			ti->b++;
+		str = ft_substr(cmds, ti->a, ti->b);
 		if (get_cmd(str) == 0)
-		{
-			free(str);
-			return (false);
-		}
+			return (free_str_rzero(str));
 		free(str);
-		while (cmds[o])
+		while (cmds[ti->a])
 		{
-			if (cmds[o] == '|')
+			if (cmds[ti->a] == '|')
 			{
-				o += 2;
+				ti->a += 2;
+				ti->c++;
 				break;
 			}
-			o++;
+			ti->a++;
 		}
-		i = 0;
+		ti->b = 0;
 	}
-	return (true);
+	return (ti->c += 1);
 }
 
 bool	pipe_main(struct s_minishell *ms, char *cmds)
 {
 	int pipefd[2];
+	char **tab;
+	struct s_three_int ti;
 
-	if (check_all_pipe(cmds, 0, 0) == true)
+	init_three_int(&ti);
+	if (check_all_pipe(cmds, &ti) > 0)
+	{
+		printf("ss //%d\n", ti.c);
 		return (true);
+	}
 	else
 		printf("minishell: command not found\n");
 	return (false);

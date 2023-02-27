@@ -19,6 +19,13 @@ struct s_minishell
 	int 				exit;
 }	t_minishell;
 
+struct s_three_int
+{
+	int	a;
+	int b;
+	int c;
+}	t_three_int;
+
 void	ctrl_c();
 void	ctrl_d();
 void	go_to_end_of_file(int fd);
@@ -26,6 +33,8 @@ bool	write_to_histo(char *str, int fd);
 
 // little_func //
 
+void	init_three_int(struct s_three_int *ti);
+int	free_str_rzero(char *str);
 bool	is_space(char c);
 bool	is_blank(char *str);
 void	free_tt(char **str);

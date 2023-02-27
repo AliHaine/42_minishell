@@ -1,5 +1,18 @@
 #include "../minishell.h"
 
+void	init_three_int(struct s_three_int *ti)
+{
+	ti->a = 0;
+	ti->b = 0;
+	ti->c = 0;
+}
+
+int	free_str_rzero(char *str)
+{
+	free(str);
+	return (0);
+}
+
 void	free_tt(char **str)
 {
 	int a;
