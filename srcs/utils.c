@@ -89,3 +89,21 @@ char	*ft_strtrim(char const *s1, char const *set)
 	j = (j - i) + 1;
 	return (ft_substr(s1, i, j));
 }
+
+// ft_strcmp //
+
+int	ft_strcmp(char *a, char *b)
+{
+	int	i;
+
+	i = 0;
+	if (ft_strlen(a) != ft_strlen(b))
+		return (0);
+	while (a[i])
+	{
+		if (a[i] != b[i])
+			return (0);
+		i++;
+	}
+	return (1);
+}

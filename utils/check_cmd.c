@@ -1,23 +1,5 @@
 #include "../minishell.h"
 
-// ft_strcmp //
-
-int	ft_strcmp(char *a, char *b)
-{
-	int	i;
-
-	i = 0;
-	if (ft_strlen(a) != ft_strlen(b))
-		return (0);
-	while (a[i])
-	{
-		if (a[i] != b[i])
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 int get_cmd(char *cmd)
 {
 	if (ft_strcmp("echo", cmd))
@@ -34,7 +16,17 @@ int get_cmd(char *cmd)
 		return (6);
 	else if (ft_strcmp("cd", cmd))
 		return (7);
+	else if (ft_strcmp("ls", cmd))
+		return (8);
 	return (0);
+}
+
+static void check_bulltin2(char **cmd, char **env, struct s_minishell *ms)
+{
+	if (get_cmd(cmd[0]) == 8)
+		ls(cmd);
+	else
+		printf("minishell: %s: command not found\n", cmd[0]);
 }
 
 static void check_bulltin(char **cmd, char **env, struct s_minishell *ms)
@@ -42,7 +34,7 @@ static void check_bulltin(char **cmd, char **env, struct s_minishell *ms)
 	if (!cmd[0])
 		return ;
 	else if (get_cmd(cmd[0]) == 1)
-		echo(cmd);
+		echo(cmd, env);
 	else if (get_cmd(cmd[0]) == 2)
 		pwd();
 	else if (get_cmd(cmd[0]) == 3)
@@ -57,11 +49,11 @@ static void check_bulltin(char **cmd, char **env, struct s_minishell *ms)
 			printf("\n");
 	}
 	else if (get_cmd(cmd[0]) == 6)
-		export(cmd, env);//
+		export(cmd, env);
 	else if (get_cmd(cmd[0]) == 7)
 		cd(cmd, env);
 	else
-		printf("minishell: %s: command not found\n", cmd[0]);
+		check_bulltin2(cmd, env, ms);
 	return ;
 }
 
@@ -70,8 +62,11 @@ static void check_bulltin(char **cmd, char **env, struct s_minishell *ms)
 void check_all_cmd(char *line, char **env, struct s_minishell *ms)
 {
 	char **args;
+	char *str;
 
-	args = ft_split(line, ' ');
+	str = ft_strtrim_quot(line, '"', '\'');
+	free(line);
+	args = ft_split(str, ' ');
 	if (!args)
 		return ;
 	check_bulltin(args, env, ms);

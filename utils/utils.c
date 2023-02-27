@@ -79,15 +79,40 @@ char	*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	i;
 	size_t	j;
+	char *str;
 
 	i = 0;
-	if (set == NULL || s1 == NULL)
+	str = NULL;
+	if (s1)
+	{
+		str = ft_strdup((char *)s1);
+		free((void *)s1);
+	}
+	if (set == NULL || str == NULL)
 		return (0);
-	while (s1[i] && ft_strchr(set, s1[i]))
+	while (str[i] && ft_strchr(set, str[i]))
 		i++;
-	j = ft_strlen(s1);
-	while (j && ft_strrchr(set, s1[j]))
+	j = ft_strlen(str);
+	while (j && ft_strrchr(set, str[j]))
 		j--;
 	j = (j - i) + 1;
-	return (ft_substr(s1, i, j));
+	return (ft_substr(str, i, j));
+}
+
+// ft_strcmp //
+
+int	ft_strcmp(char *a, char *b)
+{
+	int	i;
+
+	i = 0;
+	if (ft_strlen(a) != ft_strlen(b))
+		return (0);
+	while (a[i])
+	{
+		if (a[i] != b[i])
+			return (0);
+		i++;
+	}
+	return (1);
 }

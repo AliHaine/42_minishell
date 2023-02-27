@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:37:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/02/22 14:04:47 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/02/27 12:07:36 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,55 @@ static void export_and_nothing(char **env)
 
 /* check if export is already exist or not or is valid */
 
-/*static int check_if_exist(char *path, char **env, int i)
+// just do nothing =  ' ' ; \ | $ 
+
+// message = : '\t' '\n' '\r' @ & ( ) [] {} % ! < > ? - * + ^ ~
+
+static int check_valid(char *path)
 {
-	
-}*/
+	int check;
+	int i;
+
+	check = 0;
+	i = 0;
+	while (path && path[i] != '=')
+	{
+		if (char_cmp(path, " ;\\|$") == 1)
+			check = 1;
+		else if (char_cmp(path, "\t\n\r@&()[]{}%!<>?-*+^~") == 1)
+		{
+			check = 2;
+			break;
+		}
+		i++;
+	}
+	if (check == 0)
+		return (0);
+	else if (check == 2)
+		printf("%s: export: '%s': not a valid identifier\n", g_d_e(), path);
+	return (1);
+}
 
 /* en cour ... */
+// leak //
 
-static void add_env_var(char **env, char **path)
+static char **add_env_var(char **env, char *path)
 {
 	int i;
 
 	i = 0;
-	(void)path;
-	while (env[i])
-		i++;
-	printf("%s\n", env[i - 2]);
+	if (env[i])
+	{
+		i = ft_tablen(env);
+		env[i] = ft_strdup(env[i - 1]);
+		if (!env[i])
+			return (NULL);
+		env[i - 1] = ft_strdup(path);
+		if (!env[i])
+			return (NULL);
+		env[i + 1] = NULL;
+	}
+	return (env);
 }
 
 /* pret mais il me faut une fonction de verif */
@@ -91,10 +124,7 @@ static char *remplace_env(char **env, char *path)
 			else
 				break;
 			if (path[len] && env[i][len] == '=')
-			{
-				free(env[i]);
 				env[i] = ft_strdup(path);
-			}
 		}
 		i++;
 	}
@@ -105,10 +135,22 @@ static char *remplace_env(char **env, char *path)
 
 void export(char **argv, char **env)
 {
+	char *path;
+	int i = 0;
+
+	path = NULL;
 	if (!argv[1])
 		export_and_nothing(env);
-	/*else if (argv[1])
+	else if (argv[1])
 	{
-		add_env_var(env, &argv[1]);
-	}*/
+		if (check_path(argv, env) == 1)
+		{
+			remplace_env(env, argv[1]);
+		}
+		else
+		{
+			if (check_valid(argv[1]) == 0)
+				env = add_env_var(env, argv[1]);
+		}
+	}
 }
