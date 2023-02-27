@@ -10,6 +10,7 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <dirent.h>
 
 struct s_minishell
 {
@@ -40,6 +41,13 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strtrim(char const *s1, char const *set);
+int		ft_strcmp(char *a, char *b);
+
+// utils2 //
+
+int check_path(char **argv, char **env);
+int ft_tablen(char **tab);
+int char_cmp(char *str, char *reject);
 
 // ft_split //
 
@@ -48,9 +56,12 @@ char	**ft_split(char *s, char c);
 
 // check_all_cmd //
 
-int	ft_strcmp(char *a, char *b);
 int get_cmd(char *cmd);
 void check_all_cmd(char *line, char **env, struct s_minishell *ms);
+
+// trime_quotation //
+
+char	*ft_strtrim_quot(char const *s1, int quote2, int quote1);
 
 /* bulltin */
 
@@ -63,17 +74,9 @@ void exit_shell(void);
 void pwd(void);
 char *g_d_e(void);
 
-/* 
-
-en cour
-
-void trime_quotation(char *str);
-
-*/
-
 // echo //
 
-void echo(char **tab);
+void echo(char **tab, char **env);
 
 // env //
 
@@ -90,5 +93,9 @@ void export(char **argv, char **env);
 // cd //
 
 int cd(char **cmd, char **env);
+
+// ls //
+
+void ls(char **cmd);
 
 #endif
