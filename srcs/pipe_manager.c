@@ -3,10 +3,21 @@
 //
 #include "../minishell.h"
 
-static bool	set_cmds_to_tab(char **tab, char *cmds, int size)
+static void	set_cmds_to_struct(char *all_cmds, struct s_three_int ti)
 {
-	
-	return (true);
+	struct s_cmds *cmds;
+
+	cmds = malloc(sizeof(t_cmds));
+	while (all_cmds[ti.a])
+	{
+		ti.c = get_allstr_word_size(all_cmds + ti.a);
+		new_words_node(cmds, all_cmds + ti.a, ti.c);
+		if (cmds->next)
+			cmds = cmds->next;
+		ti.a += ti.c;
+		while (all_cmds[ti.a] && (is_space(all_cmds[ti.a]) || is_pipe_or_et(all_cmds[ti.a])))
+			ti.a++;
+	}
 }
 
 static int	check_all_pipe(char *cmds, struct s_three_int *ti)
@@ -39,16 +50,17 @@ static int	check_all_pipe(char *cmds, struct s_three_int *ti)
 bool	pipe_main(struct s_minishell *ms, char *cmds)
 {
 	int pipefd[2];
-	char **tab;
 	struct s_three_int ti;
 
 	init_three_int(&ti);
 	if (check_all_pipe(cmds, &ti) > 0)
 	{
-		printf("ss //%d\n", ti.c);
+		init_three_int(&ti);
+		set_cmds_to_struct(cmds, ti);
 		return (true);
 	}
 	else
 		printf("minishell: command not found\n");
+
 	return (false);
 }

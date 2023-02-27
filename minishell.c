@@ -40,8 +40,15 @@ static int	main_process(struct s_minishell *ms, char **env)
 			add_history(histo);
 			write_to_histo((char *) histo, ms->histo_fd);
 		}
-		if (pipe_main(ms, histo) == true)
+		if (is_contain_pipe(histo))
+		{
+			if (pipe_main(ms, histo) == true)
+				check_all_cmd(histo, env, ms);
+		}
+		else
+		{
 			check_all_cmd(histo, env, ms);
+		}
 	}
 	return (1);
 }

@@ -18,7 +18,16 @@ struct s_minishell
 	int 				histo_fd;
 	char				**env;
 	int 				exit;
+	struct s_cmds	*cmds;
 }	t_minishell;
+
+struct s_cmds
+{
+	char *cmd;
+	int w;
+	struct s_cmds *next;
+	struct s_cmds *prev;
+}	t_cmds;
 
 struct s_three_int
 {
@@ -34,15 +43,25 @@ bool	write_to_histo(char *str, int fd);
 
 // little_func //
 
+bool	is_blank(char *str);
+int get_allstr_word_size(char *str);
+
+// very_little_func //
+
 void	init_three_int(struct s_three_int *ti);
 int	free_str_rzero(char *str);
 bool	is_space(char c);
-bool	is_blank(char *str);
 void	free_tt(char **str);
+bool	is_contain_pipe(char *str);
+bool is_pipe_or_et(char c);
 
 // pipe_manager //
 
 bool	pipe_main(struct s_minishell *ms, char *cmds);
+
+// cmds struct //
+
+bool	new_words_node(struct s_cmds *words, char *str, int size);
 
 // utils //
 

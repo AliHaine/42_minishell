@@ -11,6 +11,7 @@ SRCS =	minishell.c \
 		utils/get_next_line/get_next_line.c \
 		utils/get_next_line/get_next_line_utils.c \
 		utils/file.c \
+		utils/very_little_func.c \
 		utils/little_func.c \
 		utils/error_manager.c \
 		srcs/echo.c \
@@ -24,6 +25,7 @@ SRCS =	minishell.c \
 		srcs/pipe_manager.c \
 		utils/utils.c \
 		utils/trime_quotation.c \
+		utils/cmds_struct.c \
 		srcs/ls.c \
 		utils/utils2.c
 
