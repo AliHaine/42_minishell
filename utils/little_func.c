@@ -23,7 +23,7 @@ int get_origine(char *cmds)
 	int i;
 
 	i = 0;
-	if (is_space(cmds[i]))
+	while (is_space(cmds[i]))
 		i++;
 	while (cmds[i])
 	{
@@ -46,10 +46,16 @@ int get_allstr_word_size(char *str)
 
 	size = 0;
 	mode = 0;
-	while (str[size] && str[size] != '|' && str[size] != '&')
+	while (str[size])
 	{
-		if (str[size] == '"' || str[size] == '\'')
+		if (str[size] == '|' || str[size] == '&' && mode == 0)
+		{
+			break ;
+		}
+		if (str[size] == '"' || str[size] == '\'' && mode == 0)
 			mode = 1;
+		else
+			break ;
 		size++;
 	}
 	if (!str[size])

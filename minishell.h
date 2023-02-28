@@ -45,6 +45,7 @@ bool	write_to_histo(char *str, int fd);
 
 bool	is_blank(char *str);
 int get_allstr_word_size(char *str);
+int get_origine(char *cmds);
 
 // very_little_func //
 
@@ -62,6 +63,7 @@ bool	pipe_main(struct s_minishell *ms, char *cmds);
 // cmds struct //
 
 bool	new_words_node(struct s_cmds *words, char *str, int size);
+void	free_words_struct(struct s_cmds *cmds);
 
 // utils //
 

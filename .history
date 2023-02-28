@@ -205,3 +205,18 @@ pwd | echo
 pwd | echo salut
 pwd | echo         salut
 make fclean
+pwd | pwd
+pwd | pwd
+pwd | pwd
+pwd | pwd
+pwd | pwd
+pwd | pwd
+pwd || pwd
+pwd || pwd
+pwd || pwd
+pwd | pwd
+pwd | pwd 
+pwd | pwd   
+echo salut
+echo salut | echo sa
+echo "|"

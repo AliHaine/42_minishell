@@ -11,12 +11,16 @@ static void	set_cmds_to_struct(char *all_cmds, struct s_three_int ti)
 	while (all_cmds[ti.a])
 	{
 		ti.c = get_allstr_word_size(all_cmds + ti.a);
-		new_words_node(cmds, all_cmds + ti.a, ti.c);
+		if (!new_words_node(cmds, all_cmds + ti.a, ti.c))
+			exit(1);
 		if (cmds->next)
 			cmds = cmds->next;
 		ti.a += ti.c;
 		while (all_cmds[ti.a] && (is_space(all_cmds[ti.a]) || is_pipe_or_et(all_cmds[ti.a])))
 			ti.a++;
+		printf("1 %d\n", cmds->w);
+		if (cmds->prev)
+			printf("2 %d\n", cmds->prev->w);
 	}
 }
 
