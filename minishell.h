@@ -18,7 +18,7 @@ struct s_minishell
 	int 				histo_fd;
 	char				**env;
 	int 				exit;
-	struct s_cmds	*cmds;
+	struct s_cmds	*cmds_f;
 }	t_minishell;
 
 struct s_cmds
@@ -72,6 +72,7 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strtrim(char const *s1, char const *set);
 int		ft_strcmp(char *a, char *b);
+int	str_copy(char *dst, char *src, int size);
 
 // utils2 //
 

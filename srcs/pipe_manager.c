@@ -3,25 +3,36 @@
 //
 #include "../minishell.h"
 
-static void	set_cmds_to_struct(char *all_cmds, struct s_three_int ti)
+static void	set_cmds_to_struct(char *all_cmds, struct s_three_int ti, struct s_minishell *ms)
 {
 	struct s_cmds *cmds;
 
 	cmds = malloc(sizeof(t_cmds));
+	if (!cmds)
+		exit(1);
+	ms->cmds_f = cmds;
 	while (all_cmds[ti.a])
 	{
 		ti.c = get_allstr_word_size(all_cmds + ti.a);
 		if (!new_words_node(cmds, all_cmds + ti.a, ti.c))
 			exit(1);
+		printf("tt9\n");
 		if (cmds->next)
 			cmds = cmds->next;
+		printf("tt8\n");
 		ti.a += ti.c;
 		while (all_cmds[ti.a] && (is_space(all_cmds[ti.a]) || is_pipe_or_et(all_cmds[ti.a])))
 			ti.a++;
-		printf("1 %d\n", cmds->w);
-		if (cmds->prev)
-			printf("2 %d\n", cmds->prev->w);
 	}
+	printf("%p\n", ms->cmds_f);
+	cmds = ms->cmds_f;
+	printf("%p %s\n", cmds, cmds->cmd);
+	while (cmds)
+	{
+		printf("//val %d %s//\n", cmds->w, cmds->cmd);
+		cmds = cmds->next;
+	}
+	printf("tt6\n");
 }
 
 static int	check_all_pipe(char *cmds, struct s_three_int *ti)
@@ -40,6 +51,8 @@ static int	check_all_pipe(char *cmds, struct s_three_int *ti)
 		{
 			if (cmds[ti->a] == '|')
 			{
+				if (cmds[ti->a + 1] == '|')
+					ti->a++;
 				ti->a += 2;
 				ti->c++;
 				break;
@@ -60,7 +73,10 @@ bool	pipe_main(struct s_minishell *ms, char *cmds)
 	if (check_all_pipe(cmds, &ti) > 0)
 	{
 		init_three_int(&ti);
-		set_cmds_to_struct(cmds, ti);
+		printf("tt1\n");
+		set_cmds_to_struct(cmds, ti, ms);
+		check_all_cmd(cmds, ms->env, ms);
+		free_words_struct(ms->cmds_f);
 		return (true);
 	}
 	else
