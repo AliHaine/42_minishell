@@ -64,6 +64,7 @@ bool	pipe_main(struct s_minishell *ms, char *cmds);
 
 bool	new_words_node(struct s_cmds *words, char *str, int size);
 void	free_words_struct(struct s_cmds *cmds);
+bool	first_words_node(struct s_cmds *cmds, char *str, int size);
 
 // utils //
 

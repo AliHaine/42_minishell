@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-static bool	first_words_node(struct s_cmds *cmds, char *str, int size)
+bool	first_words_node(struct s_cmds *cmds, char *str, int size)
 {
 	int i;
 
@@ -9,39 +9,31 @@ static bool	first_words_node(struct s_cmds *cmds, char *str, int size)
 		return (false);
 	i = str_copy(cmds->cmd, str, size);
 	cmds->w = get_origine(str + i);
+	cmds->next = 0;
+	cmds->prev = 0;
 	return (true);
 }
 
 bool	new_words_node(struct s_cmds *cmds, char *str, int size)
 {
-	static int a = 0;
 	int i;
 	struct s_cmds *new;
 
-	printf("here\n");
-	if (cmds->cmd || cmds->prev)
+	while (cmds->next)
+		cmds = cmds->next;
+	new = malloc(sizeof(t_cmds));
+	if (!new)
 	{
-		printf("here1\n");
-		new = malloc(sizeof(t_cmds));
-		if (!new)
-			return (false);
-		cmds->next = new;
-		new->next = 0;
-		new->prev = cmds;
-		printf("here11\n");
-		new->cmd = malloc(sizeof(char) * size + 1);
-		if (!new->cmd)
-			return (false);
-		i = str_copy(new->cmd, str, size);
-		new->w = get_origine(str + i);
+		return (false);
 	}
-	else
-	{
-		printf("here2\n");
-		a++;
-		return (first_words_node(cmds, str, size));
-	}
-	printf("end\n");
+	cmds->next = new;
+	new->next = 0;
+	new->prev = cmds;
+	new->cmd = malloc(sizeof(char) * size + 1);
+	if (!new->cmd)
+		return (false);
+	i = str_copy(new->cmd, str, size);
+	new->w = get_origine(str + i);
 	return (1);
 }
 
@@ -54,7 +46,6 @@ void	free_words_struct(struct s_cmds *cmds)
 		to_free = to_free->prev;
 	while (to_free)
 	{
-		printf("free\n");
 		cmds = to_free->next;
 		free(to_free->cmd);
 		free(to_free);
