@@ -56,6 +56,12 @@ void	free_tt(char **str);
 bool	is_contain_pipe(char *str);
 bool is_pipe_or_et(char c);
 
+// error_manager //
+
+int check_all(char *cmds, struct s_three_int ti);
+int	check_all_pipe_cmds(char *cmds, struct s_three_int ti);
+bool	check_all_quote(struct s_cmds *ti);
+
 // pipe_manager //
 
 bool	pipe_main(struct s_minishell *ms, char *cmds);

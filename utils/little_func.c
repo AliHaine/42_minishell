@@ -48,18 +48,11 @@ int get_allstr_word_size(char *str)
 	mode = 0;
 	while (str[size])
 	{
-		if (str[size] == '|' || str[size] == '&' && mode == 0)
+		if (str[size] == '|' || str[size] == '&')
 		{
 			/*if (str[size + 1] && str[size + 1] == '|' || str[size + 1] == '&')
 				size++;*/
 			break ;
-		}
-		if (str[size] == '"' || str[size] == '\'' && mode == 0)
-		{
-			if (mode == 0)
-				mode = 1;
-			else
-				break ;
 		}
 		size++;
 	}

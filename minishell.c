@@ -42,8 +42,7 @@ static int	main_process(struct s_minishell *ms, char **env)
 		}
 		if (is_contain_pipe(histo))
 		{
-			if (!pipe_main(ms, histo))
-				return (false);
+			pipe_main(ms, histo);
 		}
 		else
 			check_all_cmd(histo, env, ms);

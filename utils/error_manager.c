@@ -1,72 +1,61 @@
 #include "../minishell.h"
 
-int	check_all_pipe_cmds(char *cmds, struct s_three_int *ti)
+int	check_all_pipe_cmds(char *cmds, struct s_three_int ti)
 {
 	char *str;
 
-	while (cmds[ti->a])
+	while (cmds[ti.a])
 	{
-		while (cmds[ti->a + ti->b] && !is_space(cmds[ti->a + ti->b]))
-			ti->b++;
-		str = ft_substr(cmds, ti->a, ti->b);
+		while (cmds[ti.a + ti.b] && !is_space(cmds[ti.a + ti.b]))
+			ti.b++;
+		str = ft_substr(cmds, ti.a, ti.b);
 		if (get_cmd(str) == 0)
 			return (free_str_rzero(str));
 		free(str);
-		while (cmds[ti->a])
+		while (cmds[ti.a])
 		{
-			if (cmds[ti->a] == '|')
+			if (cmds[ti.a] == '|')
 			{
-				if (cmds[ti->a + 1] == '|')
-					ti->a++;
-				ti->a += 2;
-				ti->c++;
+				if (cmds[ti.a + 1] == '|')
+					ti.a++;
+				ti.a += 2;
+				ti.c++;
 				break;
 			}
-			ti->a++;
+			ti.a++;
 		}
-		ti->b = 0;
+		ti.b = 0;
 	}
-	return (ti->c += 1);
+	return (ti.c += 1);
 }
 
-bool	check_all_quote(char *cmds, struct s_three_int *ti)
+bool	check_all_quote(struct s_cmds *cmds)
 {
-	int		quote;
+	int		i;
+	int 	size;
 
-	quote = 0;
-	while(cmds[ti->a])
+	i = 0;
+	size = 0;
+	while (cmds)
 	{
-		if (cmds[ti->a] == '\'')
+		while (cmds->cmd[size])
+			size++;
+		while (cmds->cmd[i] && cmds->cmd[i] != ' ')
+			i++;
+		i++;
+		if (cmds->cmd[i] == '\'' || cmds->cmd[i] == '"')
 		{
-			while (cmds[ti->a])
+			if (cmds->cmd[i] == '\'')
 			{
-				ti->a++;
+				if (cmds->cmd[size - 1] != '\'')
+					return (false);
 			}
+			else
+				if (cmds->cmd[size - 1] != '"')
+					return (false);
 		}
-
-		while (cmds[ti->a] && cmds[ti->a] != '\'' || cmds[ti->a] != '"')
-		{
-			if (cmds[ti->a] == '\'' && quote == 1)
-
-		}
-		ti->a++;
-
-
+		i = 0;
+		cmds = cmds->next;
 	}
-
 	return (true);
-}
-
-int check_all(char *cmds, struct s_three_int *ti)
-{
-	if (check_all_pipe_cmds(cmds, &ti) == 0)
-	{
-		printf("minishell: command not found\n");
-		return (0);
-
-	}
-	if ()
-
-
-	return (1);
 }
