@@ -68,6 +68,7 @@ int main (int argc, char **argv, char **env)
 	ms.exit = 1;
 	go_to_end_of_file(ms.histo_fd);
 	main_process(&ms, env);
+	free_tt(ms.env);
 	close(ms.histo_fd);
 	return (0);
 }
