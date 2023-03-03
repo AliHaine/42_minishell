@@ -5,11 +5,15 @@ void	go_to_end_of_file(int fd)
 	char *str;
 
 	str = get_next_line(fd);
+	if (!str)
+		return ;
 	while (str)
 	{
 		add_history(str);
+		free(str);
 		str = get_next_line(fd);
 	}
+	free(str);
 }
 
 bool	write_to_histo(char *str, int fd)

@@ -6,8 +6,7 @@ CC = @gcc
 
 CFLAGS =
 
-SRCS =	minishell.c \
-		srcs/signal.c \
+SRCS =	srcs/signal.c \
 		utils/get_next_line/get_next_line.c \
 		utils/get_next_line/get_next_line_utils.c \
 		utils/file.c \
@@ -26,8 +25,8 @@ SRCS =	minishell.c \
 		utils/utils.c \
 		utils/trime_quotation.c \
 		utils/cmds_struct.c \
-		srcs/ls.c \
-		utils/utils2.c
+		utils/utils2.c \
+		utils/env_conversion.c 
 
 #utils/file.c \#
 

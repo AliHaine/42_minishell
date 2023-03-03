@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:37:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/02/27 12:07:36 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/02 19:56:38 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,9 @@ static char *remplace_env(char **env, char *path)
 			else
 				break;
 			if (path[len] && env[i][len] == '=')
+			{
 				env[i] = ft_strdup(path);
+			}
 		}
 		i++;
 	}
@@ -133,24 +135,25 @@ static char *remplace_env(char **env, char *path)
 
 /* juste export seul marche */
 
-void export(char **argv, char **env)
+void export(char **argv, char **env, int i)
 {
 	char *path;
-	int i = 0;
 
 	path = NULL;
-	if (!argv[1])
+	if (!argv[i])
 		export_and_nothing(env);
-	else if (argv[1])
+	else if (argv[i])
 	{
-		if (check_path(argv, env) == 1)
+		if (check_path(argv[i], env, 0) == 1)
 		{
-			remplace_env(env, argv[1]);
+			remplace_env(env, argv[i]);
 		}
 		else
 		{
-			if (check_valid(argv[1]) == 0)
-				env = add_env_var(env, argv[1]);
+			if (check_valid(argv[i]) == 0)
+				env = add_env_var(env, argv[i]);
 		}
 	}
+	if (argv[i + 1])
+		export(argv, env, i + 1);
 }

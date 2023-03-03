@@ -11,6 +11,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <dirent.h>
+#include <string.h>
+#include <errno.h>
 
 struct s_minishell
 {
@@ -66,12 +68,6 @@ bool	check_all_quote(struct s_cmds *ti);
 
 bool	pipe_main(struct s_minishell *ms, char *cmds);
 
-// cmds struct //
-
-bool	new_words_node(struct s_cmds *words, char *str, int size);
-void	free_words_struct(struct s_cmds *cmds);
-bool	first_words_node(struct s_cmds *cmds, char *str, int size);
-
 // utils //
 
 char	*ft_strchr(const char *s, int c);
@@ -79,13 +75,13 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strtrim(char const *s1, char const *set);
 int		ft_strcmp(char *a, char *b);
-int	str_copy(char *dst, char *src, int size);
 
 // utils2 //
 
-int check_path(char **argv, char **env);
+int check_path(char *argv, char **env, int n);
 int ft_tablen(char **tab);
 int char_cmp(char *str, char *reject);
+void	*ft_memmove(void *dst, const void *src, size_t len);
 
 // ft_split //
 
@@ -99,7 +95,12 @@ void check_all_cmd(char *line, char **env, struct s_minishell *ms);
 
 // trime_quotation //
 
-char	*ft_strtrim_quot(char const *s1, int quote2, int quote1);
+void convert_quotes(char *str);
+
+// Env_conv //
+
+char *env_conversion(char *str, char **env);
+int simp_char(char c, char *reject);
 
 /* bulltin */
 
@@ -119,21 +120,18 @@ void echo(char **tab, char **env);
 // env //
 
 void print_env(char **env);
+char *ft_getenv(char **env, char *path);
 
 // unset //
 
-int unset(char *path, char **env, int i);
+int unset(char **path, char **env, int i, int x);
 
 // export //
 
-void export(char **argv, char **env);
+void export(char **argv, char **env, int i);
 
 // cd //
 
 int cd(char **cmd, char **env);
-
-// ls //
-
-void ls(char **cmd);
 
 #endif

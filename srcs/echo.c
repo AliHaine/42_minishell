@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 12:18:28 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/02/26 20:59:03 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/03 16:28:41 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,34 @@ static int check_is(char *str, char **env, int j, char *reject)
 			if (str[i] == reject[x] || str[i] == '\0')
 			{
 				path = ft_substr(str, j, i);
-				printf("%s", getenv(path + 1));
+				printf("%s", ft_getenv(env ,path + 1));
 				return (i - 1);
+			}
+			x++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+static int check_is_true(char *str, char **env, int j, char *reject)
+{
+	int i;
+	int x;
+	char *path;
+
+	i = j + 1;
+	x = 0;
+	path = NULL;
+	while (str[i - 1] && path == NULL)
+	{
+		x = 0;
+		while (reject[x])
+		{
+			if (str[i] == reject[x] || str[i] == '\0')
+			{
+
+				return (1);
 			}
 			x++;
 		}
@@ -117,19 +143,12 @@ void echo(char **tab, char **env)
 		while (tab[i])
 		{
 			j = 0;
-			while (tab[i][j] )
+			while (tab[i])
 			{
-				if (tab[i][j] == '$')
-				{
-					j += check_is(tab[i], env, j, "\t\n\r@&()[]{}%!<>?-*+^~ ;\\|$");
-					j++;
-				}
-				else
-					printf("%c", tab[i][j++]);
+				printf("%s", tab[i++]);
+				if (tab[i])
+					printf(" ");
 			}
-			i++;
-			if (tab[i])
-				printf(" ");
 		}
 	}
 	if (bulltin == 0)

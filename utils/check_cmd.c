@@ -16,17 +16,7 @@ int get_cmd(char *cmd)
 		return (6);
 	else if (ft_strcmp("cd", cmd))
 		return (7);
-	else if (ft_strcmp("ls", cmd))
-		return (8);
 	return (0);
-}
-
-static void check_bulltin2(char **cmd, char **env, struct s_minishell *ms)
-{
-	if (get_cmd(cmd[0]) == 8)
-		ls(cmd);
-	else
-		printf("minishell: %s: command not found\n", cmd[0]);
 }
 
 static void check_bulltin(char **cmd, char **env, struct s_minishell *ms)
@@ -44,16 +34,14 @@ static void check_bulltin(char **cmd, char **env, struct s_minishell *ms)
 	else if (get_cmd(cmd[0]) == 5)
 	{
 		if (cmd[1] && env[0])
-			unset(cmd[1] ,env, 0);
+			unset(cmd ,env, 0, 1);
 		else
 			printf("\n");
 	}
 	else if (get_cmd(cmd[0]) == 6)
-		export(cmd, env);
+		export(cmd, env, 1);
 	else if (get_cmd(cmd[0]) == 7)
 		cd(cmd, env);
-	else
-		check_bulltin2(cmd, env, ms);
 	return ;
 }
 
@@ -63,12 +51,16 @@ void check_all_cmd(char *line, char **env, struct s_minishell *ms)
 {
 	char **args;
 	char *str;
+	int i;
 
-	str = ft_strtrim_quot(line, '"', '\'');
-	free(line);
+	i = 0;
+	str = env_conversion(line, env);
 	args = ft_split(str, ' ');
 	if (!args)
-		return ;
+		return (free(line));
+	while (args[i])
+		convert_quotes(args[i++]);
 	check_bulltin(args, env, ms);
 	free_tt(args);
+	free(line);
 }
