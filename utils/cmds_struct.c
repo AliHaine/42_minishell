@@ -1,5 +1,20 @@
 #include "../minishell.h"
 
+int get_nbr_of_cmds(struct s_cmds *cmds)
+{
+	int size;
+	struct s_cmds *iterator;
+
+	size = 0;
+	iterator = cmds;
+	while (iterator->next)
+	{
+		iterator = iterator->next;
+		size++;
+	}
+	return (size);
+}
+
 bool	first_words_node(struct s_cmds *cmds, char *str, int size)
 {
 	int i;
