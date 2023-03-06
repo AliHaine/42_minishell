@@ -55,6 +55,7 @@ bool	check_all_quote(struct s_cmds *cmds)
 					return (false);
 		}
 		i = 0;
+		size = 0;
 		cmds = cmds->next;
 	}
 	return (true);

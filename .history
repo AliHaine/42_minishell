@@ -565,3 +565,25 @@ echo "qa" | echo 'ba]"
 echo "qa" | echo "ba]"
 echo "qa | echo "ba]"
 echo salut
+echo pwd
+echo pa | echo b | echo c
+echo pa | echo b | echo c"
+echo pa | echo b | "echo c"
+echo pa | echo b | echo c
+echo pa | echo b | echo c
+echo pa | echo b | echo c"
+echo pa | echo b | "echo c"
+echo pa | echo b | "echo c"
+echo pa | echo b | "echo c
+echo pa | echo b | "echo c
+echo pa | echo b | "echo c
+echo pa | echo b | "echo c
+echo pa | echo b | "echo c
+echo pa | echo b | "echo c"
+echo pa | echo b | "echo c
+echo pa | echo b | "echo c
+echo pa | echo b | echo "c
+echo pa | echo b | echo "c"
+echo pa | echo b | echo "c"
+echo pa | echo b | echo "c"
+echo pa | echo b | echo "c"

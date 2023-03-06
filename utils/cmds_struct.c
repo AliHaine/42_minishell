@@ -7,7 +7,7 @@ int get_nbr_of_cmds(struct s_cmds *cmds)
 
 	size = 0;
 	iterator = cmds;
-	while (iterator->next)
+	while (iterator)
 	{
 		iterator = iterator->next;
 		size++;
@@ -65,5 +65,17 @@ void	free_words_struct(struct s_cmds *cmds)
 		free(to_free->cmd);
 		free(to_free);
 		to_free = cmds;
+	}
+}
+
+void	parc_struct_tester(struct s_cmds *cmds)
+{
+	struct s_cmds *ite;
+
+	ite = cmds;
+	while (ite)
+	{
+		printf("Cmd = %s W = %d\n", ite->cmd, ite->w);
+		ite = ite->next;
 	}
 }

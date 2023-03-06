@@ -115,4 +115,21 @@ int	ft_strcmp(char *a, char *b)
 		i++;
 	}
 	return (1);
+
+
+}
+
+int	str_copy(char *dst, char *src, int size)
+{
+	int	i;
+
+	i = 0;
+	while (size > 0)
+	{
+		dst[i] = src[i];
+		size--;
+		i++;
+	}
+	dst[i] = '\0';
+	return (i);
 }

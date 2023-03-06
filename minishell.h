@@ -68,6 +68,14 @@ bool	check_all_quote(struct s_cmds *ti);
 
 bool	pipe_main(struct s_minishell *ms, char *cmds);
 
+// cmds_struct //
+
+void	free_words_struct(struct s_cmds *cmds);
+bool	new_words_node(struct s_cmds *cmds, char *str, int size);
+int 	get_nbr_of_cmds(struct s_cmds *cmds);
+bool	first_words_node(struct s_cmds *cmds, char *str, int size);
+void	parc_struct_tester(struct s_cmds *cmds);
+
 // utils //
 
 char	*ft_strchr(const char *s, int c);
@@ -78,6 +86,7 @@ int		ft_strcmp(char *a, char *b);
 
 // utils2 //
 
+int	str_copy(char *dst, char *src, int size);
 int check_path(char *argv, char **env, int n);
 int ft_tablen(char **tab);
 int char_cmp(char *str, char *reject);

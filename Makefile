@@ -6,7 +6,8 @@ CC = @gcc
 
 CFLAGS =
 
-SRCS =	srcs/signal.c \
+SRCS =	minishell.c \
+		srcs/signal.c \
 		utils/get_next_line/get_next_line.c \
 		utils/get_next_line/get_next_line_utils.c \
 		utils/file.c \

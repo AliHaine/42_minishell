@@ -144,7 +144,9 @@ void export(char **argv, char **env, int i)
 		export_and_nothing(env);
 	else if (argv[i])
 	{
-		if (check_path(argv[i], env, 0) == 1)
+		// remove en attendant le push
+
+		/*if (check_path(argv[i], env, 0) == 1)
 		{
 			remplace_env(env, argv[i]);
 		}
@@ -152,7 +154,7 @@ void export(char **argv, char **env, int i)
 		{
 			if (check_valid(argv[i]) == 0)
 				env = add_env_var(env, argv[i]);
-		}
+		}*/
 	}
 	if (argv[i + 1])
 		export(argv, env, i + 1);

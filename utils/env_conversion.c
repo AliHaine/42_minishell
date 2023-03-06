@@ -38,8 +38,9 @@ static int check_env(char *s, char **env, int i)
 	path = ft_substr(s, i + 1, j - i);
 	if (!path)
 		return (0);
-	if (check_path(path, env, 1) == 1)
-		return (1);
+	//remove en attendant le push
+	/*if (check_path(path, env, 1) == 1)
+		return (1);*/
 	return (0);
 }
 
