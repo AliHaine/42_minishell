@@ -68,14 +68,16 @@ static bool	pipe_executor(struct s_minishell *ms)
 {
 	int i;
 	int test = 0;
+	int status;
+	int cmd_nbr = get_nbr_of_cmds(ms->cmds_f);
 	char testc[10];
-	int pipes[get_nbr_of_cmds(ms->cmds_f) - 1][2];
-	int pid[get_nbr_of_cmds(ms->cmds_f) - 1];
+	int pipes[cmd_nbr - 1][2];
+	pid_t pid[cmd_nbr - 1];
 	struct s_cmds *cmds;
 
 	cmds = ms->cmds_f;
 	i = 0;
-	pipe_init(pipes, get_nbr_of_cmds(ms->cmds_f));
+	pipe_init(pipes, cmd_nbr);
 	while (cmds->next)
 	{
 		pid[i] = fork();
@@ -85,7 +87,7 @@ static bool	pipe_executor(struct s_minishell *ms)
 		{
 			if (i == 0)
 			{
-				printf("b\n");
+				printf("Fils 0\n");
 				test++;
 				snprintf(testc, 10, "%d", test);
 				close(pipes[i][0]);
@@ -94,9 +96,9 @@ static bool	pipe_executor(struct s_minishell *ms)
 			}
 			else
 			{
-				printf("a\n");
-				read(pipes[i][0], testc, strlen(testc) + 1);
+				printf("Fils %d\n", i);
 				close(pipes[i][0]);
+				read(pipes[i - 1][0], testc, strlen(testc) + 1);
 				test = atoi(testc);
 				test++;
 				snprintf(testc, 10, "%d", test);
@@ -105,26 +107,24 @@ static bool	pipe_executor(struct s_minishell *ms)
 			}
 			exit(0);
 		}
-		else
-		{
-			waitpid(pid[i]);
-			close(pipes[i][1]);
-			read(pipes[i][0], testc, sizeof(testc));
-			close(pipes[i][0]);
-			if (i < (get_nbr_of_cmds(ms->cmds_f) - 1))
-			{
-				close(pipes[i + 1][0]);
-				write(pipes[i + 1][1], testc, strlen(testc) + 1);
-				close(pipes[i + 1][1]);
-				printf("end\n");
-			}
-			else
-				break ;
-		}
 		i++;
 		cmds = cmds->next;
 	}
-	printf("fin %s\n", testc);
+	i = 0;
+	while (i < (cmd_nbr - 1))
+	{
+		waitpid(pid[i], &status, 0);
+		if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_SUCCESS) {
+			printf("Le processus fils %d s'est terminé avec succès.\n", pid[i]);
+		} else {
+			printf("Le processus fils %d s'est terminé avec une erreur.\n", pid[i]);
+		}
+		i++;
+	}
+
+	printf("Pere fin %s, %d/\n", testc, i);
+	read(pipes[i - 1][0], testc, strlen(testc) + 1);
+	printf("Pere fin %s, %d/\n", testc, i);
 	//le dernier
 	return (true);
 }
