@@ -87,7 +87,7 @@ int		ft_strcmp(char *a, char *b);
 // utils2 //
 
 int	str_copy(char *dst, char *src, int size);
-int check_path(char *argv, char **env, int n);
+//int check_path(char *argv, char **env, int n);
 int ft_tablen(char **tab);
 int char_cmp(char *str, char *reject);
 void	*ft_memmove(void *dst, const void *src, size_t len);
