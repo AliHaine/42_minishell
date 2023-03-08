@@ -110,7 +110,8 @@ void check_all_cmd(char *line, char **env, struct s_minishell *ms);
 
 // trime_quotation //
 
-void convert_quotes(char *str);
+int update(char c, int *in_q);
+int Check_cmd_is_right(int fd);
 
 // Env_conv //
 
