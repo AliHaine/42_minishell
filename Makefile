@@ -23,6 +23,7 @@ SRCS =	minishell.c \
 		srcs/export.c \
 		srcs/cd.c \
 		srcs/pipe_manager.c \
+		utils/pipe_utils.c \
 		utils/utils.c \
 		utils/trime_quotation.c \
 		utils/cmds_struct.c \

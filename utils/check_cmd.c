@@ -45,6 +45,7 @@ static void check_bulltin(char **cmd, char **env, struct s_minishell *ms)
 	return ;
 }
 
+
 // check_all_cmd //
 
 void check_all_cmd(char *line, char **env, struct s_minishell *ms)

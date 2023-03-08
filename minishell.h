@@ -68,6 +68,12 @@ bool	check_all_quote(struct s_cmds *ti);
 
 bool	pipe_main(struct s_minishell *ms, char *cmds);
 
+// pipe_utils //
+
+char *get_cmds_path(char *cmds);
+char **get_args_cmds(char *cmds);
+int get_cmd_pipe(char *cmd);
+
 // cmds_struct //
 
 void	free_words_struct(struct s_cmds *cmds);
