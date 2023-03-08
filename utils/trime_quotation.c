@@ -3,41 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   trime_quotation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 11:04:08 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/03 15:25:26 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/09 00:49:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void convert_quotes(char *str) 
+int update(char c, int *in_q)
 {
-    int len;
-    int starts_with_quote;
-    int ends_with_quote;
+    if (c == '\'' && *in_q != 2)
+    {
+        *in_q = 1 - (1 * (*in_q == 1));
+        return (1);   
+    }
+    if (c == '\"' && *in_q != 1)
+    {
+        *in_q = 2 - (2 * (*in_q == 2));
+        return (1);
+    }
+}
 
-    len = strlen(str);
-    starts_with_quote = (len > 0 && (str[0] == '"' || str[0] == '\''));
-    ends_with_quote = (len > 0 && (str[len-1] == '"' || str[len-1] == '\''));
-    if (!starts_with_quote && !ends_with_quote) 
+int Check_cmd_is_right(int fd)
+{
+    if (fd == 1)
     {
         
+        return (1);
     }
-    else if (starts_with_quote && ends_with_quote && str[0] == str[len-1]) 
+    else
     {
-        ft_memmove(str, str+1, len-2);
-        str[len-2] = '\0';
+        perror(stderr(errno));
+        return (-1);
     }
-    else if (starts_with_quote && ends_with_quote && str[0] != str[len-1]) 
-    {
-    }
-    else if (starts_with_quote) 
-    {
-        ft_memmove(str, str+1, len-1);
-        str[len-1] = '\0';
-    }
-    else if (ends_with_quote) 
-        str[len-2] = '\0';
+    return (0);
 }
