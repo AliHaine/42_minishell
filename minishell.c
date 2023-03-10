@@ -1,11 +1,5 @@
 #include "minishell.h"
 
-bool	sigaction_manager(struct s_minishell *ms)
-{
-	signal(2, ctrl_c);
-	return (true);
-}
-
 static bool	check_validity(char *str)
 {
 	int i;
@@ -29,6 +23,7 @@ static bool	check_validity(char *str)
 static int	main_process(struct s_minishell *ms, char **env)
 {
 	char *histo;
+	int pid;
 
 	while (ms->exit > 0)
 	{
@@ -41,11 +36,13 @@ static int	main_process(struct s_minishell *ms, char **env)
 			write_to_histo((char *) histo, ms->histo_fd);
 		}
 		if (is_contain_pipe(histo))
-		{
 			pipe_main(ms, histo);
-		}
 		else
-			check_all_cmd(histo, env, ms);
+		{
+			pid = fork();
+			if (pid == 0)
+				check_all_cmd(histo, ms);
+		}
 	}
 	return (1);
 }
@@ -54,7 +51,7 @@ int main (int argc, char **argv, char **env)
 {
 	struct s_minishell ms;
 
-	sigaction_manager(&ms);
+	signal(2, ctrl_c);
 
 	// pas def la variable //
 	rl_catch_signals = 0;

@@ -14,20 +14,17 @@
 #include <string.h>
 #include <errno.h>
 
-struct s_minishell
+typedef struct s_minishell
 {
-	struct sigaction	sig;
 	int 				histo_fd;
 	char				**env;
 	int 				exit;
 	struct s_cmds	*cmds_f;
 }	t_minishell;
 
-struct s_cmds
+typedef struct s_cmds
 {
-	char *def;
 	char *cmd;
-	char *args;
 	int w;
 	struct s_cmds *next;
 	struct s_cmds *prev;
@@ -72,8 +69,6 @@ bool	pipe_main(struct s_minishell *ms, char *cmds);
 
 // pipe_utils //
 
-char *get_cmds_path(char *cmds);
-char **get_args_cmds(char *cmds);
 int get_cmd_pipe(char *cmd);
 
 // cmds_struct //
@@ -114,7 +109,7 @@ char	**ft_split(char *s, char c);
 // check_all_cmd //
 
 int get_cmd(char *cmd);
-void check_all_cmd(char *line, char **env, struct s_minishell *ms);
+void check_all_cmd(char *line, struct s_minishell *ms);
 
 // trime_quotation //
 

@@ -39,53 +39,33 @@ static bool pipe_init(int pipes[][2], int size)
     return (true);
 }
 
-bool pipe_exec_own(char *cmds)
+static bool pipe_executor(int pipes[][2], char *cmds, int i, struct s_minishell *ms)
 {
-    return (true);
-}
-
-static bool pipe_executor(int *pipes, char *cmds, int i, struct s_minishell *ms)
-{
-    char *path;
-    char **args;
-
-    path = get_cmds_path(cmds);
-    args = get_args_cmds(cmds);
-    if (!path)
-        return (false);
-    if (i == 0)
+	if (i == 0)
     {
-        close(pipes[0]);
-        dup2(pipes[1], STDOUT_FILENO);
-        if (get_cmd_pipe(cmds) > 0)
-            check_all_cmd(cmds, ms->env, ms);
-        else
-            execve(path, args, ms->env);
-        close(pipes[1]);
+        dup2(pipes[i][1], STDOUT_FILENO);
+        close(pipes[i][1]);
+		close(pipes[i][0]);
+		check_all_cmd(cmds, ms);
     }
-    else
+	else if (i == get_nbr_of_cmds(ms->cmds_f) - 1)
     {
-        if (get_cmd_pipe(cmds) > 0)
-        {
-            close(pipes[0]);
-            dup2(pipes[1], STDOUT_FILENO);
-            check_all_cmd(cmds, ms->env, ms);
-            close(pipes[1]);
-        }
-        else
-        {
-            /*
-            close(pipes[0]);
-            dup2(pipes[0], STDIN_FILENO);
-            read(pipes[0], stash, ft_strlen(stash) + 1);
-            test = atoi(testc);
-            test++;
-            snprintf(testc, 10, "%d", test);
-            write(pipes[1], testc, strlen(testc) + 1);
-            close(pipes[1]);*/
-        }
+		dup2(pipes[i - 1][0], STDIN_FILENO);
+		close(pipes[i - 1][0]);
+		close(pipes[i - 1][1]);
+		check_all_cmd(cmds, ms);
     }
-    exit(0);
+	else
+	{
+		dup2(pipes[i - 1][0], STDIN_FILENO);
+		dup2(pipes[i][1], STDOUT_FILENO);
+		close(pipes[i - 1][0]);
+		close(pipes[i - 1][1]);
+		close(pipes[i][0]);
+		close(pipes[i][1]);
+		check_all_cmd(cmds, ms);
+	}
+	return (true);
 }
 
 
@@ -94,44 +74,34 @@ static bool pipe_brain(struct s_minishell *ms) {
     int status;
     int cmd_nbr = get_nbr_of_cmds(ms->cmds_f);
     int pipes[cmd_nbr - 1][2];
-    pid_t pid[cmd_nbr - 1];
+    pid_t pid[cmd_nbr];
     struct s_cmds *cmds;
 
     cmds = ms->cmds_f;
     i = 0;
     pipe_init(pipes, cmd_nbr);
-    while (cmds->next)
+    while (cmds)
     {
         pid[i] = fork();
         if (pid[i] == -1)
             return (false);
         if (pid[i] == 0)
-        {
-            pipe_executor(pipes[i], cmds->cmd, i, ms);
-        }
+            pipe_executor(pipes, cmds->cmd, i, ms);
         i++;
         cmds = cmds->next;
     }
-    // Ignore les trucs en dessous pour l'instant
     i = 0;
-    while (i < (cmd_nbr - 1))
+    while (i < cmd_nbr)
     {
+		printf("a\n");
         waitpid(pid[i], &status, 0);
-        if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_SUCCESS) {
-            printf("Le processus fils %d s'est terminé avec succès.\n", pid[i]);
-        } else {
-            printf("Le processus fils %d s'est terminé avec une erreur.\n", pid[i]);
-        }
         i++;
     }
-
-    //Derniere commande
-    if (get_cmd_pipe(cmds->cmd) > 0)
-        check_all_cmd(cmds->cmd, ms->env, ms);
     return (true);
 }
 
-bool pipe_main(struct s_minishell *ms, char *cmds) {
+bool pipe_main(struct s_minishell *ms, char *cmds)
+{
     struct s_three_int ti;
 
     init_three_int(&ti);

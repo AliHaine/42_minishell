@@ -32,36 +32,3 @@ int get_cmd_pipe(char *cmd)
         return (7);
     return (0);
 }
-
-char *get_cmds_path(char *cmds)
-{
-    int i;
-    char *str;
-
-    i = 0;
-    while (cmds[i] && cmds[i] != ' ')
-        i++;
-    str = malloc(sizeof(char) * (i + 1));
-    if (!str)
-        return (0);
-    i = 0;
-    while (cmds[i] && cmds[i] != ' ') {
-        str[i] = cmds[i];
-        i++;
-    }
-    str[i] = '\0';
-    return (str);
-}
-
-char **get_args_cmds(char *cmds)
-{
-    char **strs;
-    int i;
-
-    i = 0;
-    while (cmds[i] && cmds[i] != ' ')
-        i++;
-    i++;
-    strs = ft_split(cmds + i, ' ');
-    return (strs);
-}

@@ -44,24 +44,24 @@ static void check_bulltin(char **cmd, char **env, struct s_minishell *ms)
 		cd(cmd, env);
 	else
 		ft_execve(cmd, env);
-	return ;
+	exit(0);
 }
 
 
 // check_all_cmd //
 
-void check_all_cmd(char *line, char **env, struct s_minishell *ms)
+void check_all_cmd(char *line, struct s_minishell *ms)
 {
 	char **args;
 	char *str;
 	int i;
 
 	i = 0;
-	str = env_conversion(line, env);
+	str = env_conversion(line, ms->env);
 	args = ft_split(str, ' ');
 	if (!args)
 		return (free(line));
-	check_bulltin(args, env, ms);
+	check_bulltin(args, ms->env, ms);
 	free_tt(args);
 	free(line);
 }
