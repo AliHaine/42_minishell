@@ -6,62 +6,49 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:37:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/02 19:56:38 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/10 16:55:40 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* probleme de longeur tkt c fini demain */
-
-/* 
-
-export seul = 'declare -x V_ENV="path"' check;
-export + V_ENV=W
-mettre au dessus du dernier char *
-
-*/
-
 #include "../minishell.h"
 
-static void export_and_nothing(char **env)
+static void	export_and_nothing(char **env, int i, int j, int check)
 {
-	int i;
-	int j;
-	int check;
+	char	**sort_env;
 
-	check = 0;
-	j = 0;
+	sort_env = NULL;
+	while (env[i])
+		i++;
+	sort_env = print_sorted_strings(env, i);
 	i = 0;
-	while (env[i + 1])
+	while (sort_env[i])
 	{
 		check = 0;
 		j = 0;
 		write(1, "declare -x ", 11);
-		while (env[i][j])
+		while (sort_env[i][j])
 		{
-			write(1, &env[i][j], 1);
-			if (env[i][j] == '=' && check == 0)
-			{
+			write(1, &sort_env[i][j], 1);
+			if (sort_env[i][j] == '=')
 				write(1, "\"", 1);
-				check = 1;
-			}
 			j++;
 		}
-		write(1, "\"", 1);
-		printf("\n");
+		printf("\"\n");
 		i++;
 	}
+	free(sort_env);
 }
 
 /* check if export is already exist or not or is valid */
 
-// just do nothing =  ' ' ; \ | $ 
+// just do nothing =  ' ' ; \ | $
 
 // message = : '\t' '\n' '\r' @ & ( ) [] {} % ! < > ? - * + ^ ~
 
-static int check_valid(char *path)
+static int	check_valid(char *path)
 {
-	int check;
-	int i;
+	int	check;
+	int	i;
 
 	check = 0;
 	i = 0;
@@ -72,7 +59,7 @@ static int check_valid(char *path)
 		else if (char_cmp(path, "\t\n\r@&()[]{}%!<>?-*+^~") == 1)
 		{
 			check = 2;
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -86,9 +73,9 @@ static int check_valid(char *path)
 /* en cour ... */
 // leak //
 
-static char **add_env_var(char **env, char *path)
+static char	**add_env_var(char **env, char *path)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (env[i])
@@ -107,10 +94,10 @@ static char **add_env_var(char **env, char *path)
 
 /* pret mais il me faut une fonction de verif */
 
-static char *remplace_env(char **env, char *path)
+static char	*remplace_env(char **env, char *path)
 {
-	int len;
-	int i;
+	int	len;
+	int	i;
 
 	len = 0;
 	i = 0;
@@ -118,11 +105,11 @@ static char *remplace_env(char **env, char *path)
 	{
 		len = 0;
 		while (path[len])
-		{ 
+		{
 			if (env[i][len] && env[i][len] == path[len])
-				len++; 
+				len++;
 			else
-				break;
+				break ;
 			if (path[len] && env[i][len] == '=')
 			{
 				env[i] = ft_strdup(path);
@@ -135,18 +122,19 @@ static char *remplace_env(char **env, char *path)
 
 /* juste export seul marche */
 
-void export(char **argv, char **env, int i)
+void	export(char **argv, char **env, int i)
 {
-	char *path;
+	char	*path;
 
 	path = NULL;
 	if (!argv[i])
-		export_and_nothing(env);
+	{
+		export_and_nothing(env, 0, 0, 0);
+		return ;
+	}
 	else if (argv[i])
 	{
-		// remove en attendant le push
-
-		/*if (check_path(argv[i], env, 0) == 1)
+		if (check_path(argv[i], env, 0) == 1)
 		{
 			remplace_env(env, argv[i]);
 		}
@@ -154,7 +142,7 @@ void export(char **argv, char **env, int i)
 		{
 			if (check_valid(argv[i]) == 0)
 				env = add_env_var(env, argv[i]);
-		}*/
+		}
 	}
 	if (argv[i + 1])
 		export(argv, env, i + 1);

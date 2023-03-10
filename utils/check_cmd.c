@@ -42,6 +42,8 @@ static void check_bulltin(char **cmd, char **env, struct s_minishell *ms)
 		export(cmd, env, 1);
 	else if (get_cmd(cmd[0]) == 7)
 		cd(cmd, env);
+	else
+		ft_execve(cmd, env);
 	return ;
 }
 
@@ -59,8 +61,6 @@ void check_all_cmd(char *line, char **env, struct s_minishell *ms)
 	args = ft_split(str, ' ');
 	if (!args)
 		return (free(line));
-	while (args[i])
-		convert_quotes(args[i++]);
 	check_bulltin(args, env, ms);
 	free_tt(args);
 	free(line);

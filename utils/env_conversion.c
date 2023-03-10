@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:01:26 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/03 16:35:43 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/10 16:53:28 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@ static int check_env(char *s, char **env, int i)
 	path = ft_substr(s, i + 1, j - i);
 	if (!path)
 		return (0);
-	//remove en attendant le push
-	/*if (check_path(path, env, 1) == 1)
-		return (1);*/
+	if (check_path(path, env, 1) == 1)
+		return (1);
 	return (0);
 }
 

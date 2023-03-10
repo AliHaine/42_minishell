@@ -28,7 +28,9 @@ SRCS =	minishell.c \
 		utils/trime_quotation.c \
 		utils/cmds_struct.c \
 		utils/utils2.c \
-		utils/env_conversion.c 
+		utils/env_conversion.c \
+		srcs/execve.c \
+		utils/utils3.c
 
 #utils/file.c \#
 

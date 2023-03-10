@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 12:18:28 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/03 16:28:41 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/10 17:54:09 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,25 +130,28 @@ void echo(char **tab, char **env)
 	int i;
 	int j;
 	int bulltin;
+	int in_q;
 
 	i = 1;
 	j = 0;
 	bulltin = 0;
-	if(tab[i])
+	if (tab[i])
 	{
-		i = 1;
 		bulltin = echo_2(tab, bulltin);
 		if (bulltin > 0)
 			i += bulltin;
 		while (tab[i])
 		{
 			j = 0;
-			while (tab[i])
+			while (tab[i][j])
 			{
-				printf("%s", tab[i++]);
-				if (tab[i])
-					printf(" ");
+				if (!update(tab[i][j], &in_q))
+					printf("%c", tab[i][j]);
+				j++;
 			}
+			if (tab[i])
+					printf(" ");
+			i++;
 		}
 	}
 	if (bulltin == 0)

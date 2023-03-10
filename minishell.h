@@ -94,11 +94,17 @@ int		ft_strcmp(char *a, char *b);
 
 // utils2 //
 
-int	str_copy(char *dst, char *src, int size);
-//int check_path(char *argv, char **env, int n);
+int check_path(char *argv, char **env, int n);
 int ft_tablen(char **tab);
 int char_cmp(char *str, char *reject);
 void	*ft_memmove(void *dst, const void *src, size_t len);
+
+// utils3 //
+
+int	str_copy(char *dst, char *src, int size);
+char **copy_env(char **env, int size);
+char **print_sorted_strings(char **env, int size);
+char	*ft_join(char *s1, char *s2);
 
 // ft_split //
 
@@ -121,6 +127,10 @@ char *env_conversion(char *str, char **env);
 int simp_char(char c, char *reject);
 
 /* bulltin */
+
+// execve //
+
+int	ft_execve(char *const *args, char **env);
 
 // exit //
 
