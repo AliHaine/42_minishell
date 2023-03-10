@@ -39,6 +39,11 @@ static bool pipe_init(int pipes[][2], int size)
     return (true);
 }
 
+bool pipe_exec_own(char *cmds)
+{
+
+}
+
 static bool pipe_executor(int *pipes, char *cmds, int i, struct s_minishell *ms)
 {
     char *path;

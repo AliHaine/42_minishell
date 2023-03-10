@@ -25,7 +25,9 @@ struct s_minishell
 
 struct s_cmds
 {
+	char *def;
 	char *cmd;
+	char *args;
 	int w;
 	struct s_cmds *next;
 	struct s_cmds *prev;
