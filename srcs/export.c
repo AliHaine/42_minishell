@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:37:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/10 16:55:40 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/13 17:00:18 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,6 @@ static void	export_and_nothing(char **env, int i, int j, int check)
 	free(sort_env);
 }
 
-/* check if export is already exist or not or is valid */
-
-// just do nothing =  ' ' ; \ | $
-
-// message = : '\t' '\n' '\r' @ & ( ) [] {} % ! < > ? - * + ^ ~
-
 static int	check_valid(char *path)
 {
 	int	check;
@@ -64,9 +58,15 @@ static int	check_valid(char *path)
 		i++;
 	}
 	if (check == 0)
+	{
+		Check_cmd_is_right(0);
 		return (0);
+	}
 	else if (check == 2)
+	{
 		printf("%s: export: '%s': not a valid identifier\n", g_d_e(), path);
+		Check_cmd_is_right(1);
+	}
 	return (1);
 }
 

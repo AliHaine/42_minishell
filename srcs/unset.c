@@ -6,23 +6,44 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:40:21 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/03 10:29:29 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/13 17:08:16 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int check_char(char *s, char *reject)
+static int	charcmp(char c, char *reject)
 {
-	int i;
-	int j;
+	int	i;
+
+	i = 0;
+	while (reject[i])
+	{
+		if (reject[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+	
+
+static int	unset_extend(char **p, int x)
+{
+	printf("%s: unset: %s: not a valid identifier\n", g_d_e(), p[x]);
+	return (Check_cmd_is_right(1));
+}
+
+static int	check_char(char *s, char *reject)
+{
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
 	while (s[i])
 	{
 		j = 0;
-		while(reject[j])
+		while (reject[j])
 		{
 			if (reject[j] == s[i])
 				return (1);
@@ -35,9 +56,9 @@ static int check_char(char *s, char *reject)
 
 // $#=+-/@.^%!-?.,;:{}[]&
 
-static int delete_path(char **env, int i)
+static int	delete_path(char **env, int i)
 {
-	char *tmp;
+	char	*tmp;
 
 	if (env[i + 1])
 	{
@@ -54,9 +75,11 @@ static int delete_path(char **env, int i)
 	return (delete_path(env, i + 1));
 }
 
-int unset(char **path, char **env, int i, int x)
+// si ya \ il faut \\ donc enleve en un //
+
+int	unset(char **path, char **env, int i, int x)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (env[i])
@@ -65,14 +88,11 @@ int unset(char **path, char **env, int i, int x)
 		while (path[x][len])
 		{
 			if (check_char(path[x], "$#=+-/@.^%!-?.,;:{}[]&") == 1)
-			{
-				printf("%s: unset: %s: not a valid identifier\n", g_d_e(), path[x]);
-				return (0);
-			}
-			if (env[i][len] && env[i][len] == path[x][len] )
-				len++; 
+				return (unset_extend(path, x));
+			if (env[i][len] && env[i][len] == path[x][len])
+				len++;
 			else
-				break;
+				break ;
 			if (!path[x][len] && env[i][len] == '=')
 				delete_path(env, i);
 		}
@@ -80,5 +100,5 @@ int unset(char **path, char **env, int i, int x)
 	}
 	if (path[x + 1])
 		unset(path, env, 0, x + 1);
-	return (0);
+	return (Check_cmd_is_right(0));
 }

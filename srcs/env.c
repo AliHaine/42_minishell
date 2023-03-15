@@ -1,23 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/12 14:23:35 by mbouaza           #+#    #+#             */
+/*   Updated: 2023/03/13 17:09:06 by mbouaza          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 /* env env env == env \\ env env eng = error */
 
-void print_env(char **env)
+void	print_env(char **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env[i])
 	{
 		printf("%s\n", env[i++]);
 	}
+	if (!env[0])
+	{
+		printf("%s: env: is empty", g_d_e());
+		Check_cmd_is_right(1);
+	}
+	else
+		Check_cmd_is_right(0);
+
 }
 
-static char *print_v_env(char **env, int i)
+static char	*print_v_env(char **env, int i)
 {
-	char *char_env;
-	int j;
-	int len;
+	char	*char_env;
+	int		j;
+	int		len;
 
 	j = 0;
 	len = 0;
@@ -40,11 +60,11 @@ static char *print_v_env(char **env, int i)
 	return (char_env);
 }
 
-char *ft_getenv(char **env, char *path)
+char	*ft_getenv(char **env, char *path)
 {
-	int i;
-	int j;
-	char *get;
+	int		i;
+	int		j;
+	char	*get;
 
 	i = 0;
 	j = 0;

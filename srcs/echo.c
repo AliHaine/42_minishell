@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 12:18:28 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/10 17:54:09 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/12 14:22:56 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@
 
 /* var type $PATH and var '"$PATH"' 'PATH' */
 
-
-static int check_is(char *str, char **env, int j, char *reject)
+static int	check_is(char *str, char **env, int j, char *reject)
 {
-	int i;
-	int x;
-	char *path;
+	int		i;
+	int		x;
+	char	*path;
 
 	i = j + 1;
 	x = 0;
@@ -34,7 +33,7 @@ static int check_is(char *str, char **env, int j, char *reject)
 			if (str[i] == reject[x] || str[i] == '\0')
 			{
 				path = ft_substr(str, j, i);
-				printf("%s", ft_getenv(env ,path + 1));
+				printf("%s", ft_getenv(env, path + 1));
 				return (i - 1);
 			}
 			x++;
@@ -44,11 +43,11 @@ static int check_is(char *str, char **env, int j, char *reject)
 	return (0);
 }
 
-static int check_is_true(char *str, char **env, int j, char *reject)
+static int	check_is_true(char *str, char **env, int j, char *reject)
 {
-	int i;
-	int x;
-	char *path;
+	int		i;
+	int		x;
+	char	*path;
 
 	i = j + 1;
 	x = 0;
@@ -60,7 +59,6 @@ static int check_is_true(char *str, char **env, int j, char *reject)
 		{
 			if (str[i] == reject[x] || str[i] == '\0')
 			{
-
 				return (1);
 			}
 			x++;
@@ -70,11 +68,11 @@ static int check_is_true(char *str, char **env, int j, char *reject)
 	return (0);
 }
 
-static int get_env_var(char **env, char *var)
+static int	get_env_var(char **env, char *var)
 {
-	int len;
-	int i;
-	int j;
+	int	len;
+	int	i;
+	int	j;
 
 	j = 0;
 	len = 0;
@@ -87,9 +85,9 @@ static int get_env_var(char **env, char *var)
 		while (var[len])
 		{
 			if (env[i][len] && env[i][len] == var[len])
-				len++; 
+				len++;
 			else
-				break;
+				break ;
 			if (env[i][len] && env[i][len] == '=' && len < j)
 				return (1);
 		}
@@ -100,10 +98,10 @@ static int get_env_var(char **env, char *var)
 
 /* bulltin echo part 2 */
 
-static int echo_2(char **tab, int bulltin)
+static int	echo_2(char **tab, int bulltin)
 {
-	int i;
-	int x;
+	int	i;
+	int	x;
 
 	i = bulltin + 1;
 	x = 2;
@@ -114,9 +112,7 @@ static int echo_2(char **tab, int bulltin)
 			if (tab[i][x] == 'n')
 				x++;
 			else
-			{
 				return (bulltin);
-			}
 		}
 		return (echo_2(tab, bulltin + 1));
 	}
@@ -125,15 +121,11 @@ static int echo_2(char **tab, int bulltin)
 
 // bulltin echo //
 
-void echo(char **tab, char **env)
+void	echo(char **tab, char **env, int i, int j)
 {
-	int i;
-	int j;
-	int bulltin;
-	int in_q;
+	int	bulltin;
+	int	in_q;
 
-	i = 1;
-	j = 0;
 	bulltin = 0;
 	if (tab[i])
 	{
@@ -150,10 +142,11 @@ void echo(char **tab, char **env)
 				j++;
 			}
 			if (tab[i])
-					printf(" ");
+				printf(" ");
 			i++;
 		}
 	}
 	if (bulltin == 0)
 		printf("\n");
+	Check_cmd_is_right(0);
 }
