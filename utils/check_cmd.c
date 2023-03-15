@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_cmd.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/13 14:58:09 by mbouaza           #+#    #+#             */
+/*   Updated: 2023/03/13 16:37:36 by mbouaza          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int get_cmd(char *cmd)
@@ -19,12 +31,14 @@ int get_cmd(char *cmd)
 	return (0);
 }
 
-static void check_bulltin(char **cmd, char **env, struct s_minishell *ms)
+static void check_bulltin(char **cmd, char **env, t_minishell *ms)
 {
+	char **str;
+
 	if (!cmd[0])
 		return ;
 	else if (get_cmd(cmd[0]) == 1)
-		echo(cmd, env);
+		echo(cmd, env, 1, 0);
 	else if (get_cmd(cmd[0]) == 2)
 		pwd();
 	else if (get_cmd(cmd[0]) == 3)
@@ -44,24 +58,30 @@ static void check_bulltin(char **cmd, char **env, struct s_minishell *ms)
 		cd(cmd, env);
 	else
 		ft_execve(cmd, env);
-	exit(0);
+	return ;
 }
 
 
 // check_all_cmd //
 
-void check_all_cmd(char *line, struct s_minishell *ms)
+void check_all_cmd(char *line, t_minishell *ms)
 {
 	char **args;
 	char *str;
 	int i;
 
 	i = 0;
-	str = env_conversion(line, ms->env);
+	str = env_conversion(line, ms->env);\
+	if (!str)
+		return ;
 	args = ft_split(str, ' ');
 	if (!args)
-		return (free(line));
+	{
+		free(line);
+		return ;
+	}
 	check_bulltin(args, ms->env, ms);
 	free_tt(args);
 	free(line);
+	return ;
 }
