@@ -956,3 +956,48 @@ make
 echo salut | tr '[:lower:]' '[:upper:]' | cat -e
 echo salut | tr '[:lower:]' '[:upper:]' | cat -e
 echo salut | tr '[:lower:]' '[:upper:]' | cat -e
+ls | ls | ls
+exit
+ls | ls | ls
+echo salut | tr '[:lower:]' '[:upper:]' | cat -e
+echo salut | tr '[:lower:]' '[:upper:]' | cat -e
+echo salut | tr '[:lower:]' '[:upper:]' | cat -e
+echo salut | cat -e
+echo salut | cat -e
+echo salut | cat -e
+echo salut | cat -e
+echo salut | cat -e
+echo salut | cat -e
+echo salut | cat -e
+echo salut | cat -e
+ls | ls | ls
+ls | ls -l
+ls | wc -l
+ls | wc -l
+echo sa | cat -e
+echo sa | wc -l
+echo sa | wc -l
+echo sa | cat -e
+echo sa | cat -e
+a
+a
+a
+2004h/minishell$ 
+2004l
+2004h/minishell$ 2004h/minishell$ 2004l
+/minishell$ 
+[2004l
+/minishell$ 
+a
+[2004l
+/nsel 
+echo sa | cat -e
+sa 
+echo sa | cat -e
+echo sa | cat -e
+sa 
+echo sa | cat -e
+sa 
+echo sa | cat -e
+echo sa | cat -e
+sa 

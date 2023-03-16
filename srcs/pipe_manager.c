@@ -39,21 +39,26 @@ static bool pipe_init(int pipes[][2], int size)
     return (true);
 }
 
-static bool pipe_executor(int pipes[][2], char *cmds, int i, struct s_minishell *ms)
+static void	pipe_executor(int pipes[][2], char *cmds, int i, struct s_minishell *ms)
 {
+	char *arg1[] = {"echo", "sa", 0};
+	char *arg2[] = {"cat", "-e", 0};
+
 	if (i == 0)
     {
         dup2(pipes[i][1], STDOUT_FILENO);
         close(pipes[i][1]);
 		close(pipes[i][0]);
 		check_all_cmd(cmds, ms);
+		//execve("/usr/bin", arg1, ms->env);
     }
 	else if (i == get_nbr_of_cmds(ms->cmds_f) - 1)
     {
 		dup2(pipes[i - 1][0], STDIN_FILENO);
 		close(pipes[i - 1][0]);
 		close(pipes[i - 1][1]);
-		check_all_cmd(cmds, ms);
+		//check_all_cmd(cmds, ms);
+		execve("/bin", arg2, ms->env);
     }
 	else
 	{
@@ -65,7 +70,6 @@ static bool pipe_executor(int pipes[][2], char *cmds, int i, struct s_minishell 
 		close(pipes[i][1]);
 		check_all_cmd(cmds, ms);
 	}
-	return (true);
 }
 
 
@@ -79,7 +83,7 @@ static bool pipe_brain(struct s_minishell *ms) {
 
     cmds = ms->cmds_f;
     i = 0;
-    pipe_init(pipes, cmd_nbr);
+    pipe_init(pipes, cmd_nbr - 1);
     while (cmds)
     {
         pid[i] = fork();
@@ -94,7 +98,7 @@ static bool pipe_brain(struct s_minishell *ms) {
     while (i < cmd_nbr)
     {
 		printf("a\n");
-        waitpid(pid[i], &status, 0);
+		waitpid(pid[i], &status, 0);
         i++;
     }
     return (true);

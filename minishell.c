@@ -52,8 +52,6 @@ int main (int argc, char **argv, char **env)
 	struct s_minishell ms;
 
 	signal(2, ctrl_c);
-
-	// pas def la variable //
 	rl_catch_signals = 0;
 	ms.histo_fd =  open(".history", O_RDWR);
 	if (ms.histo_fd == -1)
