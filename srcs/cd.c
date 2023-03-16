@@ -15,10 +15,10 @@
 static int	cd_extend(char **cmd)
 {
 	if (chdir(cmd[1] + 2) == 0)
-		return (Check_cmd_is_right(1));
+		return (check_cmd_is_right(1));
 	else
 		printf("cd: no such file or directory: ");
-	return (Check_cmd_is_right(0));
+	return (check_cmd_is_right(0));
 }	
 
 int	cd(char **cmd, char **env)
@@ -26,24 +26,24 @@ int	cd(char **cmd, char **env)
 	if (cmd[0] && !cmd[1])
 	{
 		if (chdir(ft_getenv(env, "HOME")) == 0)
-			return (Check_cmd_is_right(1));
+			return (check_cmd_is_right(1));
 		else
 			printf("%s: cd: No such file or directory\n", g_d_e());
-		return (Check_cmd_is_right(1));
+		return (check_cmd_is_right(1));
 	}
 	else if (cmd[0] && cmd[1][0] == '~')
 	{
 		chdir(ft_getenv(env, "HOME"));
 		if (cmd[1][1] == '/')
 			return (cd_extend(cmd));
-		return (Check_cmd_is_right(0));
+		return (check_cmd_is_right(0));
 	}
 	else
 	{
 		if (chdir(cmd[1]) == 0)
-			return (Check_cmd_is_right(0));
+			return (check_cmd_is_right(0));
 		else
 			printf("%s: cd: %s: No such file or directory\n", g_d_e(), cmd[1]);
 	}
-	return (Check_cmd_is_right(1));
+	return (check_cmd_is_right(1));
 }

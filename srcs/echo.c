@@ -148,5 +148,5 @@ void	echo(char **tab, char **env, int i, int j)
 	}
 	if (bulltin == 0)
 		printf("\n");
-	Check_cmd_is_right(0);
+	check_cmd_is_right(0);
 }

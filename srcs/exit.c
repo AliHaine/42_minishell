@@ -18,19 +18,19 @@ void	exit_shell(void)
 {
 	struct s_minishell	*ms;
 
-	ms->exit = 0;
+	//ms->exit = 0;
 }
 
 // For $? //
 
 int check_cmd_is_right(int fd)
 {
-    if (fd > 0) 
+    /*if (fd > 0)
     {
 		ms.stat = fd;
         return (-1);
     }
-    ms.stat = 0;
+    ms.stat = 0;*/
     return (0);
 }
 

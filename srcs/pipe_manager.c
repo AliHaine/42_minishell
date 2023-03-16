@@ -41,7 +41,6 @@ static bool pipe_init(int pipes[][2], int size)
 
 static void	pipe_executor(int pipes[][2], char *cmds, int i, struct s_minishell *ms)
 {
-	char *arg1[] = {"echo", "sa", 0};
 	char *arg2[] = {"cat", "-e", 0};
 
 	if (i == 0)
@@ -58,7 +57,7 @@ static void	pipe_executor(int pipes[][2], char *cmds, int i, struct s_minishell 
 		close(pipes[i - 1][0]);
 		close(pipes[i - 1][1]);
 		//check_all_cmd(cmds, ms);
-		execve("/bin", arg2, ms->env);
+		execve("/bin/cat", arg2, ms->env);
     }
 	else
 	{

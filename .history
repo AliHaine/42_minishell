@@ -1001,3 +1001,4 @@ sa
 echo sa | cat -e
 echo sa | cat -e
 sa 
+echo sa | cat -e

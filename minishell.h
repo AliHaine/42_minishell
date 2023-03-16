@@ -114,7 +114,7 @@ void check_all_cmd(char *line, struct s_minishell *ms);
 // trime_quotation //
 
 int update(char c, int *in_q);
-int Check_cmd_is_right(int fd);
+int check_cmd_is_right(int fd);
 
 // Env_conv //
 
@@ -138,7 +138,7 @@ char *g_d_e(void);
 
 // echo //
 
-void echo(char **tab, char **env);
+void	echo(char **tab, char **env, int i, int j);
 
 // env //
 

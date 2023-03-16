@@ -30,6 +30,7 @@ SRCS =	minishell.c \
 		utils/utils2.c \
 		utils/env_conversion.c \
 		srcs/execve.c \
+		srcs/exit.c \
 		utils/utils3.c
 
 #utils/file.c \#

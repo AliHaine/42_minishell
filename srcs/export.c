@@ -59,13 +59,13 @@ static int	check_valid(char *path)
 	}
 	if (check == 0)
 	{
-		Check_cmd_is_right(0);
+		check_cmd_is_right(0);
 		return (0);
 	}
 	else if (check == 2)
 	{
 		printf("%s: export: '%s': not a valid identifier\n", g_d_e(), path);
-		Check_cmd_is_right(1);
+		check_cmd_is_right(1);
 	}
 	return (1);
 }
