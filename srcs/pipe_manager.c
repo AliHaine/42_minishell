@@ -31,7 +31,8 @@ static bool pipe_init(int pipes[][2], int size)
     int i;
 
     i = 0;
-    while (i < size) {
+    while (i < size)
+	{
         if (pipe(pipes[i]) == -1)
             return (false);
         i++;
@@ -39,38 +40,44 @@ static bool pipe_init(int pipes[][2], int size)
     return (true);
 }
 
+static void	close_all_pipes(int pipes[][2], int size)
+{
+	while (size + 1 > 0)
+	{
+		close(pipes[size][0]);
+		close(pipes[size][1]);
+		size--;
+	}
+}
+
 static void	pipe_executor(int pipes[][2], char *cmds, int i, struct s_minishell *ms)
 {
-	char *arg2[] = {"cat", "-e", 0};
-
 	if (i == 0)
     {
         dup2(pipes[i][1], STDOUT_FILENO);
         close(pipes[i][1]);
-		close(pipes[i][0]);
+		close(pipes[0][0]);
 		check_all_cmd(cmds, ms);
-		//execve("/usr/bin", arg1, ms->env);
+		exit(1);
     }
 	else if (i == get_nbr_of_cmds(ms->cmds_f) - 1)
     {
+		close(pipes[i - 1][1]);
 		dup2(pipes[i - 1][0], STDIN_FILENO);
 		close(pipes[i - 1][0]);
-		close(pipes[i - 1][1]);
-		//check_all_cmd(cmds, ms);
-		execve("/bin/cat", arg2, ms->env);
-    }
+		check_all_cmd(cmds, ms);
+	}
 	else
 	{
+		close(pipes[i - 1][1]);
+		close(pipes[i][0]);
 		dup2(pipes[i - 1][0], STDIN_FILENO);
 		dup2(pipes[i][1], STDOUT_FILENO);
 		close(pipes[i - 1][0]);
-		close(pipes[i - 1][1]);
-		close(pipes[i][0]);
 		close(pipes[i][1]);
 		check_all_cmd(cmds, ms);
 	}
 }
-
 
 static bool pipe_brain(struct s_minishell *ms) {
     int i;
@@ -90,13 +97,19 @@ static bool pipe_brain(struct s_minishell *ms) {
             return (false);
         if (pid[i] == 0)
             pipe_executor(pipes, cmds->cmd, i, ms);
+		else
+		{
+			if (i == 0)
+				close(pipes[0][1]);
+			else
+				close(pipes[0][0]);
+		}
         i++;
         cmds = cmds->next;
     }
     i = 0;
     while (i < cmd_nbr)
     {
-		printf("a\n");
 		waitpid(pid[i], &status, 0);
         i++;
     }
