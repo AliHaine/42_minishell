@@ -42,6 +42,7 @@ static int	main_process(struct s_minishell *ms, char **env)
 			pid = fork();
 			if (pid == 0)
 				check_all_cmd(histo, ms);
+			wait(0);
 		}
 	}
 	return (1);

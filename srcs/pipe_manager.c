@@ -42,76 +42,77 @@ static bool pipe_init(int pipes[][2], int size)
 
 static void	close_all_pipes(int pipes[][2], int size)
 {
-	while (size + 1 > 0)
+	while (size > 0)
 	{
-		close(pipes[size][0]);
-		close(pipes[size][1]);
+		close(pipes[size - 1][0]);
+		close(pipes[size - 1][1]);
 		size--;
 	}
 }
 
-static void	pipe_executor(int pipes[][2], char *cmds, int i, struct s_minishell *ms)
+static void	pipe_executor(int pipes[][2], char *cmds, struct s_three_int ti, struct s_minishell *ms)
 {
-	if (i == 0)
+	if (ti.a == 0)
     {
-        dup2(pipes[i][1], STDOUT_FILENO);
-        close(pipes[i][1]);
-		close(pipes[0][0]);
+        dup2(pipes[0][1], STDOUT_FILENO);
+		close_all_pipes(pipes, (ti.c - 1));
 		check_all_cmd(cmds, ms);
-		exit(1);
     }
-	else if (i == get_nbr_of_cmds(ms->cmds_f) - 1)
+	else if (ti.a == get_nbr_of_cmds(ms->cmds_f) - 1)
     {
-		close(pipes[i - 1][1]);
-		dup2(pipes[i - 1][0], STDIN_FILENO);
-		close(pipes[i - 1][0]);
+		dup2(pipes[ti.a - 1][0], STDIN_FILENO);
+		close_all_pipes(pipes, (ti.c - 1));
 		check_all_cmd(cmds, ms);
 	}
 	else
 	{
-		close(pipes[i - 1][1]);
-		close(pipes[i][0]);
-		dup2(pipes[i - 1][0], STDIN_FILENO);
-		dup2(pipes[i][1], STDOUT_FILENO);
-		close(pipes[i - 1][0]);
-		close(pipes[i][1]);
+		dup2(pipes[ti.a - 1][0], STDIN_FILENO);
+		dup2(pipes[ti.a][1], STDOUT_FILENO);
+		close_all_pipes(pipes, (ti.c - 1));
 		check_all_cmd(cmds, ms);
 	}
 }
 
-static bool pipe_brain(struct s_minishell *ms) {
-    int i;
-    int status;
-    int cmd_nbr = get_nbr_of_cmds(ms->cmds_f);
-    int pipes[cmd_nbr - 1][2];
-    pid_t pid[cmd_nbr];
+static bool pipe_brain(struct s_minishell *ms, struct s_three_int ti)
+{
+    int pipes[ti.c - 1][2];
+    pid_t pid[ti.c];
     struct s_cmds *cmds;
 
     cmds = ms->cmds_f;
-    i = 0;
-    pipe_init(pipes, cmd_nbr - 1);
+    pipe_init(pipes, ti.c - 1);
     while (cmds)
     {
-        pid[i] = fork();
-        if (pid[i] == -1)
-            return (false);
-        if (pid[i] == 0)
-            pipe_executor(pipes, cmds->cmd, i, ms);
+		pid[ti.a] = fork();
+		if (pid[ti.a] == -1)
+			return (false);
+		if (ti.a == 0)
+		{
+			if (pid[ti.a] == 0)
+				pipe_executor(pipes, cmds->cmd, ti, ms);
+			close(pipes[0][1]);
+		}
+		else if (ti.a == (ti.c - 1))
+		{
+			if (pid[ti.a] == 0)
+				pipe_executor(pipes, cmds->cmd, ti, ms);
+			close(pipes[ti.a - 1][0]);
+		}
 		else
 		{
-			if (i == 0)
-				close(pipes[0][1]);
-			else
-				close(pipes[0][0]);
+			if (pid[ti.a] == 0)
+				pipe_executor(pipes, cmds->cmd, ti, ms);
+			close(pipes[ti.a - 1][0]);
+			close(pipes[ti.a][1]);
 		}
-        i++;
-        cmds = cmds->next;
+		cmds = cmds->next;
+		ti.a++;
     }
-    i = 0;
-    while (i < cmd_nbr)
+	ti.a = 0;
+    while (ti.a < ti.c)
     {
-		waitpid(pid[i], &status, 0);
-        i++;
+		waitpid(pid[ti.a], &ti.b, 0);
+		ti.a++;
     }
     return (true);
 }
@@ -126,7 +127,9 @@ bool pipe_main(struct s_minishell *ms, char *cmds)
         printf("minishell: erreur de quote\n");
         return (false);
     }
-    pipe_brain(ms);
+	init_three_int(&ti);
+	ti.c = get_nbr_of_cmds(ms->cmds_f);
+    pipe_brain(ms, ti);
     free_words_struct(ms->cmds_f);
     return (true);
 }

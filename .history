@@ -1037,3 +1037,22 @@ echo sa | cat -e
 
 echo sa | cat -e
 echo sa | cat -e
+echo sa | cat -e
+echo sa | cat -e
+echo sa | cat -e
+echo sa | cat -e
+echo salut
+echo salut
+echo salut
+dsadas
+echo ss
+echo ss | cat -e
+echo ss | cat -e
+echo ss | cat -e
+echo ss | cat -e
+echo ss | cat -e
+echo salut | cat -e
+echo salut | echo salutt | echo dernier | cat -e
+echo salut | echo salutt | echo dernier | cat -e | cat -e
+echo salut | echo salutt | echo dernier | cat -e | cat -e | cat -e
+echo salut | echo salutt | echo dernier | tr '[:lower:]' '[:upper:]' | cat -e | cat -e | cat -e

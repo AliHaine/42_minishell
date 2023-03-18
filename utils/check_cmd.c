@@ -58,7 +58,7 @@ static void check_bulltin(char **cmd, char **env, t_minishell *ms)
 		cd(cmd, env);
 	else
 		ft_execve(cmd, env);
-	return ;
+	exit(0);
 }
 
 
