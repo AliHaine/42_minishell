@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmds_struct.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/18 15:14:29 by ayagmur           #+#    #+#             */
+/*   Updated: 2023/03/18 15:14:30 by ayagmur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int get_nbr_of_cmds(struct s_cmds *cmds)
+int	get_nbr_of_cmds(struct s_cmds *cmds)
 {
-	int size;
-	struct s_cmds *iterator;
+	int				size;
+	struct s_cmds	*iterator;
 
 	size = 0;
 	iterator = cmds;
@@ -17,7 +29,7 @@ int get_nbr_of_cmds(struct s_cmds *cmds)
 
 bool	first_words_node(struct s_cmds *cmds, char *str, int size)
 {
-	int i;
+	int	i;
 
 	cmds->cmd = malloc(sizeof(char) * size + 1);
 	if (!cmds->cmd)
@@ -31,8 +43,8 @@ bool	first_words_node(struct s_cmds *cmds, char *str, int size)
 
 bool	new_words_node(struct s_cmds *cmds, char *str, int size)
 {
-	int i;
-	struct s_cmds *new;
+	int				i;
+	struct s_cmds	*new;
 
 	while (cmds->next)
 		cmds = cmds->next;
@@ -70,7 +82,7 @@ void	free_words_struct(struct s_cmds *cmds)
 
 void	parc_struct_tester(struct s_cmds *cmds)
 {
-	struct s_cmds *ite;
+	struct s_cmds	*ite;
 
 	ite = cmds;
 	while (ite)

@@ -30,15 +30,14 @@ typedef struct s_cmds
 	struct s_cmds *prev;
 }	t_cmds;
 
-struct s_three_int
+typedef struct s_three_int
 {
 	int	a;
 	int b;
 	int c;
-}	t_three_int;
+}	t_t_i;
 
 void	ctrl_c();
-void	ctrl_d();
 void	go_to_end_of_file(int fd);
 bool	write_to_histo(char *str, int fd);
 
@@ -69,7 +68,8 @@ bool	pipe_main(struct s_minishell *ms, char *cmds);
 
 // pipe_utils //
 
-int get_cmd_pipe(char *cmd);
+bool	pipe_init(int pipes[][2], int size);
+void	close_all_pipes(int pipes[][2], int size);
 
 // cmds_struct //
 

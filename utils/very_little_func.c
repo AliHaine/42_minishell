@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   very_little_func.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/18 15:31:36 by ayagmur           #+#    #+#             */
+/*   Updated: 2023/03/18 15:31:37 by ayagmur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	init_three_int(struct s_three_int *ti)
@@ -13,19 +25,6 @@ int	free_str_rzero(char *str)
 	return (0);
 }
 
-void	free_tt(char **str)
-{
-	int a;
-
-	a = 0;
-	while (str[a])
-	{
-		free(str[a]);
-		a++;
-	}
-	free(str);
-}
-
 bool	is_space(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\v'
@@ -36,7 +35,7 @@ bool	is_space(char c)
 
 bool	is_contain_pipe(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -48,7 +47,7 @@ bool	is_contain_pipe(char *str)
 	return (false);
 }
 
-bool is_pipe_or_et(char c)
+bool	is_pipe_or_et(char c)
 {
 	if (c == '|' || c == '&')
 		return (true);

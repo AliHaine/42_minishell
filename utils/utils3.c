@@ -93,3 +93,16 @@ char	*ft_join(char *s1, char *s2)
 	newstr[len] = '\0';
 	return (newstr);
 }
+
+void	free_tt(char **str)
+{
+	int	a;
+
+	a = 0;
+	while (str[a])
+	{
+		free(str[a]);
+		a++;
+	}
+	free(str);
+}

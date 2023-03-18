@@ -14,21 +14,26 @@ static int	ft_strcmp_to_space(char *a, char *b)
     return (1);
 }
 
-int get_cmd_pipe(char *cmd)
+bool	pipe_init(int pipes[][2], int size)
 {
-    if (ft_strcmp_to_space("echo", cmd))
-        return (1);
-    else if (ft_strcmp_to_space("pwd", cmd))
-        return (2);
-    else if (ft_strcmp_to_space("exit", cmd))
-        return (3);
-    else if (ft_strcmp_to_space("env", cmd))
-        return (4);
-    else if (ft_strcmp_to_space("unset", cmd))
-        return (5);
-    else if (ft_strcmp_to_space("export", cmd))
-        return (6);
-    else if (ft_strcmp_to_space("cd", cmd))
-        return (7);
-    return (0);
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (pipe(pipes[i]) == -1)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+void	close_all_pipes(int pipes[][2], int size)
+{
+	while (size > 0)
+	{
+		close(pipes[size - 1][0]);
+		close(pipes[size - 1][1]);
+		size--;
+	}
 }

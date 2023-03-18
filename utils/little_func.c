@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   little_func.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/18 15:16:59 by ayagmur           #+#    #+#             */
+/*   Updated: 2023/03/18 15:17:01 by ayagmur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 bool	is_blank(char *str)
 {
-	int i;
-	int size;
+	int	i;
+	int	size;
 
 	i = 0;
 	size = 0;
@@ -18,9 +30,9 @@ bool	is_blank(char *str)
 	return (false);
 }
 
-int get_origine(char *cmds)
+int	get_origine(char *cmds)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (is_space(cmds[i]))
@@ -39,19 +51,15 @@ int get_origine(char *cmds)
 	return (0);
 }
 
-int get_allstr_word_size(char *str)
+int	get_allstr_word_size(char *str)
 {
-	int size;
-	int mode;
+	int	size;
 
 	size = 0;
-	mode = 0;
 	while (str[size])
 	{
 		if (str[size] == '|' || str[size] == '&')
 		{
-			/*if (str[size + 1] && str[size + 1] == '|' || str[size + 1] == '&')
-				size++;*/
 			break ;
 		}
 		size++;

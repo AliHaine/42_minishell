@@ -18,8 +18,6 @@ static bool	check_validity(char *str)
 	return (true);
 }
 
-// tkt \U0001F1F9\U0001F1F7 il est la 
-
 static int	main_process(struct s_minishell *ms, char **env)
 {
 	char *histo;

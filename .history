@@ -1056,3 +1056,7 @@ echo salut | echo salutt | echo dernier | cat -e
 echo salut | echo salutt | echo dernier | cat -e | cat -e
 echo salut | echo salutt | echo dernier | cat -e | cat -e | cat -e
 echo salut | echo salutt | echo dernier | tr '[:lower:]' '[:upper:]' | cat -e | cat -e | cat -e
+echo salut | echo salutt | echo dernier | tr '[:lower:]' '[:upper:]' | cat -e | cat -e | cat -e
+echo salut | echo salutt | echo dernier | tr '[:lower:]' '[:upper:]' | cat -e | cat -e | cat -e
+echo salut | echo salutt | echo dernier | tr '[:lower:]' '[:upper:]' | cat -e | cat -e | cat -e
+echo salut | echo salutt | echo dernier | tr '[:lower:]' '[:upper:]' | cat -e | cat -e | cat -e
