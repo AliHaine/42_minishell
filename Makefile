@@ -31,7 +31,8 @@ SRCS =	minishell.c \
 		utils/env_conversion.c \
 		srcs/execve.c \
 		srcs/exit.c \
-		utils/utils3.c
+		utils/utils3.c \
+		utils/ft_itoa.c
 
 #utils/file.c \#
 

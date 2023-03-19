@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 12:47:01 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/10 17:04:39 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/19 12:32:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,27 +91,4 @@ int char_cmp(char *str, char *reject)
 		i++;
 	}
 	return (0);
-}
-
-// copy temporaire
-
-void	*ft_memmove(void *dst, const void *src, size_t len)
-{
-	char	*s;
-	char	*d;
-	size_t	i;
-
-	s = (char *)src;
-	d = (char *)dst;
-	i = 0;
-	if (d > s)
-		while (len-- > 0)
-			d[len] = s[len];
-	else
-		while (i < len)
-		{
-			d[i] = s[i];
-			i++;
-		}
-	return (dst);
 }

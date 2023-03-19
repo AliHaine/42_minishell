@@ -37,6 +37,8 @@ typedef struct s_three_int
 	int c;
 }	t_t_i;
 
+t_minishell ms;
+
 void	ctrl_c();
 void	go_to_end_of_file(int fd);
 bool	write_to_histo(char *str, int fd);
@@ -92,7 +94,6 @@ int		ft_strcmp(char *a, char *b);
 int check_path(char *argv, char **env, int n);
 int ft_tablen(char **tab);
 int char_cmp(char *str, char *reject);
-void	*ft_memmove(void *dst, const void *src, size_t len);
 
 // utils3 //
 
@@ -100,11 +101,16 @@ int	str_copy(char *dst, char *src, int size);
 char **copy_env(char **env, int size);
 char **print_sorted_strings(char **env, int size);
 char	*ft_join(char *s1, char *s2);
+char	*ft_sjoin(char *s1, char *s2)
 
 // ft_split //
 
 char	*ft_strdup(const char *s1);
 char	**ft_split(char *s, char c);
+
+// ft_itoa //
+
+char	*ft_itoa(int nbr);
 
 // check_all_cmd //
 
@@ -114,7 +120,7 @@ void check_all_cmd(char *line, struct s_minishell *ms);
 // trime_quotation //
 
 int update(char c, int *in_q);
-int check_cmd_is_right(int fd);
+int var_c(char *s, int i);
 
 // Env_conv //
 
@@ -130,11 +136,16 @@ int	ft_execve(char *const *args, char **env);
 // exit //
 
 void exit_shell(void);
+int check_cmd_is_right(int fd);
+char *histo_pars(char *histo);
+
 
 // pwd //
 
 void pwd(void);
 char *g_d_e(void);
+char *gde(void);
+char *g_pwd(void);
 
 // echo //
 
@@ -152,6 +163,7 @@ int unset(char **path, char **env, int i, int x);
 // export //
 
 void export(char **argv, char **env, int i);
+char	*remplace_env(char **env, char *path);
 
 // cd //
 

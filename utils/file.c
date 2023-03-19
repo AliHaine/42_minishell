@@ -9,7 +9,7 @@ void	go_to_end_of_file(int fd)
 		return ;
 	while (str)
 	{
-		add_history(str);
+		add_history(histo_pars(str));
 		free(str);
 		str = get_next_line(fd);
 	}

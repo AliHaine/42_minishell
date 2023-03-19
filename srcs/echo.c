@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 12:18:28 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/12 14:22:56 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/19 12:20:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,13 +134,10 @@ void	echo(char **tab, char **env, int i, int j)
 			i += bulltin;
 		while (tab[i])
 		{
-			j = 0;
-			while (tab[i][j])
-			{
+			j = -1;
+			while (tab[i][++j])
 				if (!update(tab[i][j], &in_q))
 					printf("%c", tab[i][j]);
-				j++;
-			}
 			if (tab[i])
 				printf(" ");
 			i++;
@@ -148,5 +145,5 @@ void	echo(char **tab, char **env, int i, int j)
 	}
 	if (bulltin == 0)
 		printf("\n");
-	check_cmd_is_right(0);
+	check_cmd_is_rightell(0);
 }

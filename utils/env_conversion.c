@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_conversion.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:01:26 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/10 16:53:28 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/19 12:33:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,25 +76,34 @@ char *remplace_part(char *s, char *remplace, int start, int end)
 
 char *env_conversion(char *s, char **env)
 {
+	/* compter le nbr de quote avant et voir si il differe pour le 2eme nbr */
+
 	int i;
 	int j;
+	int q;
 	char *var;
+
 
 	i = -1;
 	j = 0;
 	var = NULL;
 	while (s[++i])
 	{
-		if (s[i] == '$' && check_env(s, env, i) == 0)
-			while (s[i + 1] &&  (s[i + 1] >= 'a' && s[i + 1] <= 'z') || (s[i + 1] >= 'A' && s[i + 1] <= 'Z') || (s[i + 1] >= '0' && s[i + 1] <= '9'))
+		if (s[i] == '$' && check_env(s, env, i) == 0 && s[i + 1] != '?')
+			while (s[i + 1] &&  (s[i + 1] >= 'a' && s[i + 1] <= 'z') 
+				|| (s[i + 1] >= 'A' && s[i + 1] <= 'Z') 
+					|| (s[i + 1] >= '0' && s[i + 1] <= '9'))
 				i++;
-		else if (s[i] == '$' && check_env(s, env, i) == 1)
-		{ 
+		else if (s[i] == '$' && (check_env(s, env, i) == 1 || s[i + 1] == '?')  && var_c(s, i) == 0)
+		{
 			j = 0;
 			while (s[j + i + 1] && simp_char(s[j + i + 1], " $\'=\"") == 0)
 				j++;
 			var = ft_substr(s, i + 1, j);
-			s = remplace_part(s, ft_getenv(env, var), i, j);
+			if (s[i + 1] == '?')
+				s = remplace_part(s, ft_itoa(ms.stat), i, j);
+			else
+				s = remplace_part(s, ft_getenv(env, var), i, j);
 			i = -1;
 		}
 	}

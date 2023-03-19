@@ -94,15 +94,27 @@ char	*ft_join(char *s1, char *s2)
 	return (newstr);
 }
 
-void	free_tt(char **str)
-{
-	int	a;
+// ft_sjoin //
 
-	a = 0;
-	while (str[a])
-	{
-		free(str[a]);
-		a++;
-	}
-	free(str);
+char	*ft_sjoin(char *s1, char *s2)
+{
+	int		len;
+	int		len2;
+	char	*newstr;
+
+	if (!s1 || !s2)
+		return (0);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	len2 = 0;
+	newstr = (char *)malloc(sizeof(char) * (len + 2));
+	if (!newstr)
+		return (0);
+	len = 0;
+	while (s1[len2])
+		newstr[len++] = s1[len2++];
+	len2 = 0;
+	while (s2[len2])
+		newstr[len++] = s2[len2++];
+	newstr[len] = '\0';
+	return (newstr);
 }

@@ -30,8 +30,8 @@ static int	main_process(struct s_minishell *ms, char **env)
 			break;
 		if (check_validity(histo))
 		{
-			add_history(histo);
-			write_to_histo((char *) histo, ms->histo_fd);
+			add_history(histo_pars(histo));
+			write_to_histo(histo_pars(histo), ms->histo_fd);
 		}
 		if (is_contain_pipe(histo))
 			pipe_main(ms, histo);

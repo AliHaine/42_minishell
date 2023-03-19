@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 14:23:35 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/13 17:09:06 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/19 12:21:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	print_env(char **env)
 	if (!env[0])
 	{
 		printf("%s: env: is empty", g_d_e());
-		check_cmd_is_right(1);
+		check_cmd_is_rightell(1);
 	}
 	else
-		check_cmd_is_right(0);
+		check_cmd_is_rightell(0);
 
 }
 

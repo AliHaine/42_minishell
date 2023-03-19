@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:37:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/13 17:00:18 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/19 12:25:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	export_and_nothing(char **env, int i, int j, int check)
 		i++;
 	}
 	free(sort_env);
+	check_cmd_is_rightell(0);
 }
 
 static int	check_valid(char *path)
@@ -59,13 +60,13 @@ static int	check_valid(char *path)
 	}
 	if (check == 0)
 	{
-		check_cmd_is_right(0);
+		check_cmd_is_rightell(0);
 		return (0);
 	}
 	else if (check == 2)
 	{
+		check_cmd_is_rightell(1);
 		printf("%s: export: '%s': not a valid identifier\n", g_d_e(), path);
-		check_cmd_is_right(1);
 	}
 	return (1);
 }
@@ -94,7 +95,7 @@ static char	**add_env_var(char **env, char *path)
 
 /* pret mais il me faut une fonction de verif */
 
-static char	*remplace_env(char **env, char *path)
+char	*remplace_env(char **env, char *path)
 {
 	int	len;
 	int	i;
@@ -146,4 +147,5 @@ void	export(char **argv, char **env, int i)
 	}
 	if (argv[i + 1])
 		export(argv, env, i + 1);
+	check_cmd_is_rightell(0);
 }
