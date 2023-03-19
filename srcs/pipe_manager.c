@@ -63,18 +63,28 @@ static void	p_exec(int pipes[][2], char *cmds, t_t_i ti)
 	}
 }
 
-static void	pipe_brain2(t_t_i ti, int *pid, char *cmd, int pipes[][2])
+static void	pipe_brain2(t_t_i ti, int *pid, t_cmds *cmds, int pipes[][2])
 {
 	if (ti.a == (ti.c - 1))
 	{
 		if (pid[ti.a] == 0)
-			p_exec(pipes, cmd, ti);
+		{
+			if (cmds->w == 0)
+				p_exec(pipes, cmds->cmd, ti);
+			else
+				redirection_main(pipes, cmds, ti);
+		}
 		close(pipes[ti.a - 1][0]);
 	}
 	else
 	{
 		if (pid[ti.a] == 0)
-			p_exec(pipes, cmd, ti);
+		{
+			if (cmds->w == 0)
+				p_exec(pipes, cmds->cmd, ti);
+			else
+				redirection_main(pipes, cmds, ti);
+		}
 		close(pipes[ti.a - 1][0]);
 		close(pipes[ti.a][1]);
 	}
@@ -95,11 +105,16 @@ static bool	pipe_brain(t_t_i ti, pid_t *pid)
 		if (ti.a == 0)
 		{
 			if (pid[ti.a] == 0)
-				p_exec(pipes, cmds->cmd, ti);
+			{
+				if (cmds->w == 0)
+					p_exec(pipes, cmds->cmd, ti);
+				else
+					redirection_main(pipes, cmds, ti);
+			}
 			close(pipes[0][1]);
 		}
 		else
-			pipe_brain2(ti, pid, cmds->cmd, pipes);
+			pipe_brain2(ti, pid, cmds, pipes);
 		cmds = cmds->next;
 		ti.a++;
 	}

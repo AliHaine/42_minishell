@@ -69,7 +69,6 @@ void check_all_cmd(char *line)
 	char **args;
 	char *str;
 
-
 	str = env_conversion(line, g_ms.env);\
 	if (!str)
 		return ;
@@ -82,5 +81,4 @@ void check_all_cmd(char *line)
 	check_bulltin(args, g_ms.env);
 	free_tt(args);
 	free(line);
-	return ;
 }

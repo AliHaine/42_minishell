@@ -35,7 +35,7 @@ bool	first_words_node(struct s_cmds *cmds, char *str, int size)
 	if (!cmds->cmd)
 		return (false);
 	i = str_copy(cmds->cmd, str, size);
-	cmds->w = get_origine(str + i);
+	cmds->w = get_origine(cmds->cmd);
 	cmds->next = 0;
 	cmds->prev = 0;
 	return (true);
@@ -60,7 +60,7 @@ bool	new_words_node(struct s_cmds *cmds, char *str, int size)
 	if (!new->cmd)
 		return (false);
 	i = str_copy(new->cmd, str, size);
-	new->w = get_origine(str + i);
+	new->w = get_origine(new->cmd);
 	return (1);
 }
 

@@ -57,6 +57,7 @@ bool		write_to_histo(char *str, int fd);
 bool		is_blank(char *str);
 int			get_allstr_word_size(char *str);
 int			get_origine(char *cmds);
+bool		is_redir_char(char c);
 
 // very_little_func //
 
@@ -73,14 +74,19 @@ int			check_all(char *cmds, struct s_three_int ti);
 int			check_all_pipe_cmds(char *cmds, struct s_three_int ti);
 bool		check_all_quote(struct s_cmds *ti);
 
-// pipe_manager //
+// manager //
 
 bool		pipe_main(char *cmds);
+bool		redirection_main(int pipes[][2], t_cmds *cmds, t_t_i ti);
 
 // pipe_utils //
 
 bool		pipe_init(int pipes[][2], int size);
 void		close_all_pipes(int pipes[][2], int size);
+
+// redir utile //
+
+char	**ft_split_redir(char *cmds, int w);
 
 // cmds_struct //
 
