@@ -19,7 +19,7 @@ static void	set_cmds_to_struct(char *a_c, t_t_i ti, int h)
 	cmds = malloc(sizeof(struct s_cmds));
 	if (!cmds)
 		exit(1);
-	ms.cmds_f = cmds;
+	g_ms.cmds_f = cmds;
 	while (a_c[ti.a])
 	{
 		ti.c = get_allstr_word_size(a_c + ti.a);
@@ -48,7 +48,7 @@ static void	p_exec(int pipes[][2], char *cmds, t_t_i ti)
 		close_all_pipes(pipes, (ti.c - 1));
 		check_all_cmd(cmds);
 	}
-	else if (ti.a == get_nbr_of_cmds(ms.cmds_f) - 1)
+	else if (ti.a == get_nbr_of_cmds(g_ms.cmds_f) - 1)
 	{
 		dup2(pipes[ti.a - 1][0], STDIN_FILENO);
 		close_all_pipes(pipes, (ti.c - 1));
@@ -63,12 +63,29 @@ static void	p_exec(int pipes[][2], char *cmds, t_t_i ti)
 	}
 }
 
+static void	pipe_brain2(t_t_i ti, int *pid, char *cmd, int pipes[][2])
+{
+	if (ti.a == (ti.c - 1))
+	{
+		if (pid[ti.a] == 0)
+			p_exec(pipes, cmd, ti);
+		close(pipes[ti.a - 1][0]);
+	}
+	else
+	{
+		if (pid[ti.a] == 0)
+			p_exec(pipes, cmd, ti);
+		close(pipes[ti.a - 1][0]);
+		close(pipes[ti.a][1]);
+	}
+}
+
 static bool	pipe_brain(t_t_i ti, pid_t *pid)
 {
 	int				pipes[19][2];
 	struct s_cmds	*cmds;
 
-	cmds = ms.cmds_f;
+	cmds = g_ms.cmds_f;
 	pipe_init(pipes, ti.c - 1);
 	while (cmds)
 	{
@@ -81,19 +98,8 @@ static bool	pipe_brain(t_t_i ti, pid_t *pid)
 				p_exec(pipes, cmds->cmd, ti);
 			close(pipes[0][1]);
 		}
-		else if (ti.a == (ti.c - 1))
-		{
-			if (pid[ti.a] == 0)
-				p_exec(pipes, cmds->cmd, ti);
-			close(pipes[ti.a - 1][0]);
-		}
 		else
-		{
-			if (pid[ti.a] == 0)
-				p_exec(pipes, cmds->cmd, ti);
-			close(pipes[ti.a - 1][0]);
-			close(pipes[ti.a][1]);
-		}
+			pipe_brain2(ti, pid, cmds->cmd, pipes);
 		cmds = cmds->next;
 		ti.a++;
 	}
@@ -107,19 +113,19 @@ bool	pipe_main(char *cmds)
 
 	init_three_int(&ti);
 	set_cmds_to_struct(cmds, ti, 0);
-	if (check_all_quote(ms.cmds_f) == false)
+	if (check_all_quote(g_ms.cmds_f) == false)
 	{
 		printf("minishell: erreur de quote\n");
 		return (false);
 	}
 	init_three_int(&ti);
-	ti.c = get_nbr_of_cmds(ms.cmds_f);
+	ti.c = get_nbr_of_cmds(g_ms.cmds_f);
 	pipe_brain(ti, pid);
 	while (ti.a < ti.c)
 	{
 		waitpid(pid[ti.a], &ti.b, 0);
 		ti.a++;
 	}
-	free_words_struct(ms.cmds_f);
+	free_words_struct(g_ms.cmds_f);
 	return (true);
 }

@@ -42,7 +42,7 @@ static void check_bulltin(char **cmd, char **env)
 	else if (get_cmd(cmd[0]) == 2)
 		pwd();
 	else if (get_cmd(cmd[0]) == 3)
-		ms.exit = 0;
+		g_ms.exit = 0;
 	else if (get_cmd(cmd[0]) == 4)
 		print_env(env);
 	else if (get_cmd(cmd[0]) == 5)
@@ -68,10 +68,9 @@ void check_all_cmd(char *line)
 {
 	char **args;
 	char *str;
-	int i;
 
-	i = 0;
-	str = env_conversion(line, ms.env);\
+
+	str = env_conversion(line, g_ms.env);\
 	if (!str)
 		return ;
 	args = ft_split(str, ' ');
@@ -80,7 +79,7 @@ void check_all_cmd(char *line)
 		free(line);
 		return ;
 	}
-	check_bulltin(args, ms.env);
+	check_bulltin(args, g_ms.env);
 	free_tt(args);
 	free(line);
 	return ;

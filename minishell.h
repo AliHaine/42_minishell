@@ -1,9 +1,17 @@
-//
-// Created by Ali Yagmur on 2/20/23.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/19 16:55:32 by ayagmur           #+#    #+#             */
+/*   Updated: 2023/03/19 16:55:37 by ayagmur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
 # include "utils/get_next_line/get_next_line.h"
 # include <stdbool.h>
@@ -11,163 +19,162 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <dirent.h>
-#include <string.h>
-#include <errno.h>
+# include <string.h>
+# include <errno.h>
 
 typedef struct s_minishell
 {
-	int 				histo_fd;
+	int					histo_fd;
 	char				**env;
-	int 				exit;
+	int					exit;
 	int					stat;
-	struct s_cmds	*cmds_f;
+	struct s_cmds		*cmds_f;
 }	t_minishell;
 
 typedef struct s_cmds
 {
-	char *cmd;
-	int w;
-	struct s_cmds *next;
-	struct s_cmds *prev;
+	char			*cmd;
+	int				w;
+	struct s_cmds	*next;
+	struct s_cmds	*prev;
 }	t_cmds;
 
 typedef struct s_three_int
 {
 	int	a;
-	int b;
-	int c;
+	int	b;
+	int	c;
 }	t_t_i;
 
-t_minishell ms;
+t_minishell	g_ms;
 
-void	ctrl_c();
-void	go_to_end_of_file(int fd);
-bool	write_to_histo(char *str, int fd);
+void		ctrl_c(void);
+void		go_to_end_of_file(int fd);
+bool		write_to_histo(char *str, int fd);
 
 // little_func //
 
-bool	is_blank(char *str);
-int get_allstr_word_size(char *str);
-int get_origine(char *cmds);
+bool		is_blank(char *str);
+int			get_allstr_word_size(char *str);
+int			get_origine(char *cmds);
 
 // very_little_func //
 
-void	init_three_int(struct s_three_int *ti);
-int	free_str_rzero(char *str);
-bool	is_space(char c);
-void	free_tt(char **str);
-bool	is_contain_pipe(char *str);
-bool is_pipe_or_et(char c);
+void		init_three_int(struct s_three_int *ti);
+int			free_str_rzero(char *str);
+bool		is_space(char c);
+void		free_tt(char **str);
+bool		is_contain_pipe(char *str);
+bool		is_pipe_or_et(char c);
 
 // error_manager //
 
-int check_all(char *cmds, struct s_three_int ti);
-int	check_all_pipe_cmds(char *cmds, struct s_three_int ti);
-bool	check_all_quote(struct s_cmds *ti);
+int			check_all(char *cmds, struct s_three_int ti);
+int			check_all_pipe_cmds(char *cmds, struct s_three_int ti);
+bool		check_all_quote(struct s_cmds *ti);
 
 // pipe_manager //
 
-bool	pipe_main(char *cmds);
+bool		pipe_main(char *cmds);
 
 // pipe_utils //
 
-bool	pipe_init(int pipes[][2], int size);
-void	close_all_pipes(int pipes[][2], int size);
+bool		pipe_init(int pipes[][2], int size);
+void		close_all_pipes(int pipes[][2], int size);
 
 // cmds_struct //
 
-void	free_words_struct(struct s_cmds *cmds);
-bool	new_words_node(struct s_cmds *cmds, char *str, int size);
-int 	get_nbr_of_cmds(struct s_cmds *cmds);
-bool	first_words_node(struct s_cmds *cmds, char *str, int size);
-void	parc_struct_tester(struct s_cmds *cmds);
+void		free_words_struct(struct s_cmds *cmds);
+bool		new_words_node(struct s_cmds *cmds, char *str, int size);
+int			get_nbr_of_cmds(struct s_cmds *cmds);
+bool		first_words_node(struct s_cmds *cmds, char *str, int size);
+void		parc_struct_tester(struct s_cmds *cmds);
 
 // utils //
 
-char	*ft_strchr(const char *s, int c);
-char	*ft_strrchr(const char *s, int c);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strtrim(char const *s1, char const *set);
-int		ft_strcmp(char *a, char *b);
+char		*ft_strchr(const char *s, int c);
+char		*ft_strrchr(const char *s, int c);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
+char		*ft_strtrim(char const *s1, char const *set);
+int			ft_strcmp(char *a, char *b);
 
 // utils2 //
 
-int check_path(char *argv, char **env, int n);
-int ft_tablen(char **tab);
-int char_cmp(char *str, char *reject);
+int			check_path(char *argv, char **env, int n);
+int			ft_tablen(char **tab);
+int			char_cmp(char *str, char *reject);
 
 // utils3 //
 
-int	str_copy(char *dst, char *src, int size);
-char **copy_env(char **env, int size);
-char **print_sorted_strings(char **env, int size);
-char	*ft_join(char *s1, char *s2);
-char	*ft_sjoin(char *s1, char *s2);
+int			str_copy(char *dst, char *src, int size);
+char		**copy_env(char **env, int size);
+char		**print_sorted_strings(char **env, int size);
+char		*ft_join(char *s1, char *s2);
+char		*ft_sjoin(char *s1, char *s2);
 
 // ft_split //
 
-char	*ft_strdup(const char *s1);
-char	**ft_split(char *s, char c);
+char		*ft_strdup(const char *s1);
+char		**ft_split(char *s, char c);
 
 // ft_itoa //
 
-char	*ft_itoa(int nbr);
+char		*ft_itoa(int nbr);
 
 // check_all_cmd //
 
-int get_cmd(char *cmd);
-void check_all_cmd(char *line);
+int			get_cmd(char *cmd);
+void		check_all_cmd(char *line);
 
 // trime_quotation //
 
-int update(char c, int *in_q);
-int var_c(char *s, int i);
+int			update(char c, int *in_q);
+int			var_c(char *s, int i);
 
 // Env_conv //
 
-char *env_conversion(char *str, char **env);
-int simp_char(char c, char *reject);
+char		*env_conversion(char *str, char **env);
+int			simp_char(char c, char *reject);
 
 /* bulltin */
 
 // execve //
 
-int	ft_execve(char *const *args, char **env);
+int			ft_execve(char *const *args, char **env);
 
 // exit //
 
-void exit_shell(void);
-int check_cmd_is_right(int fd);
-char *histo_pars(char *histo);
-
+void		exit_shell(void);
+int			check_cmd_is_right(int fd);
+char		*histo_pars(char *histo);
 
 // pwd //
 
-void pwd(void);
-char *g_d_e(void);
-char *gde(void);
-char *g_pwd(void);
+void		pwd(void);
+char		*g_d_e(void);
+char		*gde(void);
+char		*g_pwd(void);
 
 // echo //
 
-void	echo(char **tab, char **env, int i, int j);
+void		echo(char **tab, char **env, int i, int j);
 
 // env //
 
-void print_env(char **env);
-char *ft_getenv(char **env, char *path);
+void		print_env(char **env);
+char		*ft_getenv(char **env, char *path);
 
 // unset //
 
-int unset(char **path, char **env, int i, int x);
+int			unset(char **path, char **env, int i, int x);
 
 // export //
 
-void export(char **argv, char **env, int i);
-char	*remplace_env(char **env, char *path);
+void		export(char **argv, char **env, int i);
+char		*remplace_env(char **env, char *path);
 
 // cd //
 
-int cd(char **cmd, char **env);
+int			cd(char **cmd, char **env);
 
 #endif

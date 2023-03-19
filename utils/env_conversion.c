@@ -101,7 +101,7 @@ char *env_conversion(char *s, char **env)
 				j++;
 			var = ft_substr(s, i + 1, j);
 			if (s[i + 1] == '?')
-				s = remplace_part(s, ft_itoa(ms.stat), i, j);
+				s = remplace_part(s, ft_itoa(g_ms.stat), i, j);
 			else
 				s = remplace_part(s, ft_getenv(env, var), i, j);
 			i = -1;

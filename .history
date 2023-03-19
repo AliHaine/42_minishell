@@ -1074,3 +1074,15 @@ ls
 ls | ls -l
 ls | ls -l |  ls -l
 ls | ls -l | cat -e
+ls | ls -l | cat -e
+ls | ls -l | cat -e
+ls | ls -l | cat -e
+echo salut | echo salutt | echo dernier | tr '[:lower:]' '[:upper:]' | cat -e | cat -e | cat -e
+dslanflkdasnflkdasflnkads
+d;slknfalksfnkads
+lkcnaldasncads
+echo salut
+pwd
+cd .. | cd .. | pwd
+cd ..
+pwd

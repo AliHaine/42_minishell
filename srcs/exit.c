@@ -18,7 +18,7 @@ void	exit_shell(void)
 {
 	struct s_minishell	*ms;
 
-	//ms->exit = 0;
+	//g_ms->exit = 0;
 }
 
 // For $? //
@@ -27,10 +27,10 @@ int check_cmd_is_right(int fd)
 {
     if (fd > 0) 
     {
-		ms.stat = fd;
+		g_ms.stat = fd;
         return (-1);
     }
-    ms.stat = 0;
+	g_ms.stat = 0;
     return (0);
 }
 

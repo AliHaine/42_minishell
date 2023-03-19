@@ -23,7 +23,7 @@ static int	main_process(void)
 	char *histo;
 	int pid;
 
-	while (ms.exit > 0)
+	while (g_ms.exit > 0)
 	{
 		histo = readline(g_d_e());
 		if (!histo)
@@ -31,7 +31,7 @@ static int	main_process(void)
 		if (check_validity(histo))
 		{
 			add_history(histo_pars(histo));
-			write_to_histo(histo_pars(histo), ms.histo_fd);
+			write_to_histo(histo_pars(histo), g_ms.histo_fd);
 		}
 		if (is_contain_pipe(histo))
 			pipe_main(histo);
@@ -50,18 +50,18 @@ int main (int argc, char **argv, char **env)
 {
 	signal(2, ctrl_c);
 	rl_catch_signals = 0;
-	ms.histo_fd =  open(".history", O_RDWR);
-	ms.stat = 0;
-	if (ms.histo_fd == -1)
+	g_ms.histo_fd =  open(".history", O_RDWR);
+	g_ms.stat = 0;
+	if (g_ms.histo_fd == -1)
 	{
 		printf("Error file history\n");
 		return (1);
 	}
-	ms.env = env;
-	ms.exit = 1;
-	go_to_end_of_file(ms.histo_fd);
+	g_ms.env = env;
+	g_ms.exit = 1;
+	go_to_end_of_file(g_ms.histo_fd);
 	main_process();
-	free_tt(ms.env);
-	close(ms.histo_fd);
+	free_tt(g_ms.env);
+	close(g_ms.histo_fd);
 	return (0);
 }
