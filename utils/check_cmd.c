@@ -31,7 +31,7 @@ int get_cmd(char *cmd)
 	return (0);
 }
 
-static void check_bulltin(char **cmd, char **env, t_minishell *ms)
+static void check_bulltin(char **cmd, char **env)
 {
 	char **str;
 
@@ -42,7 +42,7 @@ static void check_bulltin(char **cmd, char **env, t_minishell *ms)
 	else if (get_cmd(cmd[0]) == 2)
 		pwd();
 	else if (get_cmd(cmd[0]) == 3)
-		ms->exit = 0;
+		ms.exit = 0;
 	else if (get_cmd(cmd[0]) == 4)
 		print_env(env);
 	else if (get_cmd(cmd[0]) == 5)
@@ -64,14 +64,14 @@ static void check_bulltin(char **cmd, char **env, t_minishell *ms)
 
 // check_all_cmd //
 
-void check_all_cmd(char *line, t_minishell *ms)
+void check_all_cmd(char *line)
 {
 	char **args;
 	char *str;
 	int i;
 
 	i = 0;
-	str = env_conversion(line, ms->env);\
+	str = env_conversion(line, ms.env);\
 	if (!str)
 		return ;
 	args = ft_split(str, ' ');
@@ -80,7 +80,7 @@ void check_all_cmd(char *line, t_minishell *ms)
 		free(line);
 		return ;
 	}
-	check_bulltin(args, ms->env, ms);
+	check_bulltin(args, ms.env);
 	free_tt(args);
 	free(line);
 	return ;

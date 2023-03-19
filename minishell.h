@@ -19,6 +19,7 @@ typedef struct s_minishell
 	int 				histo_fd;
 	char				**env;
 	int 				exit;
+	int					stat;
 	struct s_cmds	*cmds_f;
 }	t_minishell;
 
@@ -66,7 +67,7 @@ bool	check_all_quote(struct s_cmds *ti);
 
 // pipe_manager //
 
-bool	pipe_main(struct s_minishell *ms, char *cmds);
+bool	pipe_main(char *cmds);
 
 // pipe_utils //
 
@@ -101,7 +102,7 @@ int	str_copy(char *dst, char *src, int size);
 char **copy_env(char **env, int size);
 char **print_sorted_strings(char **env, int size);
 char	*ft_join(char *s1, char *s2);
-char	*ft_sjoin(char *s1, char *s2)
+char	*ft_sjoin(char *s1, char *s2);
 
 // ft_split //
 
@@ -115,7 +116,7 @@ char	*ft_itoa(int nbr);
 // check_all_cmd //
 
 int get_cmd(char *cmd);
-void check_all_cmd(char *line, struct s_minishell *ms);
+void check_all_cmd(char *line);
 
 // trime_quotation //
 

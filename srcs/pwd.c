@@ -25,7 +25,7 @@ void	pwd(void)
 	path = getcwd(NULL, 0);
 	printf("%s\n", path);
 	free(path);
-	check_cmd_is_rightell(0);
+	check_cmd_is_right(0);
 }
 
 /* get the end of the path */

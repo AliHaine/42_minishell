@@ -15,15 +15,15 @@
 static int	cd_extend(char **cmd)
 {
 	if (chdir(cmd[1] + 2) != 0)
-		return (check_cmd_is_rightell(0));
+		return (check_cmd_is_right(0));
 	printf("cd: %s: No such file or directory: ", cmd[1]);
-	return (check_cmd_is_rightell(1));
+	return (check_cmd_is_right(1));
 }
 
 static int	cd_extend2(char **cmd)
 {
 	 printf("%s: cd: %s: No such file or directory\n", g_d_e(), cmd[1]);
-	return (check_cmd_is_rightell(1));
+	return (check_cmd_is_right(1));
 }	
 
 // 25 line //
@@ -36,7 +36,7 @@ int	cd(char **cmd, char **env)
 			return (cd_extend2(cmd));
 		printf("%s\n", ft_getenv(env, "OLDPWD"));
 		remplace_env(env, ft_sjoin("PWD=", g_pwd()));
-		return (check_cmd_is_rightell(0));
+		return (check_cmd_is_right(0));
 	}
 	remplace_env(env, ft_sjoin("OLDPWD=", g_pwd()));
 	if (cmd[0] && !cmd[1])
@@ -44,7 +44,7 @@ int	cd(char **cmd, char **env)
 		if (chdir(ft_getenv(env, "HOME")) != 0)
 		{
 			printf("cd: %s: No such file or directory:\n", g_d_e());
-			return (check_cmd_is_rightell(1));
+			return (check_cmd_is_right(1));
 		}
 	}
 	else if (cmd[0] && cmd[1][0] == '~' && !cmd[1][1])
@@ -63,5 +63,5 @@ int	cd(char **cmd, char **env)
 			cd_extend2(cmd);
 	}
 	remplace_env(env, ft_sjoin("PWD=", g_pwd()));
-	return (check_cmd_is_rightell(0));
+	return (check_cmd_is_right(0));
 }

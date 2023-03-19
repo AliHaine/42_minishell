@@ -1060,3 +1060,17 @@ echo salut | echo salutt | echo dernier | tr '[:lower:]' '[:upper:]' | cat -e | 
 echo salut | echo salutt | echo dernier | tr '[:lower:]' '[:upper:]' | cat -e | cat -e | cat -e
 echo salut | echo salutt | echo dernier | tr '[:lower:]' '[:upper:]' | cat -e | cat -e | cat -e
 echo salut | echo salutt | echo dernier | tr '[:lower:]' '[:upper:]' | cat -e | cat -e | cat -e
+echo salut | echo salutt | echo dernier | tr '[:lower:]' '[:upper:]' | cat -e | cat -e | cat -e
+echo salut | echo salutt | echo dernier | tr '[:lower:]' '[:upper:]' | cat -e | cat -e | cat -e
+echo salut
+export salut=5
+env
+export
+export salut=bonjour
+env
+export
+env
+ls
+ls | ls -l
+ls | ls -l |  ls -l
+ls | ls -l | cat -e

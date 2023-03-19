@@ -18,12 +18,12 @@ static bool	check_validity(char *str)
 	return (true);
 }
 
-static int	main_process(struct s_minishell *ms, char **env)
+static int	main_process(void)
 {
 	char *histo;
 	int pid;
 
-	while (ms->exit > 0)
+	while (ms.exit > 0)
 	{
 		histo = readline(g_d_e());
 		if (!histo)
@@ -31,15 +31,15 @@ static int	main_process(struct s_minishell *ms, char **env)
 		if (check_validity(histo))
 		{
 			add_history(histo_pars(histo));
-			write_to_histo(histo_pars(histo), ms->histo_fd);
+			write_to_histo(histo_pars(histo), ms.histo_fd);
 		}
 		if (is_contain_pipe(histo))
-			pipe_main(ms, histo);
+			pipe_main(histo);
 		else
 		{
 			pid = fork();
 			if (pid == 0)
-				check_all_cmd(histo, ms);
+				check_all_cmd(histo);
 			wait(0);
 		}
 	}
@@ -48,11 +48,10 @@ static int	main_process(struct s_minishell *ms, char **env)
 
 int main (int argc, char **argv, char **env)
 {
-	struct s_minishell ms;
-
 	signal(2, ctrl_c);
 	rl_catch_signals = 0;
 	ms.histo_fd =  open(".history", O_RDWR);
+	ms.stat = 0;
 	if (ms.histo_fd == -1)
 	{
 		printf("Error file history\n");
@@ -61,7 +60,7 @@ int main (int argc, char **argv, char **env)
 	ms.env = env;
 	ms.exit = 1;
 	go_to_end_of_file(ms.histo_fd);
-	main_process(&ms, env);
+	main_process();
 	free_tt(ms.env);
 	close(ms.histo_fd);
 	return (0);

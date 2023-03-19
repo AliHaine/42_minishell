@@ -23,7 +23,7 @@ void	exit_shell(void)
 
 // For $? //
 
-int check_cmd_is_rightell(int fd)
+int check_cmd_is_right(int fd)
 {
     if (fd > 0) 
     {

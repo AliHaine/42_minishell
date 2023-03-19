@@ -26,10 +26,10 @@ void	print_env(char **env)
 	if (!env[0])
 	{
 		printf("%s: env: is empty", g_d_e());
-		check_cmd_is_rightell(1);
+		check_cmd_is_right(1);
 	}
 	else
-		check_cmd_is_rightell(0);
+		check_cmd_is_right(0);
 
 }
 

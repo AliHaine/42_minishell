@@ -30,7 +30,7 @@ static int	charcmp(char c, char *reject)
 static int	unset_extend(char **p, int x)
 {
 	printf("%s: unset: %s: not a valid identifier\n", g_d_e(), p[x]);
-	return (check_cmd_is_rightell(1));
+	return (check_cmd_is_right(1));
 }
 
 static int	check_char(char *s, char *reject)
@@ -100,5 +100,5 @@ int	unset(char **path, char **env, int i, int x)
 	}
 	if (path[x + 1])
 		unset(path, env, 0, x + 1);
-	return (check_cmd_is_rightell(0));
+	return (check_cmd_is_right(0));
 }
