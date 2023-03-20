@@ -1125,3 +1125,49 @@ echo sa | echo > sa
 echo sa | echo > sa
 echo sa | echo > sa
 echo sa | echo > sa
+'
+"
+echo emma > test2.txt
+ls
+cat text.txt 
+cat text.txt 
+ls
+cat text.txt 
+cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+make
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+echo emma > text.txt | cat text.txt 
+make
+echo emma > text.txt | cat text.txt 
+echo emmalarageuse > text.txt | cat text.txt 

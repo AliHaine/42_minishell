@@ -4,48 +4,61 @@ static bool	second_word(char *cmds, char **cmd_arg, int size)
 {
 	int	i;
 	int	save;
+	int a;
 
 	i = 0;
-	save = size;
+	save = 0;
+	a = size;
 	while (cmds[size + i] && (is_redir_char(cmds[size + i])
 		|| cmds[size + i] == ' '))
 		i++;
 	while(cmds[size + i])
+	{
 		size++;
-	cmd_arg[1] = malloc(sizeof(char) * size + 1);
+		save++;
+	}
+	cmd_arg[1] = malloc(sizeof(char) * save + 1);
 	if (!cmd_arg[1])
 		return (0);
-	size = 0;
-	while(cmds[save + i])
+	save = 0;
+	while(cmds[a + i])
 	{
-		cmd_arg[1][size] = cmds[save + i];
+		cmd_arg[1][save] = cmds[a + i];
 		save++;
-		size++;
+		a++;
 	}
-	cmd_arg[1][size] = '\0';
+	cmd_arg[1][save] = '\0';
 	return (true);
 }
 
 static int	first_word(char *cmds, char **cmd_arg)
 {
 	int	i;
+	int a;
 
 	i = 0;
-	while(cmds[i] && !is_redir_char(cmds[i])
-		&& cmds[i] != ' ')
+	a = 0;
+	while(cmds[a] && cmds[a] != ' ')
+		a++;
+	if (cmds[a] == ' ')
+		a++;
+	if (!cmds[a])
+		return (0);
+	while(cmds[i + a] && !is_redir_char(cmds[i + a])
+		&& cmds[i + a] != ' ')
 		i++;
 	cmd_arg[0] = malloc(sizeof(char) * i + 1);
 	if(!cmd_arg[0])
 		return (0);
 	i = 0;
-	while(cmds[i] && !is_redir_char(cmds[i])
-		&& cmds[i] != ' ')
+	while(cmds[i + a] && !is_redir_char(cmds[i + a])
+		&& cmds[i + a] != ' ')
 	{
-		cmd_arg[0][i] = cmds[i];
+		cmd_arg[0][i] = cmds[i + a];
 		i++;
 	}
-	cmd_arg[0][i] = '\0';
-	return (i);
+	cmd_arg[0][i++] = '\0';
+	return (i + a);
 }
 
 char	**ft_split_redir(char *cmds, int w)

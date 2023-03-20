@@ -60,3 +60,8 @@ bool	check_all_quote(struct s_cmds *cmds)
 	}
 	return (true);
 }
+
+void	file_error()
+{
+
+}
