@@ -1215,3 +1215,54 @@ echo salutslut < text.txt | cat text.txt
 echo salutslut < text.txt | cat -e
 echo salutslut < text.txt | cat -e
 echo salutslut < text.txt | cat -e
+echo salutslut < text.txt | cat -e
+echo salutslut < text.txt | cat -e
+echo salutslut < text.txt | cat -e
+echo salutslut < text.txt | cat -e
+echo salutslut < text.txt | cat -e
+echo salutslut < text.txt | cat -e
+cat < text.txt 
+cat d < text.txt 
+cat < text.txt 
+cat < text.txt | cat -e
+cat < text.txt | cat -e
+cat < text.txt
+sort < text.txt 
+sort < text.txt 
+sort < text.txt 
+sort < text.txt 
+sort < text.txt | cat -e
+sort < text.txt | cat -e
+salut <<
+salut << salut
+echo << ttp
+echo << ttp
+echo << ttp || echo sa
+echo << ttp || echo sa
+echo << ttp || echo sa
+echo << ttp || echo sa
+echo << ttp || echo sa
+echo << ttp || echo sa
+echo << ttp || echo sa
+sall
+echo << ttp || echo sa
+echo << ttp | echo sa
+cat << sal || cat -e
+cat << sal || cat -e
+cat << sal || cat -e
+cat << sal || cat -e
+cat << sal || cat -e
+cat << sal || cat -e
+cat << sal || cat -e
+cat << sal || cat -e
+cat << sal || cat -e
+echo salut | cat -e
+echo salut | cat -e | cat -e
+echo salut | cat -e | cat -e
+echo salut | cat -e | cat -e
+cat << sal || cat -e
+cat << sal | cat -e
+cat << sal | cat -e
+cat << sal | cat -e
+cat < text.txt 
+cat << sal | cat -e

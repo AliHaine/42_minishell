@@ -70,7 +70,7 @@ static void	pipe_brain2(t_t_i ti, int *pid, t_cmds *cmds, int pipes[][2])
 		if (pid[ti.a] == 0)
 		{
 			if (cmds->w == 0)
-				p_exec(pipes, cmds->cmd, ti);
+				p_exec(pipes, cmds->line, ti);
 			else
 				redirection_main(pipes, cmds, ti);
 		}
@@ -81,7 +81,7 @@ static void	pipe_brain2(t_t_i ti, int *pid, t_cmds *cmds, int pipes[][2])
 		if (pid[ti.a] == 0)
 		{
 			if (cmds->w == 0)
-				p_exec(pipes, cmds->cmd, ti);
+				p_exec(pipes, cmds->line, ti);
 			else
 				redirection_main(pipes, cmds, ti);
 		}
@@ -107,7 +107,7 @@ static bool	pipe_brain(t_t_i ti, pid_t *pid)
 			if (pid[ti.a] == 0)
 			{
 				if (cmds->w == 0)
-					p_exec(pipes, cmds->cmd, ti);
+					p_exec(pipes, cmds->line, ti);
 				else
 					redirection_main(pipes, cmds, ti);
 			}
@@ -117,6 +117,7 @@ static bool	pipe_brain(t_t_i ti, pid_t *pid)
 			pipe_brain2(ti, pid, cmds, pipes);
 		cmds = cmds->next;
 		ti.a++;
+		wait(NULL);
 	}
 	return (true);
 }
@@ -136,11 +137,11 @@ bool	pipe_main(char *cmds)
 	init_three_int(&ti);
 	ti.c = get_nbr_of_cmds(g_ms.cmds_f);
 	pipe_brain(ti, pid);
-	while (ti.a < ti.c)
+	/*while (ti.a < ti.c)
 	{
 		waitpid(pid[ti.a], &ti.b, 0);
 		ti.a++;
-	}
+	}*/
 	free_words_struct(g_ms.cmds_f);
 	return (true);
 }

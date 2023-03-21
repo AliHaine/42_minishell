@@ -29,13 +29,11 @@ int	get_nbr_of_cmds(struct s_cmds *cmds)
 
 bool	first_words_node(struct s_cmds *cmds, char *str, int size)
 {
-	int	i;
-
-	cmds->cmd = malloc(sizeof(char) * size + 1);
-	if (!cmds->cmd)
+	cmds->line = malloc(sizeof(char) * size + 1);
+	if (!cmds->line)
 		return (false);
-	i = str_copy(cmds->cmd, str, size);
-	cmds->w = get_origine(cmds->cmd);
+	str_copy(cmds->line, str, size);
+	cmds->w = get_origine(cmds->line);
 	cmds->next = 0;
 	cmds->prev = 0;
 	return (true);
@@ -43,7 +41,6 @@ bool	first_words_node(struct s_cmds *cmds, char *str, int size)
 
 bool	new_words_node(struct s_cmds *cmds, char *str, int size)
 {
-	int				i;
 	struct s_cmds	*new;
 
 	while (cmds->next)
@@ -56,11 +53,11 @@ bool	new_words_node(struct s_cmds *cmds, char *str, int size)
 	cmds->next = new;
 	new->next = 0;
 	new->prev = cmds;
-	new->cmd = malloc(sizeof(char) * size + 1);
-	if (!new->cmd)
+	new->line = malloc(sizeof(char) * size + 1);
+	if (!new->line)
 		return (false);
-	i = str_copy(new->cmd, str, size);
-	new->w = get_origine(new->cmd);
+	str_copy(new->line, str, size);
+	new->w = get_origine(new->line);
 	return (1);
 }
 
@@ -74,7 +71,7 @@ void	free_words_struct(struct s_cmds *cmds)
 	while (to_free)
 	{
 		cmds = to_free->next;
-		free(to_free->cmd);
+		free(to_free->line);
 		free(to_free);
 		to_free = cmds;
 	}
@@ -87,7 +84,7 @@ void	parc_struct_tester(struct s_cmds *cmds)
 	ite = cmds;
 	while (ite)
 	{
-		printf("Cmd = %s W = %d\n", ite->cmd, ite->w);
+		printf("Cmd = %s W = %d\n", ite->line, ite->w);
 		ite = ite->next;
 	}
 }

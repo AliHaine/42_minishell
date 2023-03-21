@@ -37,7 +37,6 @@ char	*g_d_e(void)
 	int		i;
 	int		x;
 
-	i = 0;
 	x = 0;
 	path = getcwd(NULL, 0);
 	i = ft_strlen(path);
@@ -60,7 +59,6 @@ char	*gde(void)
 	int		i;
 	int		x;
 
-	i = 0;
 	x = 0;
 	path = getcwd(NULL, 0);
 	i = ft_strlen(path);

@@ -28,12 +28,16 @@ typedef struct s_minishell
 	char				**env;
 	int					exit;
 	int					stat;
+	int 				cmd_nbr;
 	struct s_cmds		*cmds_f;
 }	t_minishell;
 
 typedef struct s_cmds
 {
+	char			*line;
 	char			*cmd;
+	char 			**args;
+	int				*sb;
 	int				w;
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
@@ -103,6 +107,7 @@ void		parc_struct_tester(struct s_cmds *cmds);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 int			ft_strcmp(char *a, char *b);
 int 		check_is_empty(char *str);
+void		ft_putstr(char *s, int fd);
 
 // utils2 //
 

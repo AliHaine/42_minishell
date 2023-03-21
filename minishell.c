@@ -44,6 +44,7 @@ static int	main_process(void)
 				check_all_cmd(histo);
 			wait(0);
 		}
+		free(histo);
 	}
 	return (1);
 }

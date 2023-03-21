@@ -6,40 +6,59 @@
 
 static bool	r_exec(int pipes[][2], t_cmds *cmds, t_t_i ti, char **cmd_arg)
 {
-	int fd;
+	int		fd;
+	char	*b;
 
+	fd = open("text.txt", O_RDWR);
+	if (fd < 0)
+		printf("Error file\n");
 	if (cmds->w == 3)
 	{
-		fd = open("text.txt", O_RDWR);
-		if (fd < 0)
-			printf("Error file\n");
-		printf("ici  = %s // %s\n", cmd_arg[0], cmd_arg[1]);
 		dup2(fd, STDIN_FILENO);
 		write_to_file(fd, cmd_arg[0]);
 		exit(1);
 	}
-	if (ti.a == 0)
+	else if (cmds->w == 4)
 	{
-		if (cmds->w == 0)
-		{
-			dup2(pipes[0][1], STDOUT_FILENO);
-		}
-		dup2(pipes[0][1], STDOUT_FILENO);
+		if (ti.a != get_nbr_of_cmds(g_ms.cmds_f) - 1)
+			dup2(pipes[ti.a][1], STDOUT_FILENO);
 		close_all_pipes(pipes, (ti.c - 1));
-		check_all_cmd(cmds->cmd);
+		check_all_cmd(cmds->line);
 	}
-	else if (ti.a == get_nbr_of_cmds(g_ms.cmds_f) - 1)
-	{
-		dup2(pipes[ti.a - 1][0], STDIN_FILENO);
-		close_all_pipes(pipes, (ti.c - 1));
-		check_all_cmd(cmds->cmd);
-	}
-	else
+	else if (cmds->w == 1)
 	{
 		dup2(pipes[ti.a - 1][0], STDIN_FILENO);
 		dup2(pipes[ti.a][1], STDOUT_FILENO);
 		close_all_pipes(pipes, (ti.c - 1));
-		check_all_cmd(cmds->cmd);
+		check_all_cmd(cmds->line);
+		dup2(fd, STDIN_FILENO);
+		go_to_end_of_file(fd);
+		write_to_file(fd, cmd_arg[0]);
+		exit(1);
+	}
+	else if (cmds->w == 2)
+	{
+		if (ti.a != 0)
+			dup2(pipes[ti.a - 1][0], STDIN_FILENO);
+		while (1)
+		{
+			b = readline("> ");
+			if (ft_strcmp(b, cmd_arg[1]))
+			{
+				close_all_pipes(pipes, (ti.c - 1));
+				exit(0);
+			}
+			if (ti.a != get_nbr_of_cmds(g_ms.cmds_f) - 1)
+			{
+				ft_putstr(b, pipes[ti.a][1]);
+				write(pipes[ti.a][1], "\n", 1);
+			}
+			else
+			{
+				ft_putstr(b, 1);
+				write(1, "\n", 1);
+			}
+		}
 	}
 	return (true);
 }
@@ -48,7 +67,7 @@ bool	redirection_main(int pipes[][2], t_cmds *cmds, t_t_i ti)
 {
 	char **cmd_arg;
 
-	cmd_arg = ft_split_redir(cmds->cmd, cmds->w);
+	cmd_arg = ft_split_redir(cmds->line, cmds->w);
 	if (!cmd_arg)
 		printf("error redir split\n");
 	r_exec(pipes, cmds, ti, cmd_arg);
