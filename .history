@@ -1171,3 +1171,47 @@ echo emma > text.txt | cat text.txt
 make
 echo emma > text.txt | cat text.txt 
 echo emmalarageuse > text.txt | cat text.txt 
+echo emmalarageuse > text.txt | cat text.txt 
+echo emmfdfafa > text.txt | cat text.txt 
+echo emmfdfafa da > text.txt | cat text.txt 
+echo emmfdfafa da > text.txt | cat text.txt 
+echo emmfdfafa da > text.txt | cat text.txt 
+echo emmfdfafa da > text.txt | cat text.txt 
+echo emmfdfafa da > text.txt | cat text.txt 
+echo emmfdfafa da\n > text.txt | cat text.txt 
+make
+echo emmfdfafa da\n > text.txt | cat text.txt 
+echo emmfdfafa da\n > text.txt | cat text.txt 
+cat s
+cat text.txt 
+cat text.txt 
+cat text.txt 
+cat text.txt 
+cat text.txt 
+cat text.txt 
+cat text.txt 
+echo salutslut > text.txt | cat text.txt 
+echo salutslut >> text.txt | cat text.txt 
+echo salutslut >> text.txt | cat text.txt 
+make
+echo salutslut >> text.txt | cat text.txt 
+echo salutslut >> text.txt | cat text.txt 
+sort < text.txt 
+sort < text.txt
+ls
+sort < text.txt
+echo < text.txt 
+echo < text.txt | cat -e
+echo s < text.txt | cat -e
+echo sa < text.txt | cat -e
+echo salutslut >> text.txt | cat text.txt 
+echo salutslut > text.txt | cat text.txt 
+echo salutslut < text.txt | cat text.txt 
+echo salutslut < text.txt | cat text.txt 
+echo salutslut < text.txt | cat text.txt 
+echo salutslut < text.txt | cat -e
+echo salutslut < text.txt | cat -e
+echo salutslut < text.txt | cat text.txt 
+echo salutslut < text.txt | cat -e
+echo salutslut < text.txt | cat -e
+echo salutslut < text.txt | cat -e
