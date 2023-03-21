@@ -12,9 +12,9 @@ int	ft_execve(char *const *args, char **env)
 	if (!bash)
 		return (-1);
 	check_cmd_is_right(0);
-	while (rd == -1)
+	while (bash[i])
 	{
-		rd = execve(ft_join(bash[i++], args[0]), args, NULL);
+		execve(ft_join(bash[i++], args[0]), args, NULL);
 	}
 	printf("%s: %s: command not found\n", gde(), args[0]);
 	check_cmd_is_right(127);
