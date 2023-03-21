@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 14:23:35 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/19 12:21:17 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/21 07:23:22 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	print_env(char **env)
 	}
 	else
 		check_cmd_is_right(0);
-
 }
 
 static char	*print_v_env(char **env, int i)

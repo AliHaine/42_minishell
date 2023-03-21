@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   env_conversion.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:01:26 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/19 12:33:14 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/21 08:05:19 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int simp_char(char c, char *reject)
+int	simp_char(char c, char *reject)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (reject[i])
@@ -26,10 +26,10 @@ int simp_char(char c, char *reject)
 	return (0);
 }
 
-static int check_env(char *s, char **env, int i)
+static int	check_env(char *s, char **env, int i)
 {
-	int j;
-	char *path;
+	int		j;
+	char	*path;
 
 	j = i;
 	path = NULL;
@@ -43,12 +43,12 @@ static int check_env(char *s, char **env, int i)
 	return (0);
 }
 
-char *remplace_part(char *s, char *remplace, int start, int end)
+char	*remplace_part(char *s, char *remplace, int start, int end)
 {
-	int i;
-	int j;
-	int x;
-	char *new_str;
+	int		i;
+	int		j;
+	int		x;
+	char	*new_str;
 
 	i = ft_strlen(remplace);
 	x = 0;
@@ -73,16 +73,14 @@ char *remplace_part(char *s, char *remplace, int start, int end)
 }
 
 // a normer //
+/* compter le nbr de quote avant et voir si il differe pour le 2eme nbr */
 
-char *env_conversion(char *s, char **env)
+char	*env_conversion(char *s, char **env)
 {
-	/* compter le nbr de quote avant et voir si il differe pour le 2eme nbr */
-
-	int i;
-	int j;
-	int q;
-	char *var;
-
+	int		i;
+	int		j;
+	int		q;
+	char	*var;
 
 	i = -1;
 	j = 0;
@@ -90,11 +88,12 @@ char *env_conversion(char *s, char **env)
 	while (s[++i])
 	{
 		if (s[i] == '$' && check_env(s, env, i) == 0 && s[i + 1] != '?')
-			while (s[i + 1] &&  (s[i + 1] >= 'a' && s[i + 1] <= 'z') 
-				|| (s[i + 1] >= 'A' && s[i + 1] <= 'Z') 
-					|| (s[i + 1] >= '0' && s[i + 1] <= '9'))
+			while (s[i + 1] && (s[i + 1] >= 'a' && s[i + 1] <= 'z')
+				|| (s[i + 1] >= 'A' && s[i + 1] <= 'Z')
+				|| (s[i + 1] >= '0' && s[i + 1] <= '9'))
 				i++;
-		else if (s[i] == '$' && (check_env(s, env, i) == 1 || s[i + 1] == '?')  && var_c(s, i) == 0)
+		else if (s[i] == '$' && (check_env(s, env, i) == 1
+				|| s[i + 1] == '?') && var_c(s, i) == 0)
 		{
 			j = 0;
 			while (s[j + i + 1] && simp_char(s[j + i + 1], " $\'=\"") == 0)

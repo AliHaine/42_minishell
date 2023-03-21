@@ -48,7 +48,7 @@ static int	main_process(void)
 
 int main (int argc, char **argv, char **env)
 {
-	signal(2, ctrl_c);
+	signal(2, (void *)ctrl_c);
 	rl_catch_signals = 0;
 	g_ms.histo_fd =  open(".history", O_RDWR);
 	g_ms.stat = 0;

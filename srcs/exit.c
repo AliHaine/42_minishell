@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:35:31 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/19 12:30:28 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/21 07:30:37 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,35 +17,31 @@
 void	exit_shell(void)
 {
 	struct s_minishell	*ms;
-
-	//g_ms->exit = 0;
 }
 
-// For $? //
-
-int check_cmd_is_right(int fd)
+int	check_cmd_is_right(int fd)
 {
-    if (fd > 0) 
-    {
+	if (fd > 0)
+	{
 		g_ms.stat = fd;
-        return (-1);
-    }
+		return (-1);
+	}
 	g_ms.stat = 0;
-    return (0);
+	return (0);
 }
 
-char *histo_pars(char *histo)
+char	*histo_pars(char *histo)
 {
-    int i;
-    char *copy;
+	int		i;
+	char	*copy;
 
-    i = ft_strlen(histo) - 1;
-     copy = ft_strdup(histo);
-    if (!copy)
-        return (NULL);
-    if (copy[i] && copy[i] == '\n')
-        copy[i] = '\0';
-    return (copy);
+	i = ft_strlen(histo) - 1;
+	copy = ft_strdup(histo);
+	if (!copy)
+		return (NULL);
+	if (copy[i] && copy[i] == '\n')
+		copy[i] = '\0';
+	return (copy);
 }
 
 void	free_tt(char **str)

@@ -6,13 +6,13 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:58:09 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/13 16:37:36 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/21 07:39:18 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int get_cmd(char *cmd)
+int	get_cmd(char *cmd)
 {
 	if (ft_strcmp("echo", cmd))
 		return (1);
@@ -31,10 +31,8 @@ int get_cmd(char *cmd)
 	return (0);
 }
 
-static void check_bulltin(char **cmd, char **env)
+static void	check_bulltin(char **cmd, char **env)
 {
-	char **str;
-
 	if (!cmd[0])
 		return ;
 	else if (get_cmd(cmd[0]) == 1)
@@ -48,7 +46,7 @@ static void check_bulltin(char **cmd, char **env)
 	else if (get_cmd(cmd[0]) == 5)
 	{
 		if (cmd[1] && env[0])
-			unset(cmd ,env, 0, 1);
+			unset(cmd, env, 0, 1);
 		else
 			printf("\n");
 	}
@@ -61,15 +59,14 @@ static void check_bulltin(char **cmd, char **env)
 	exit(0);
 }
 
-
 // check_all_cmd //
 
-void check_all_cmd(char *line)
+void	check_all_cmd(char *line)
 {
-	char **args;
-	char *str;
+	char	**args;
+	char	*str;
 
-	str = env_conversion(line, g_ms.env);\
+	str = env_conversion(line, g_ms.env);
 	if (!str)
 		return ;
 	args = ft_split(str, ' ');
