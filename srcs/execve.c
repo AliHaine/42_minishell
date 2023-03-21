@@ -1,13 +1,23 @@
- #include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execve.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/21 06:59:43 by mbouaza           #+#    #+#             */
+/*   Updated: 2023/03/21 07:24:15 by mbouaza          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
 
 int	ft_execve(char *const *args, char **env)
 {
-	char **bash;
-	int i;
-	int rd;
+	char	**bash;
+	int		i;
 
 	i = 0;
-	rd = -1;
 	bash = ft_split(ft_getenv(env, "PATH"), ':');
 	if (!bash)
 		return (-1);

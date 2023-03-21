@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 11:47:31 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/19 12:25:55 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/21 07:26:51 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*gde(void)
 	return (doc);
 }
 
-char *g_pwd(void)
+char	*g_pwd(void)
 {
 	return (getcwd(NULL, 0));
 }

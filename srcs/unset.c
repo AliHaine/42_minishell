@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:40:21 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/19 12:26:54 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/21 07:31:31 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static int	charcmp(char c, char *reject)
 	}
 	return (0);
 }
-	
 
 static int	unset_extend(char **p, int x)
 {
