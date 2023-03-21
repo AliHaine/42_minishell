@@ -6,15 +6,15 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 12:47:01 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/19 12:32:33 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/21 07:44:32 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_tablen(char **tab)
+int	ft_tablen(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])
@@ -24,10 +24,10 @@ int ft_tablen(char **tab)
 
 // change path //
 
-static char *change_path(char *argv)
+static char	*change_path(char *argv)
 {
-	int i;
-	char *new_argv;
+	int		i;
+	char	*new_argv;
 
 	i = ft_strlen(argv);
 	new_argv = malloc(sizeof(char) * i + 2);
@@ -47,10 +47,10 @@ static char *change_path(char *argv)
 
 // check path //
 
-int check_path(char *argv, char **env, int n)
+int	check_path(char *argv, char **env, int n)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = 0;
 	i = 0;
@@ -72,10 +72,10 @@ int check_path(char *argv, char **env, int n)
 	return (0);
 }
 
-int char_cmp(char *str, char *reject)
+int	char_cmp(char *str, char *reject)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils3.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbouaza <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/21 07:46:17 by mbouaza           #+#    #+#             */
+/*   Updated: 2023/03/21 07:49:15 by mbouaza          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 // str_copy //
@@ -19,10 +31,10 @@ int	str_copy(char *dst, char *src, int size)
 
 // copy env //
 
-char **copy_env(char **env, int size)
+char	**copy_env(char **env, int size)
 {
-	char **copy;
-	int i;
+	char	**copy;
+	int		i;
 
 	i = 0;
 	copy = malloc(sizeof(char *) * size + 1);
@@ -39,32 +51,32 @@ char **copy_env(char **env, int size)
 
 // sort env //
 
-char **print_sorted_strings(char **env, int size)
+char	**print_sorted_strings(char **env, int size)
 {
-    int i;
-	int j;
-    char *temp;
-	char **strings;
+	int		i;
+	int		j;
+	char	*temp;
+	char	**strings;
 
 	i = 0;
 	j = 0;
 	temp = NULL;
 	strings = copy_env(env, size);
-    while (i < size - 1)
+	while (i < size - 1)
 	{
 		j = 0;
-        while (j < size- i - 1)
+		while (j < size - i - 1)
 		{
-            if (strcmp(strings[j], strings[j + 1]) > 0)
+			if (strcmp(strings[j], strings[j + 1]) > 0)
 			{
-                temp = ft_strdup(strings[j]);
-                strings[j] = ft_strdup(strings[j+1]);
-                strings[j + 1] = ft_strdup(temp);
-            }
+				temp = ft_strdup(strings[j]);
+				strings[j] = ft_strdup(strings[j + 1]);
+				strings[j + 1] = ft_strdup(temp);
+			}
 			j++;
-        }
+		}
 		i++;
-    }
+	}
 	return (strings);
 }
 
