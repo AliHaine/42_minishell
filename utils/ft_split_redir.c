@@ -44,13 +44,15 @@ static int	first_word(char *cmds, char **cmd_arg)
 		a++;
 	if (!cmds[a])
 		return (0);
-	while(cmds[i + a] && !is_redir_char(cmds[i + a]))
+	while(cmds[i + a] && !is_redir_char(cmds[i + a])
+		&& cmds[i + a] != ' ')
 		i++;
 	cmd_arg[0] = malloc(sizeof(char) * i + 1);
 	if(!cmd_arg[0])
 		return (0);
 	i = 0;
-	while(cmds[i + a] && !is_redir_char(cmds[i + a]))
+	while(cmds[i + a] && !is_redir_char(cmds[i + a])
+		&& cmds[i + a] != ' ')
 	{
 		cmd_arg[0][i] = cmds[i + a];
 		i++;

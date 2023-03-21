@@ -37,6 +37,8 @@ static int	main_process(void)
 			pipe_main(histo);
 		else
 		{
+			if (check_is_empty(histo) == 0 || check_exit(histo) == 0)
+				continue;
 			pid = fork();
 			if (pid == 0)
 				check_all_cmd(histo);
@@ -49,6 +51,7 @@ static int	main_process(void)
 int main (int argc, char **argv, char **env)
 {
 	signal(2, (void *)ctrl_c);
+	signal(SIGQUIT, (void *)ctrl_bs);
 	rl_catch_signals = 0;
 	g_ms.histo_fd =  open(".history", O_RDWR);
 	g_ms.stat = 0;

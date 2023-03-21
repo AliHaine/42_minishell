@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:55:32 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/19 16:55:37 by ayagmur          ###   ########.fr       */
+/*   Updated: 2023/03/21 16:58:44 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_three_int
 t_minishell	g_ms;
 
 void		ctrl_c(void);
+void		ctrl_bs(void);
 void		go_to_end_of_file(int fd);
 bool		write_to_histo(char *str, int fd);
 
@@ -99,11 +100,9 @@ void		parc_struct_tester(struct s_cmds *cmds);
 
 // utils //
 
-char		*ft_strchr(const char *s, int c);
-char		*ft_strrchr(const char *s, int c);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		*ft_strtrim(char const *s1, char const *set);
 int			ft_strcmp(char *a, char *b);
+int 		check_is_empty(char *str);
 
 // utils2 //
 
@@ -151,7 +150,7 @@ int			ft_execve(char *const *args, char **env);
 
 // exit //
 
-void		exit_shell(void);
+int			check_exit(char *h);
 int			check_cmd_is_right(int fd);
 char		*histo_pars(char *histo);
 

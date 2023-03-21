@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:35:31 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/21 07:30:37 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/21 17:05:30 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,25 @@
 
 // exit //
 
-void	exit_shell(void)
+int	check_exit(char *h)
 {
-	struct s_minishell	*ms;
+	int	i;
+
+	i = 0;
+	while (h[i])
+	{
+		while (h[i] && (h[i] == ' ' || h[i] == '\t'))
+			i++;
+		if (h[i + 3] && h[i] == 'e' && h[i + 1] == 'x' && h[i + 2] == 'i'
+			&& h[i + 3] == 't' && (h[i + 4] == '\0'
+				|| h[i + 4] == '\t' || h[i + 5] == ' '))
+		{
+			g_ms.exit = -1;
+			return (0);
+		}
+		break ;
+	}
+	return (1);
 }
 
 int	check_cmd_is_right(int fd)

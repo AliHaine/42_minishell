@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:58:09 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/21 07:39:18 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/21 16:59:22 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	get_cmd(char *cmd)
 		return (1);
 	else if (ft_strcmp("pwd", cmd))
 		return (2);
-	else if (ft_strcmp("exit", cmd))
-		return (3);
 	else if (ft_strcmp("env", cmd))
 		return (4);
 	else if (ft_strcmp("unset", cmd))
@@ -39,8 +37,6 @@ static void	check_bulltin(char **cmd, char **env)
 		echo(cmd, env, 1, 0);
 	else if (get_cmd(cmd[0]) == 2)
 		pwd();
-	else if (get_cmd(cmd[0]) == 3)
-		g_ms.exit = 0;
 	else if (get_cmd(cmd[0]) == 4)
 		print_env(env);
 	else if (get_cmd(cmd[0]) == 5)
