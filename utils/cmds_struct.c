@@ -87,6 +87,7 @@ void	free_words_struct(struct s_cmds *cmds)
 		free(to_free);
 		to_free = cmds;
 	}
+	g_ms.cmd_nbr = 0;
 }
 
 void	parc_struct_tester(struct s_cmds *cmds)

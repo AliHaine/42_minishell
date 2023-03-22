@@ -59,8 +59,9 @@ static int	main_process(void)
 			add_history(histo_pars(histo));
 			write_to_histo(histo_pars(histo), g_ms.histo_fd);
 		}
-		if (check_is_empty(histo) != 0 || check_exit(histo) != 0)
-			run_process(histo);
+		if (check_is_empty(histo) == 0 || check_exit(histo) == 0)
+			continue ;
+		run_process(histo);
 	}
 	return (1);
 }

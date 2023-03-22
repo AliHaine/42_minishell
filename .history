@@ -1349,3 +1349,170 @@ echo salut
 echo salut
 echo salut
 echo salut
+ls
+echo salut > text.txt | cat text.txt 
+cat text.txt 
+echo salut > text.txt | cat text.txt 
+echo salut > text.txt | cat < text.txt 
+echo salut > text.txt | cat text.txt 
+echo salut > text.txt | cat text.txt 
+echo salut > text.txt | cat text.txt 
+echo salut > text.txt | cat < text.txt 
+echo salut > text.txt | cat < text.txt 
+echo salut > text.txt | cat < text.txt 
+ls
+cat text.txt 
+echo salutfdafafa > text.txt | cat < text.txt 
+cat text.txt 
+echo salutfdafafa > text.txt | cat < text.txt 
+echo doummma > text.txt | cat < text.txt 
+cat text.txt 
+ls
+./minishell
+echo salut | cat -e | cat -e
+echo salut | cat -e | cat -e
+echo doummma > text.txt | cat < text.txt 
+ls
+echo doummma > text.txt | cat < text.txt 
+echo abcdarfwefw > text.txt | cat < text.txt 
+echo abcdarfwefw > text.txt | cat < text.txt 
+echo abcdarfwefw > text.txt | cat < text.txt 
+echo abcdarfwefw > text.txt | cat text.txt 
+echo abcdarfwefw > text.txt | cat text.txt 
+echo abcdarfwefwetergerger > text.txt | cat text.txt 
+echo abcdarfwefwetergerger > text.txt | cat text.txt 
+echo abcdarfwefwetergerger > text.txt | cat text.txt 
+echo abcda > text.txt | cat text.txt 
+echo 0000000000000r > text.txt | cat text.txt 
+echo abcda > text.txt | cat text.txt 
+echo 0000000000000r > text.txt | cat text.txt 
+echo 0000000000000r > text.txt | cat text.txt 
+echo 0000000000000r > text.txt | cat text.txt 
+echo bcdefr > text.txt | cat text.txt 
+cat text.txt 
+echo bcdefr > text.txt | cat text.txt 
+cat text.txt 
+cat text.txt cat text.txt 
+ls
+cat text.txt 
+echo bcdefr > text.txt | cat text.txt 
+echo bcdefr > text.txt | cat text.txt 
+echo bcdefr > text.txt | cat text.txt 
+echo bcdefr > text.txt | cat text.txt 
+echo bcdefr > text.txt | cat text.txt 
+echo bcdefr > text.txt | cat text.txt 
+echo bcdefr > text.txt | cat text.txt 
+echo bcdefr > text.txt | cat text.txt 
+echo bcdefr > text.txt | cat text.txt 
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+cat text.txt 
+cat text.txt 
+cat text.txt 
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+ls
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo bcdefr > text.txt | cat text.txt
+echo uwu 
+echo uwu 
+echo uwu 
+echo ">" text.txt | cat text.txt 
+echo ">" | cat text.txt 
+echo bcdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat text.txt
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt | cat 
+echo b18486948cdefr > text.txt < test3 | cat 

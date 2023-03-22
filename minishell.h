@@ -91,7 +91,7 @@ void		close_all_pipes(int pipes[][2], int size);
 
 // redir utile //
 
-char	**ft_split_redir(char *cmds, int w);
+char	**ft_split_redir(t_cmds *cmds, int w);
 void	write_to_file(int fd, char *s);
 
 // cmds_struct //
