@@ -12,19 +12,33 @@
 
 #include "../minishell.h"
 
-int	get_nbr_of_cmds(struct s_cmds *cmds)
+void	set_cmds_to_struct(char *a_c, t_t_i ti, int h)
 {
-	int				size;
-	struct s_cmds	*iterator;
+	struct s_cmds	*cmds;
 
-	size = 0;
-	iterator = cmds;
-	while (iterator)
+	cmds = malloc(sizeof(struct s_cmds));
+	if (!cmds)
+		exit(1);
+	g_ms.cmds_f = cmds;
+	while (a_c[ti.a])
 	{
-		iterator = iterator->next;
-		size++;
+		ti.c = get_allstr_word_size(a_c + ti.a);
+		if (h == 0)
+		{
+			if (!first_words_node(cmds, a_c + ti.a, ti.c))
+				exit(1);
+		}
+		else
+		{
+			if (!new_words_node(cmds, a_c + ti.a, ti.c))
+				exit(1);
+		}
+		ti.a += ti.c;
+		while (a_c[ti.a] && (is_space(a_c[ti.a]) || is_pipe_or_et(a_c[ti.a])))
+			ti.a++;
+		h++;
+		g_ms.cmd_nbr++;
 	}
-	return (size);
 }
 
 bool	first_words_node(struct s_cmds *cmds, char *str, int size)
@@ -66,8 +80,6 @@ void	free_words_struct(struct s_cmds *cmds)
 	struct s_cmds	*to_free;
 
 	to_free = cmds;
-	while (to_free->prev)
-		to_free = to_free->prev;
 	while (to_free)
 	{
 		cmds = to_free->next;

@@ -20,7 +20,7 @@ static bool	r_exec(int pipes[][2], t_cmds *cmds, t_t_i ti, char **cmd_arg)
 	}
 	else if (cmds->w == 4)
 	{
-		if (ti.a != get_nbr_of_cmds(g_ms.cmds_f) - 1)
+		if (ti.a != g_ms.cmd_nbr - 1)
 			dup2(pipes[ti.a][1], STDOUT_FILENO);
 		close_all_pipes(pipes, (ti.c - 1));
 		check_all_cmd(cmds->line);
@@ -48,7 +48,7 @@ static bool	r_exec(int pipes[][2], t_cmds *cmds, t_t_i ti, char **cmd_arg)
 				close_all_pipes(pipes, (ti.c - 1));
 				exit(0);
 			}
-			if (ti.a != get_nbr_of_cmds(g_ms.cmds_f) - 1)
+			if (ti.a != g_ms.cmd_nbr - 1)
 			{
 				ft_putstr(b, pipes[ti.a][1]);
 				write(pipes[ti.a][1], "\n", 1);

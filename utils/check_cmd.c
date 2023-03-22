@@ -12,6 +12,20 @@
 
 #include "../minishell.h"
 
+static int	contain_export(char *ex, char *s)
+{
+	int i;
+
+	i = 0;
+	while (ex[i])
+	{
+		if (s[i] != ex[i])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	get_cmd(char *cmd)
 {
 	if (ft_strcmp("echo", cmd))
@@ -26,6 +40,8 @@ int	get_cmd(char *cmd)
 		return (6);
 	else if (ft_strcmp("cd", cmd))
 		return (7);
+	else if (contain_export("export", cmd))
+		return (6);
 	return (0);
 }
 
@@ -38,16 +54,23 @@ static void	check_bulltin(char **cmd, char **env)
 	else if (get_cmd(cmd[0]) == 2)
 		pwd();
 	else if (get_cmd(cmd[0]) == 4)
+	{
 		print_env(env);
+		return ;
+	}
 	else if (get_cmd(cmd[0]) == 5)
 	{
 		if (cmd[1] && env[0])
 			unset(cmd, env, 0, 1);
 		else
 			printf("\n");
+		return ;
 	}
 	else if (get_cmd(cmd[0]) == 6)
+	{
 		export(cmd, env, 1);
+		return ;
+	}
 	else if (get_cmd(cmd[0]) == 7)
 		cd(cmd, env);
 	else
@@ -68,10 +91,8 @@ void	check_all_cmd(char *line)
 	args = ft_split(str, ' ');
 	if (!args)
 	{
-		free(line);
 		return ;
 	}
 	check_bulltin(args, g_ms.env);
 	free_tt(args);
-	free(line);
 }

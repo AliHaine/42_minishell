@@ -81,7 +81,7 @@ bool		check_all_quote(struct s_cmds *ti);
 
 // manager //
 
-bool		pipe_main(char *cmds);
+bool		pipe_main(void);
 bool		redirection_main(int pipes[][2], t_cmds *cmds, t_t_i ti);
 
 // pipe_utils //
@@ -96,9 +96,9 @@ void	write_to_file(int fd, char *s);
 
 // cmds_struct //
 
+void		set_cmds_to_struct(char *a_c, t_t_i ti, int h);
 void		free_words_struct(struct s_cmds *cmds);
 bool		new_words_node(struct s_cmds *cmds, char *str, int size);
-int			get_nbr_of_cmds(struct s_cmds *cmds);
 bool		first_words_node(struct s_cmds *cmds, char *str, int size);
 void		parc_struct_tester(struct s_cmds *cmds);
 

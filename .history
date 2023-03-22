@@ -1266,3 +1266,86 @@ cat << sal | cat -e
 cat << sal | cat -e
 cat < text.txt 
 cat << sal | cat -e
+echo salut | cat -e
+echo salut | cat -e
+echo salut | cat -e
+echo salut | cat -e
+echo salut | cat -e
+echo salut | cat -e
+echo salut | cat -e
+echo salut | cat -e
+echo salut | cat -e
+echo salut | cat -e | echo bonjour > text.txt | cat < text.txt 
+./minishell
+ls
+bash
+echo "$HOME"
+echo '$HOME'
+echo "'"$HOME"'"
+bash
+export a
+export
+export q he ie ow h uw hdiw
+export
+env
+make
+export a b c d e f
+export a b c d e f 
+export a b c d e f 
+cat | ls
+cat | ls
+bash
+echo "oui" > test
+cat test
+echo "oui" > test | cat test
+echo "oui" > test | cat test
+echo oui > test | cat test
+ls
+ls
+ls
+ls
+ls
+ls
+echo oui > test | cat test
+echo oui > text.txt | cat text.txt 
+la
+ls
+echo salut > text.txt | cat text.txt 
+cat text.txt 
+echo salut2222 > text.txt | cat text.txt 
+cat text.txt 
+echo salut2222 > text.txt | cat > text.txt 
+ls
+pwd
+env
+env
+export a b c d e f 
+env
+env
+env
+export a b c d e f 
+env
+export abc
+env
+export abc
+env
+env
+export abc
+export abc
+export abc
+env
+export abc
+env
+export abc
+export abc
+export abc
+env
+export abc
+export abc
+env
+export abcd
+env
+echo salut
+echo salut
+echo salut
+echo salut
