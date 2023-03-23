@@ -6,13 +6,11 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 07:43:14 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/21 15:30:47 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/22 14:45:51 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// pour les guillemet, oui tous ça //
 
 /* ft_substr */
 
@@ -87,4 +85,17 @@ void	ft_putstr(char *s, int fd)
 		write (fd, &s[i], 1);
 		i++;
 	}
+}
+
+void	free_tt(char **str)
+{
+	int	a;
+
+	a = 0;
+	while (str[a])
+	{
+		free(str[a]);
+		a++;
+	}
+	free(str);
 }

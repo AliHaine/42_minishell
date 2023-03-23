@@ -21,6 +21,7 @@ static bool	check_validity(char *str)
 static int run_process(char *line)
 {
 	int					pid;
+	int					r;
 	struct s_three_int	ti;
 
 	init_three_int(&ti);
@@ -37,7 +38,8 @@ static int run_process(char *line)
 			pid = fork();
 			if (pid == 0)
 				check_all_cmd(line);
-			wait(0);
+			waitpid(pid, &r, WIFEXITED(pid));
+			g_ms.stat = WEXITSTATUS(r);
 		}
 	}
 	free(line);
@@ -60,7 +62,7 @@ static int	main_process(void)
 			write_to_histo(histo_pars(histo), g_ms.histo_fd);
 		}
 		if (check_is_empty(histo) == 0 || check_exit(histo) == 0)
-			continue ;
+			continue;
 		run_process(histo);
 	}
 	return (1);
@@ -83,5 +85,5 @@ int main (int argc, char **argv, char **env)
 	go_to_end_of_file(g_ms.histo_fd);
 	main_process();
 	close(g_ms.histo_fd);
-	return (0);
+	exit(g_ms.stat);
 }

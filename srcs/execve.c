@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 06:59:43 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/21 15:50:22 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/22 17:31:41 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,8 @@ int	ft_execve(char *const *args, char **env)
 	bash = ft_split(ft_getenv(env, "PATH"), ':');
 	if (!bash)
 		return (-1);
-	check_cmd_is_right(0);
 	while (bash[i])
-	{
 		execve(ft_join(bash[i++], args[0]), args, NULL);
-	}
 	i = -1;
 	printf("%s: ", gde());
 	while (args[0][++i])

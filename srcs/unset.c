@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:40:21 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/21 07:31:31 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/23 16:02:18 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static int	charcmp(char c, char *reject)
 static int	unset_extend(char **p, int x)
 {
 	printf("%s: unset: %s: not a valid identifier\n", g_d_e(), p[x]);
-	return (check_cmd_is_right(1));
+	check_cmd_is_right(1);
+	exit(1);
 }
 
 static int	check_char(char *s, char *reject)

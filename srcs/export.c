@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:37:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/21 07:33:40 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/23 15:43:41 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static int	check_valid(char *path)
 		return (check_cmd_is_right(0));
 	else if (check == 2)
 	{
-		check_cmd_is_right(1);
 		printf("%s: export: '%s': not a valid identifier\n", g_d_e(), path);
 	}
 	return (1);
@@ -140,6 +139,8 @@ void	export(char **argv, char **env, int i)
 		{
 			if (check_valid(argv[i]) == 0)
 				env = add_env_var(env, argv[i]);
+			else
+				return ((void)check_cmd_is_right(1));
 		}
 	}
 	if (argv[i + 1])

@@ -72,7 +72,8 @@ static bool	r_exec(int pipes[][2], t_cmds *cmds, t_t_i ti)
 bool	redirection_main(int pipes[][2], t_cmds *cmds, t_t_i ti)
 {
 	ft_split_redir(cmds, cmds->w);
-	if (!cmd_arg)
+	// com car il existe pas //
+	//if (!cmd_arg)
 		printf("error redir split\n");
 	r_exec(pipes, cmds, ti);
 	//printf("//%s// //%s//\n", cmd_arg[0], cmd_arg[1]);

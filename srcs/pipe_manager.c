@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_manager.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:47:26 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/18 14:47:28 by ayagmur          ###   ########.fr       */
+/*   Updated: 2023/03/23 16:15:21 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static bool	pipe_brain(t_t_i ti, pid_t *pid)
 {
 	int				pipes[19][2];
 	struct s_cmds	*cmds;
+	int r;
 
 	cmds = g_ms.cmds_f;
 	pipe_init(pipes, ti.c - 1);
@@ -89,7 +90,8 @@ static bool	pipe_brain(t_t_i ti, pid_t *pid)
 			pipe_brain2(ti, pid, cmds, pipes);
 		cmds = cmds->next;
 		ti.a++;
-		wait(NULL);
+		waitpid(pid[ti.a], &r, WIFEXITED(pid[ti.a]));
+		g_ms.stat = WEXITSTATUS(r);
 	}
 	return (true);
 }

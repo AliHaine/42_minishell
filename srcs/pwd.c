@@ -6,15 +6,11 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 11:47:31 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/21 07:26:51 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/23 16:16:02 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-#include "../minishell.h"
-
-// OLD //
 
 /* pwd */
 

@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:55:32 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/21 16:58:44 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/23 16:23:16 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 int			ft_strcmp(char *a, char *b);
 int 		check_is_empty(char *str);
 void		ft_putstr(char *s, int fd);
+void		free_tt(char **str);
 
 // utils2 //
 
@@ -128,9 +129,10 @@ char		*ft_sjoin(char *s1, char *s2);
 char		*ft_strdup(const char *s1);
 char		**ft_split(char *s, char c);
 
-// ft_itoa //
+// ft_itoa + ft_atoi //
 
 char		*ft_itoa(int nbr);
+int			ft_atoi(const char *str);
 
 // check_all_cmd //
 
