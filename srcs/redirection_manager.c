@@ -6,7 +6,7 @@
 
 static bool	r_exec(int pipes[][2], t_cmds *cmds, t_t_i ti)
 {
-	int		fd;
+	/*int		fd;
 	char	*b;
 
 	//printf("la //%s// //%s//\n", cmd_arg[0], cmd_arg[1]);
@@ -65,16 +65,15 @@ static bool	r_exec(int pipes[][2], t_cmds *cmds, t_t_i ti)
 				write(1, "\n", 1);
 			}
 		}
-	}
+	}*/
 	return (true);
 }
 
 bool	redirection_main(int pipes[][2], t_cmds *cmds, t_t_i ti)
 {
 	ft_split_redir(cmds, cmds->w);
-	// com car il existe pas //
-	//if (!cmd_arg)
-		printf("error redir split\n");
+	/*if (!cmd_arg)
+		printf("error redir split\n");*/
 	r_exec(pipes, cmds, ti);
 	//printf("//%s// //%s//\n", cmd_arg[0], cmd_arg[1]);
 	//check redir type

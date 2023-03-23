@@ -25,6 +25,8 @@ static int run_process(char *line)
 	struct s_three_int	ti;
 
 	init_three_int(&ti);
+	main_parsing(line, ti);
+	exit(1);
 	set_cmds_to_struct(line, ti, 0);
 	if (is_contain_pipe(line))
 		pipe_main();

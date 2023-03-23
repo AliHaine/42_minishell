@@ -66,7 +66,7 @@ static bool	pipe_brain(t_t_i ti, pid_t *pid)
 {
 	int				pipes[19][2];
 	struct s_cmds	*cmds;
-	int r;
+	int				r;
 
 	cmds = g_ms.cmds_f;
 	pipe_init(pipes, ti.c - 1);
@@ -89,9 +89,9 @@ static bool	pipe_brain(t_t_i ti, pid_t *pid)
 		else
 			pipe_brain2(ti, pid, cmds, pipes);
 		cmds = cmds->next;
-		ti.a++;
 		waitpid(pid[ti.a], &r, WIFEXITED(pid[ti.a]));
 		g_ms.stat = WEXITSTATUS(r);
+		ti.a++;
 	}
 	return (true);
 }

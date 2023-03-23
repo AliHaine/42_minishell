@@ -35,8 +35,8 @@ typedef struct s_minishell
 typedef struct s_cmds
 {
 	char			*line;
-	char			*cmd;
-	char 			**args;
+	char			*cmd; //contient la commande (par exemple echo
+	char 			**args; //contient la totalite des args separer par des espaces ou des redirections
 	int				*sb;
 	int				w;
 	struct s_cmds	*next;
@@ -56,6 +56,7 @@ void		ctrl_c(void);
 void		ctrl_bs(void);
 void		go_to_end_of_file(int fd);
 bool		write_to_histo(char *str, int fd);
+bool	main_parsing(char *line, t_t_i ti);
 
 // little_func //
 
@@ -71,7 +72,7 @@ int			free_str_rzero(char *str);
 bool		is_space(char c);
 void		free_tt(char **str);
 bool		is_contain_pipe(char *str);
-bool		is_pipe_or_et(char c);
+bool		is_pipe_or_redir(char c);
 
 // error_manager //
 

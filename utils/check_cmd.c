@@ -12,92 +12,83 @@
 
 #include "../minishell.h"
 
-void	set_cmds_to_struct(char *a_c, t_t_i ti, int h)
+static int	contain_export(char *ex, char *s)
 {
-	struct s_cmds	*cmds;
+	int i;
 
-	cmds = malloc(sizeof(struct s_cmds));
-	if (!cmds)
-		exit(1);
-	g_ms.cmds_f = cmds;
-	while (a_c[ti.a])
+	i = 0;
+	while (ex[i])
 	{
-		ti.c = get_allstr_word_size(a_c + ti.a);
-		if (h == 0)
-		{
-			if (!first_words_node(cmds, a_c + ti.a, ti.c))
-				exit(1);
-		}
-		else
-		{
-			if (!new_words_node(cmds, a_c + ti.a, ti.c))
-				exit(1);
-		}
-		ti.a += ti.c;
-		while (a_c[ti.a] && (is_space(a_c[ti.a]) || is_pipe_or_et(a_c[ti.a])))
-			ti.a++;
-		h++;
-		g_ms.cmd_nbr++;
+		if (s[i] != ex[i])
+			return (0);
+		i++;
 	}
-}
-
-bool	first_words_node(struct s_cmds *cmds, char *str, int size)
-{
-	cmds->line = malloc(sizeof(char) * size + 1);
-	if (!cmds->line)
-		return (false);
-	str_copy(cmds->line, str, size);
-	cmds->w = get_origine(cmds->line);
-	cmds->next = 0;
-	cmds->prev = 0;
-	return (true);
-}
-
-bool	new_words_node(struct s_cmds *cmds, char *str, int size)
-{
-	struct s_cmds	*new;
-
-	while (cmds->next)
-		cmds = cmds->next;
-	new = malloc(sizeof(t_cmds));
-	if (!new)
-	{
-		return (false);
-	}
-	cmds->next = new;
-	new->next = 0;
-	new->prev = cmds;
-	new->line = malloc(sizeof(char) * size + 1);
-	if (!new->line)
-		return (false);
-	str_copy(new->line, str, size);
-	new->w = get_origine(new->line);
 	return (1);
 }
 
-void	free_words_struct(struct s_cmds *cmds)
+int	get_cmd(char *cmd)
 {
-	struct s_cmds	*to_free;
-
-	to_free = cmds;
-	while (to_free)
-	{
-		cmds = to_free->next;
-		free(to_free->line);
-		free(to_free);
-		to_free = cmds;
-	}
-	g_ms.cmd_nbr = 0;
+	if (ft_strcmp("echo", cmd))
+		return (1);
+	else if (ft_strcmp("pwd", cmd))
+		return (2);
+	else if (ft_strcmp("env", cmd))
+		return (4);
+	else if (ft_strcmp("unset", cmd))
+		return (5);
+	else if (ft_strcmp("export", cmd))
+		return (6);
+	else if (ft_strcmp("cd", cmd))
+		return (7);
+	else if (contain_export("export", cmd))
+		return (6);
+	return (0);
 }
 
-void	parc_struct_tester(struct s_cmds *cmds)
+static void	check_bulltin(char **cmd, char **env)
 {
-	struct s_cmds	*ite;
-
-	ite = cmds;
-	while (ite)
+	if (!cmd[0])
+		return ;
+	else if (get_cmd(cmd[0]) == 1)
+		echo(cmd, env, 1, 0);
+	else if (get_cmd(cmd[0]) == 2)
+		pwd();
+	else if (get_cmd(cmd[0]) == 4)
 	{
-		printf("Cmd = %s W = %d\n", ite->line, ite->w);
-		ite = ite->next;
+		print_env(env);
+		return ;
 	}
+	else if (get_cmd(cmd[0]) == 5)
+	{
+		if (cmd[1] && env[0])
+			unset(cmd, env, 0, 1);
+		else
+			printf("\n");
+		return;
+	}
+	else if (get_cmd(cmd[0]) == 6)
+	{
+		export(cmd, env, 1);
+		return;
+	}
+	else if (get_cmd(cmd[0]) == 7)
+		cd(cmd, env);
+	else
+		ft_execve(cmd, env);
+	exit(0);
+}
+
+void	check_all_cmd(char *line)
+{
+	char **args;
+	char *str;
+
+	str = env_conversion(line, g_ms.env);
+	if (!str)
+		return;
+	args = ft_split(str, ' ');
+	if (!args)
+		return;
+	check_bulltin(args, g_ms.env);
+	free_tt(args);
 }

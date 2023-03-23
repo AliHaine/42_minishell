@@ -34,7 +34,7 @@ void	set_cmds_to_struct(char *a_c, t_t_i ti, int h)
 				exit(1);
 		}
 		ti.a += ti.c;
-		while (a_c[ti.a] && (is_space(a_c[ti.a]) || is_pipe_or_et(a_c[ti.a])))
+		while (a_c[ti.a] && (is_space(a_c[ti.a]) || is_pipe_or_redir(a_c[ti.a])))
 			ti.a++;
 		h++;
 		g_ms.cmd_nbr++;
@@ -50,6 +50,7 @@ bool	first_words_node(struct s_cmds *cmds, char *str, int size)
 	cmds->w = get_origine(cmds->line);
 	cmds->next = 0;
 	cmds->prev = 0;
+	g_ms.cmds_f = cmds;
 	return (true);
 }
 
@@ -92,11 +93,15 @@ void	free_words_struct(struct s_cmds *cmds)
 void	parc_struct_tester(struct s_cmds *cmds)
 {
 	struct s_cmds	*ite;
+	int i = 0;
 
 	ite = cmds;
 	while (ite)
 	{
-		printf("Cmd = %s W = %d\n", ite->line, ite->w);
+		printf("Cmd = %s\n", ite->cmd);
+		while (ite->args[i++])
+			printf("args %d = %s\n", i-1, ite->args[i-1]);
 		ite = ite->next;
+		i = 0;
 	}
 }

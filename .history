@@ -1516,3 +1516,48 @@ echo b18486948cdefr > text.txt | cat
 echo b18486948cdefr > text.txt | cat 
 echo b18486948cdefr > text.txt | cat 
 echo b18486948cdefr > text.txt < test3 | cat 
+echo b18486948cdefr > text.txt < test3 | cat 
+touch test.txt
+ls
+echo salut > test.txt | cat test.txt 
+echo salut | cat -e
+echo salut | cat -e
+echo salut | cat -e
+echo salut|cat -e
+oui je1 je2 je3 | test pour voir
+oui je1 je2 je3 | test pour voir
+oui je1 je2 je3 | test pour voir
+oui je1 je2 je3 | test pour voir
+oui je1 je2 je3 | test pour voir
+oui je1 je2 je3 | test pour voir
+oui je1 je2 je3 | test pour voir
+oui je1 je2 je3 | test pour voir
+oui je1 je2 je3 | test pour voir
+oui je1 je2 je3 | test pour voir
+oui je1 je2 je3 | test pour voir
+oui je1 je2 je3 | test pour voir
+oui je1 je2 je3 | test pour voir
+oui je1 je2 je3 | test pour voir
+oui je1 je2 je3 | test pour voir
+oui je1 je2 je3 | test pour voir
+oui je1 je2 je3 | test pour voir
+oui je1      je2    je3 | test pour voir
+oui je1      je2    je3 | test pour voir
+oui je1      je2    je3 | test pour voir
+oui je1      je2    je3 | test pour voir
+oui je1      je2    je3 | test pour voir
+oui je1      je2    je3 | test pour voir
+oui je1      je2    je3 | test pour voir
+oui je1      je2    je3 | test pour voir
+oui je1      je2    je3 | test pour voir
+oui je1      je2    je3 | test pour voir
+oui je1      je2    je3 | test pour voir
+oui je1      je2    je3 | test pour voir
+oui je1      je2    je3 | test pour voir
+oui je1      je2    je3 | test pour voir
+oui je1      je2    je3 | test pour voir
+oui je1      je2    je3 | test pour voir
+oui je1      je2  >  je3 | test pour < voir
+oui je1      je2  >  je3 | test pour<voir
+oui je1      je2  >  je3 | test pour< voir
+oui je1      je2  >  je3 | test pour < voir|cmd3 < oui > non

@@ -47,9 +47,11 @@ bool	is_contain_pipe(char *str)
 	return (false);
 }
 
-bool	is_pipe_or_et(char c)
+bool	is_pipe_or_redir(char c)
 {
-	if (c == '|' || c == '&')
+	if (c == '|')
+		return (true);
+	else if (is_redir_char(c))
 		return (true);
 	return (false);
 }
