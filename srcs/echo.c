@@ -125,7 +125,6 @@ void	echo(char **tab, char **env, int i, int j)
 {
 	int	bulltin;
 	int	in_q;
-	t_cmds *ex;
 
 	bulltin = 0;
 	if (tab[i])

@@ -24,8 +24,8 @@ SRCS =	minishell.c \
 		srcs/export.c \
 		srcs/cd.c \
 		srcs/redirection_manager.c \
-		utils/ft_split_redir.c \
 		utils/redirection_utils.c \
+		utils/parse_utils.c \
 		srcs/pipe_manager.c \
 		utils/pipe_utils.c \
 		utils/utils.c \

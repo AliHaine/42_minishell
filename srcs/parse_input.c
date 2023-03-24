@@ -4,37 +4,14 @@
 
 #include "../minishell.h"
 
-static char	*get_current_word(char *s, int *a)
-{
-	int	i;
-	char *new;
-
-	i = 0;
-	while (s[*a] && s[*a] != ' ' && s[*a] != is_redir_char(s[*a])
-		&& s[*a] != '|')
-	{
-		i++;
-		*a = *a + 1;
-	}
-	new = malloc(sizeof(char) * i + 1);
-	*a = *a - i;
-	i = 0;
-	while (s[*a] && s[*a] != ' ' && s[*a] != is_redir_char(s[*a])
-		&& s[*a] != '|')
-	{
-		new[i++] = s[*a];
-		*a = *a + 1;
-	}
-	new[i] = '\0';
-	return (new);
-}
-
 static bool	set_args(char *line, t_cmds *cmds, int *i)
 {
 	int	a;
 
 	a = 0;
 	cmds->args = malloc(sizeof(char *) * 10);
+	if (!cmds->args)
+		return (false);
 	while (line[*i] && line[*i] != '|')
 	{
 		cmds->args[a] = get_current_word(line, i);
@@ -42,6 +19,7 @@ static bool	set_args(char *line, t_cmds *cmds, int *i)
 		while(line[*i] && line[*i] == ' ')
 			*i = *i + 1;
 	}
+	cmds->args[a] = NULL;
 	return (true);
 }
 
@@ -72,6 +50,39 @@ static bool	set_cmd(char *line, t_cmds *cmds, int *i)
 	return (true);
 }
 
+static bool	set_cmd_args(t_cmds *cmd)
+{
+	int b;
+
+	b = 0;
+	if (cmd->cmd)
+		cmd->cmd_args = ft_strdup(cmd->cmd);
+	else
+	{
+		if (is_redir_char(cmd->args[0][0]))
+		{
+			if (cmd->args[1])
+				cmd->cmd_args = ft_strdup(cmd->args[1]);
+			else
+			{
+				cmd->cmd_args = NULL;
+				return (false);
+			}
+			b++;
+		}
+		else
+			cmd->cmd_args = ft_strdup(cmd->args[0]);
+		b++;
+	}
+	while (cmd->args[b])
+	{
+		if (!is_redir_char(cmd->args[b][0]))
+			cmd->cmd_args = ft_strjoin_parse(cmd->cmd_args, cmd->args[b]);
+		b++;
+	}
+	return (true);
+}
+
 static void connect_struct(t_cmds *new)
 {
 	t_cmds *end;
@@ -91,7 +102,7 @@ static void connect_struct(t_cmds *new)
 	}
 }
 
-bool	main_parsing(char *line, t_t_i ti)
+bool	main_parsing(char *line)
 {
 	struct s_cmds *cmds;
 	int i;
@@ -100,15 +111,17 @@ bool	main_parsing(char *line, t_t_i ti)
 	while(line[i])
 	{
 		cmds = malloc(sizeof(struct s_cmds));
+		if(!cmds)
+			printf("error\n");
 		set_cmd(line, cmds, &i);
-		while(line[i] && line[i] == ' ')
+		while (line[i] && line[i] == ' ')
 			i++;
 		set_args(line, cmds, &i);
-		while(line[i] && (line[i] == ' ' || line[i] == '|'))
+		while (line[i] && (line[i] == ' ' || line[i] == '|'))
 			i++;
+		set_cmd_args(cmds);
 		connect_struct(cmds);
 		g_ms.cmd_nbr++;
 	}
-	parc_struct_tester(g_ms.cmds_f);
 	return (true);
 }

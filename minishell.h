@@ -35,7 +35,6 @@ typedef struct s_minishell
 
 typedef struct s_cmds
 {
-	char			*line;
 	char			*cmd; //contient la commande (par exemple echo
 	char 			**args; //contient la totalite des args separer par des espaces ou des redirections
 	char			*cmd_args;
@@ -58,7 +57,7 @@ void		ctrl_c(void);
 void		ctrl_bs(void);
 void		go_to_end_of_file(int fd);
 bool		write_to_histo(char *str, int fd);
-bool	main_parsing(char *line, t_t_i ti);
+bool		main_parsing(char *line);
 
 // little_func //
 
@@ -72,7 +71,6 @@ bool		is_redir_char(char c);
 void		init_three_int(struct s_three_int *ti);
 int			free_str_rzero(char *str);
 bool		is_space(char c);
-void		free_tt(char **str);
 bool		is_contain_pipe(char *str);
 bool		is_pipe_or_redir(char c);
 
@@ -89,13 +87,17 @@ bool		redirection_main(int pipes[][2], t_cmds *cmds, t_t_i ti);
 
 // pipe_utils //
 
-bool		pipe_init(int pipes[][2], int size);
-void		close_all_pipes(int pipes[][2], int size);
+bool		pipe_init(int pipes[][2]);
+void		close_all_pipes(int pipes[][2]);
 
 // redir utile //
 
-char	**ft_split_redir(t_cmds *cmds, int w);
 void	write_to_file(int fd, char *s);
+
+// parse_utils //
+
+char *ft_strjoin_parse(char *s1, char *s2);
+char	*get_current_word(char *s, int *a);
 
 // cmds_struct //
 
@@ -140,7 +142,7 @@ int			ft_atoi(const char *str);
 // check_all_cmd //
 
 int			get_cmd(char *cmd);
-void		check_all_cmd(char *line);
+void		check_all_cmd(t_cmds *cmd);
 
 // trime_quotation //
 
@@ -156,7 +158,7 @@ int			simp_char(char c, char *reject);
 
 // execve //
 
-int			ft_execve(char *const *args, char **env);
+int			ft_execve(t_cmds *cmd, char **env);
 
 // exit //
 

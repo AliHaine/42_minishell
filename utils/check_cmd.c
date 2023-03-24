@@ -47,40 +47,7 @@ int	get_cmd(char *cmd)
 	return (0);
 }
 
-static void	launch_cmd(t_cmds *cmd, char **env)
-{
-	/*if (!cmd[0])
-		return ;
-	else if (get_cmd(cmd[0]) == 1)
-		echo(cmd, env, 1, 0);
-	else if (get_cmd(cmd[0]) == 2)
-		pwd();
-	else if (get_cmd(cmd[0]) == 4)
-	{
-		print_env(env);
-		return ;
-	}
-	else if (get_cmd(cmd[0]) == 5)
-	{
-		if (cmd[1] && env[0])
-			unset(cmd, env, 0, 1);
-		else
-			printf("\n");
-		return;
-	}
-	else if (get_cmd(cmd[0]) == 6)
-	{
-		export(cmd, env, 1);
-		return;
-	}
-	else if (get_cmd(cmd[0]) == 7)
-		cd(cmd, env);
-	else*/
-	//ft_execve(cmd, env);
-	exit(0);
-}
-
-static void	check_bulltin(char **cmd, char **env)
+/*static void	check_bulltin(char **cmd, char **env)
 {
 	if (!cmd[0])
 		return ;
@@ -111,19 +78,53 @@ static void	check_bulltin(char **cmd, char **env)
 	else
 		ft_execve(cmd, env);
 	exit(0);
+}*/
+
+static void	check_bulltin(t_cmds *cmd, char **env)
+{
+	if (!cmd->cmd)
+		return ;
+	//else if (get_cmd(cmd->cmd) == 1)
+	//	echo(cmd, env, 1, 0);
+	else if (get_cmd(cmd->cmd) == 2)
+		pwd();
+	else if (get_cmd(cmd->cmd) == 4)
+	{
+		print_env(env);
+		return ;
+	}
+	/*else if (get_cmd(cmd->cmd) == 5)
+	{
+		if (cmd->args[1] && env[0])
+			unset(cmd, env, 0, 1);
+		else
+			printf("\n");
+		return;
+	}
+	else if (get_cmd(cmd->cmd) == 6)
+	{
+		export(cmd, env, 1);
+		return;
+	}*/
+	//else if (get_cmd(cmd->cmd) == 7)
+	//	cd(cmd, env);
+	else
+		ft_execve(cmd, env);
+	exit(0);
 }
 
-void	check_all_cmd(char *line)
+void	check_all_cmd(t_cmds *cmd)
 {
 	char **args;
 	char *str;
 
-	str = env_conversion(line, g_ms.env);
+	str = env_conversion(cmd->cmd_args, g_ms.env);
 	if (!str)
 		return;
 	args = ft_split(str, ' ');
 	if (!args)
 		return;
-	check_bulltin(args, g_ms.env);
+	check_bulltin(cmd, g_ms.env);
 	free_tt(args);
+	free(str);
 }

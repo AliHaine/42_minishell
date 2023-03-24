@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void	set_cmds_to_struct(char *a_c, t_t_i ti, int h)
+/*void	set_cmds_to_struct(char *a_c, t_t_i ti, int h)
 {
 	struct s_cmds	*cmds;
 
@@ -74,7 +74,7 @@ bool	new_words_node(struct s_cmds *cmds, char *str, int size)
 	str_copy(new->line, str, size);
 	new->w = get_origine(new->line);
 	return (1);
-}
+}*/
 
 void	free_words_struct(struct s_cmds *cmds)
 {
@@ -84,10 +84,15 @@ void	free_words_struct(struct s_cmds *cmds)
 	while (to_free)
 	{
 		cmds = to_free->next;
-		free(to_free->line);
+		free(to_free->cmd);
+		if (to_free->cmd_args)
+			free(to_free->cmd_args);
+		free_tt(to_free->args);
 		free(to_free);
 		to_free = cmds;
 	}
+	g_ms.cmds_f = 0;
+	g_ms.cmd_nbr = 0;
 }
 
 void	parc_struct_tester(struct s_cmds *cmds)
@@ -96,12 +101,15 @@ void	parc_struct_tester(struct s_cmds *cmds)
 	int i = 0;
 
 	ite = cmds;
+	printf("---------------------\n");
 	while (ite)
 	{
 		printf("Cmd = %s\n", ite->cmd);
+		printf("Cmd args = %s\n", ite->cmd_args);
 		while (ite->args[i++])
 			printf("args %d = %s\n", i-1, ite->args[i-1]);
 		ite = ite->next;
 		i = 0;
 	}
+	printf("---------------------\n");
 }

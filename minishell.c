@@ -25,7 +25,7 @@ static int run_process(char *line)
 	struct s_three_int	ti;
 
 	init_three_int(&ti);
-	main_parsing(line, ti);
+	main_parsing(line);
 	//exit(1);
 	//et_cmds_to_struct(line, ti, 0);
 	if (g_ms.cmd_nbr > 1)
@@ -34,12 +34,12 @@ static int run_process(char *line)
 	{
 		if (get_cmd(g_ms.cmds_f->cmd) == 4 || get_cmd(g_ms.cmds_f->cmd) == 5
 			|| get_cmd(g_ms.cmds_f->cmd) == 6)
-			check_all_cmd(line);
+			check_all_cmd(g_ms.cmds_f);
 		else
 		{
 			pid = fork();
 			if (pid == 0)
-				check_all_cmd(line);
+				check_all_cmd(g_ms.cmds_f);
 			waitpid(pid, &r, WIFEXITED(pid));
 			g_ms.stat = WEXITSTATUS(r);
 		}

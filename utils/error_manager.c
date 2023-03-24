@@ -38,20 +38,20 @@ bool	check_all_quote(struct s_cmds *cmds)
 	size = 0;
 	while (cmds)
 	{
-		while (cmds->line[size])
+		while (cmds->cmd_args[size])
 			size++;
-		while (cmds->line[i] && cmds->line[i] != ' ')
+		while (cmds->cmd_args[i] && cmds->cmd_args[i] != ' ')
 			i++;
 		i++;
-		if (cmds->line[i] == '\'' || cmds->line[i] == '"')
+		if (cmds->cmd_args[i] == '\'' || cmds->cmd_args[i] == '"')
 		{
-			if (cmds->line[i] == '\'')
+			if (cmds->cmd_args[i] == '\'')
 			{
-				if (cmds->line[size - 1] != '\'')
+				if (cmds->cmd_args[size - 1] != '\'')
 					return (false);
 			}
 			else
-				if (cmds->line[size - 1] != '"')
+				if (cmds->cmd_args[size - 1] != '"')
 					return (false);
 		}
 		i = 0;

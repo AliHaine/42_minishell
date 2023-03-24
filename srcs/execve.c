@@ -12,19 +12,21 @@
 
 #include "../minishell.h"
 
-int	ft_execve(char *const *args, char **env)
+int	ft_execve(t_cmds *cmd, char **env)
 {
 	int		in_q;
 	int		i;
+	char 	**args;
 
 	i = 0;
+	args = ft_split(cmd->cmd_args, ' ');
 	while (g_ms.bash[i])
-		execve(ft_join(g_ms.bash[i++], args[0]), args, NULL);
+		execve(ft_join(g_ms.bash[i++], cmd->cmd), args, NULL);
 	i = -1;
 	printf("%s: ", gde());
-	while (args[0][++i])
+	/*while (args[0][++i])
 		if (!update(args[0][i], &in_q))
-			printf("%c", args[0][i]);
+			printf("%c", args[0][i]);*/
 	printf(": command not found\n");
 	check_cmd_is_right(127);
 	return (0);
