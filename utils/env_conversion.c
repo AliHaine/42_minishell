@@ -79,11 +79,9 @@ char	*env_conversion(char *s, char **env)
 {
 	int		i;
 	int		j;
-	int		q;
 	char	*var;
 
 	i = -1;
-	j = 0;
 	var = NULL;
 	while (s[++i])
 	{

@@ -26,14 +26,14 @@ static int run_process(char *line)
 
 	init_three_int(&ti);
 	main_parsing(line, ti);
-	exit(1);
-	set_cmds_to_struct(line, ti, 0);
-	if (is_contain_pipe(line))
+	//exit(1);
+	//et_cmds_to_struct(line, ti, 0);
+	if (g_ms.cmd_nbr > 1)
 		pipe_main();
 	else
 	{
-		if (get_cmd(line) == 4 || get_cmd(line) == 5
-			|| get_cmd(line) == 6)
+		if (get_cmd(g_ms.cmds_f->cmd) == 4 || get_cmd(g_ms.cmds_f->cmd) == 5
+			|| get_cmd(g_ms.cmds_f->cmd) == 6)
 			check_all_cmd(line);
 		else
 		{
@@ -83,9 +83,12 @@ int main (int argc, char **argv, char **env)
 		return (1);
 	}
 	g_ms.env = env;
+	g_ms.bash = ft_split(ft_getenv(env, "PATH"), ':');
+	// verif ?
 	g_ms.exit = 1;
 	go_to_end_of_file(g_ms.histo_fd);
 	main_process();
 	close(g_ms.histo_fd);
+	free_tt(g_ms.bash);
 	exit(g_ms.stat);
 }

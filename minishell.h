@@ -26,6 +26,7 @@ typedef struct s_minishell
 {
 	int					histo_fd;
 	char				**env;
+	char				**bash;
 	int					exit;
 	int					stat;
 	int 				cmd_nbr;
@@ -37,6 +38,7 @@ typedef struct s_cmds
 	char			*line;
 	char			*cmd; //contient la commande (par exemple echo
 	char 			**args; //contient la totalite des args separer par des espaces ou des redirections
+	char			*cmd_args;
 	int				*sb;
 	int				w;
 	struct s_cmds	*next;

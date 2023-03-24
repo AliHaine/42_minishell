@@ -34,7 +34,7 @@ static bool	set_args(char *line, t_cmds *cmds, int *i)
 	int	a;
 
 	a = 0;
-	cmds->args = malloc(sizeof(char *) * 5);
+	cmds->args = malloc(sizeof(char *) * 10);
 	while (line[*i] && line[*i] != '|')
 	{
 		cmds->args[a] = get_current_word(line, i);
@@ -50,13 +50,20 @@ static bool	set_cmd(char *line, t_cmds *cmds, int *i)
 	int size;
 
 	size = 0;
-	while(line[*i + size] && line[*i + size] != ' ')
+	while(line[*i + size] && line[*i + size] != ' '
+		&& !is_redir_char(line[*i + size]))
 		size++;
+	if (size == 0)
+	{
+		cmds->cmd = NULL;
+		return (true);
+	}
 	cmds->cmd = malloc(sizeof(char) * size);
 	if (!cmds->cmd)
 		return (false);
 	size = 0;
-	while(line[*i + size] && line[*i + size] != ' ')
+	while(line[*i + size] && line[*i + size] != ' '
+		&& !is_redir_char(line[*i + size]))
 	{
 		cmds->cmd[size] = line[*i + size];
 		size++;
@@ -100,6 +107,7 @@ bool	main_parsing(char *line, t_t_i ti)
 		while(line[i] && (line[i] == ' ' || line[i] == '|'))
 			i++;
 		connect_struct(cmds);
+		g_ms.cmd_nbr++;
 	}
 	parc_struct_tester(g_ms.cmds_f);
 	return (true);

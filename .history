@@ -1561,3 +1561,15 @@ oui je1      je2  >  je3 | test pour < voir
 oui je1      je2  >  je3 | test pour<voir
 oui je1      je2  >  je3 | test pour< voir
 oui je1      je2  >  je3 | test pour < voir|cmd3 < oui > non
+oui je1      je2  >  je3 | test pour < voir|cmd3 < oui > non
+oui je1      je2  >  je3 | test pour < voir|cmd3 < oui > non |cmd4 salut < cava < tet
+oui je1      je2  >  je3 | test pour < voir|cmd3 < oui > non |cmd4 "salut<" < cava < tet
+oui je1      je2  >  je3 | test pour < voir|cmd3 < oui > non |cmd4 "salut|" < cava < tet
+oui je1      je2  >  je3 | test pour < voir|cmd3 < oui > non |cmd4 "salut|" < cava < tet
+<< salut 
+<< salut 
+<< salut 
+<< salut 
+oui je1      je2  >  je3 | test pour < voir|cmd3 < oui > non |cmd4 "salut|" < cava < tet
+oui je1      je2  >  je3 | test pour < voir|cmd3 < oui > non |cmd4 salut| << cava < tet
+echo salut | << end|echo sasa < dfoiufshd < iaohfoda
