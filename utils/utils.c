@@ -59,9 +59,9 @@ int	ft_strcmp(char *a, char *b)
 	return (1);
 }
 
-int check_is_empty(char *str)
+int	check_is_empty(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str)

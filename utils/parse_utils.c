@@ -1,17 +1,25 @@
-//
-// Created by Ali Yagmur on 3/24/23.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/25 14:08:37 by ayagmur           #+#    #+#             */
+/*   Updated: 2023/03/25 14:08:38 by ayagmur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
 char	*get_current_word(char *s, int *a)
 {
-	int	i;
-	char *new;
+	int		i;
+	char	*new;
 
 	i = 0;
 	while (s[*a] && s[*a] != ' ' && s[*a] != is_redir_char(s[*a])
-		   && s[*a] != '|')
+		&& s[*a] != '|')
 	{
 		i++;
 		*a = *a + 1;
@@ -20,7 +28,7 @@ char	*get_current_word(char *s, int *a)
 	*a = *a - i;
 	i = 0;
 	while (s[*a] && s[*a] != ' ' && s[*a] != is_redir_char(s[*a])
-		   && s[*a] != '|')
+		&& s[*a] != '|')
 	{
 		new[i++] = s[*a];
 		*a = *a + 1;
@@ -29,11 +37,11 @@ char	*get_current_word(char *s, int *a)
 	return (new);
 }
 
-char *ft_strjoin_parse(char *s1, char *s2)
+char	*ft_strjoin_parse(char *s1, char *s2)
 {
-	int	a;
-	int b;
-	char *new;
+	int		a;
+	int		b;
+	char	*new;
 
 	a = 0;
 	b = 0;
@@ -51,6 +59,5 @@ char *ft_strjoin_parse(char *s1, char *s2)
 	while (s2[b])
 		new[a++] = s2[b++];
 	new[a] = '\0';
-	//free(s1);
 	return (new);
 }

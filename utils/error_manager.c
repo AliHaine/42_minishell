@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_manager.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/25 14:18:12 by ayagmur           #+#    #+#             */
+/*   Updated: 2023/03/25 14:18:13 by ayagmur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	check_all_pipe_cmds(char *cmds, struct s_three_int ti)
 {
-	char *str;
+	char	*str;
 
 	while (cmds[ti.a])
 	{
@@ -20,7 +32,7 @@ int	check_all_pipe_cmds(char *cmds, struct s_three_int ti)
 					ti.a++;
 				ti.a += 2;
 				ti.c++;
-				break;
+				break ;
 			}
 			ti.a++;
 		}
@@ -29,13 +41,8 @@ int	check_all_pipe_cmds(char *cmds, struct s_three_int ti)
 	return (ti.c += 1);
 }
 
-bool	check_all_quote(struct s_cmds *cmds)
+bool	check_all_quote(struct s_cmds *cmds, int i, int size)
 {
-	int		i;
-	int 	size;
-
-	i = 0;
-	size = 0;
 	while (cmds)
 	{
 		while (cmds->cmd_args[size])
@@ -59,9 +66,4 @@ bool	check_all_quote(struct s_cmds *cmds)
 		cmds = cmds->next;
 	}
 	return (true);
-}
-
-void	file_error()
-{
-
 }

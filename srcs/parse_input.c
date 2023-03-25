@@ -1,6 +1,14 @@
-//
-// Created by Ali Yagmur on 3/23/23.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_input.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/25 13:56:12 by ayagmur           #+#    #+#             */
+/*   Updated: 2023/03/25 13:56:13 by ayagmur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
@@ -16,7 +24,7 @@ static bool	set_args(char *line, t_cmds *cmds, int *i)
 	{
 		cmds->args[a] = get_current_word(line, i);
 		a++;
-		while(line[*i] && line[*i] == ' ')
+		while (line[*i] && line[*i] == ' ')
 			*i = *i + 1;
 	}
 	cmds->args[a] = NULL;
@@ -25,10 +33,10 @@ static bool	set_args(char *line, t_cmds *cmds, int *i)
 
 static bool	set_cmd(char *line, t_cmds *cmds, int *i)
 {
-	int size;
+	int	size;
 
 	size = 0;
-	while(line[*i + size] && line[*i + size] != ' '
+	while (line[*i + size] && line[*i + size] != ' '
 		&& !is_redir_char(line[*i + size]))
 		size++;
 	if (size == 0)
@@ -40,7 +48,7 @@ static bool	set_cmd(char *line, t_cmds *cmds, int *i)
 	if (!cmds->cmd)
 		return (false);
 	size = 0;
-	while(line[*i + size] && line[*i + size] != ' '
+	while (line[*i + size] && line[*i + size] != ' '
 		&& !is_redir_char(line[*i + size]))
 	{
 		cmds->cmd[size] = line[*i + size];
@@ -50,24 +58,17 @@ static bool	set_cmd(char *line, t_cmds *cmds, int *i)
 	return (true);
 }
 
-static bool	set_cmd_args(t_cmds *cmd)
+static bool	set_cmd_args(t_cmds *cmd, int b)
 {
-	int b;
-
-	b = 0;
-	if (cmd->cmd)
-		cmd->cmd_args = ft_strdup(cmd->cmd);
-	else
+	if (!cmd->cmd)
 	{
 		if (is_redir_char(cmd->args[0][0]))
 		{
 			if (cmd->args[1])
 				cmd->cmd_args = ft_strdup(cmd->args[1]);
 			else
-			{
-				cmd->cmd_args = NULL;
-				return (false);
-			}
+				return (cmd->cmd_args = NULL);
+			cmd->w++;
 			b++;
 		}
 		else
@@ -78,48 +79,34 @@ static bool	set_cmd_args(t_cmds *cmd)
 	{
 		if (!is_redir_char(cmd->args[b][0]))
 			cmd->cmd_args = ft_strjoin_parse(cmd->cmd_args, cmd->args[b]);
+		else
+			cmd->w++;
 		b++;
 	}
 	return (true);
 }
 
-static void connect_struct(t_cmds *new)
-{
-	t_cmds *end;
-
-	if (!g_ms.cmds_f)
-	{
-		g_ms.cmds_f = new;
-		new->next = 0;
-	}
-	else
-	{
-		end = g_ms.cmds_f;
-		while (end->next)
-			end = end->next;
-		end->next = new;
-		new->next = 0;
-	}
-}
-
 bool	main_parsing(char *line)
 {
-	struct s_cmds *cmds;
-	int i;
+	struct s_cmds	*cmds;
+	int				i;
 
 	i = 0;
-	while(line[i])
+	while (line[i])
 	{
 		cmds = malloc(sizeof(struct s_cmds));
-		if(!cmds)
+		if (!cmds)
 			printf("error\n");
+		cmds->w = 0;
 		set_cmd(line, cmds, &i);
 		while (line[i] && line[i] == ' ')
 			i++;
 		set_args(line, cmds, &i);
 		while (line[i] && (line[i] == ' ' || line[i] == '|'))
 			i++;
-		set_cmd_args(cmds);
+		if (cmds->cmd)
+			cmds->cmd_args = ft_strdup(cmds->cmd);
+		set_cmd_args(cmds, 0);
 		connect_struct(cmds);
 		g_ms.cmd_nbr++;
 	}

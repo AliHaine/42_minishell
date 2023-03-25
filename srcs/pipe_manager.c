@@ -70,11 +70,10 @@ static bool	pipe_brain(t_t_i ti, pid_t *pid)
 
 	cmds = g_ms.cmds_f;
 	pipe_init(pipes);
+    parc_struct_tester(cmds);
 	while (cmds)
 	{
-		printf("start %d\n", ti.a);
 		pid[ti.a] = fork();
-		printf("fork %d\n", ti.a);
 		if (pid[ti.a] == -1)
 			return (false);
 		if (ti.a == 0)
@@ -91,9 +90,6 @@ static bool	pipe_brain(t_t_i ti, pid_t *pid)
 		else
 			pipe_brain2(ti, pid, cmds, pipes);
 		cmds = cmds->next;
-		printf("before %d\n", ti.a);
-		//waitpid(pid[ti.a], &r, WIFEXITED(pid[ti.a]));
-		printf("end %d\n", ti.a);
 		g_ms.stat = WEXITSTATUS(r);
 		ti.a++;
 	}
@@ -107,7 +103,7 @@ bool	pipe_main(void)
 	int 				r;
 
 	init_three_int(&ti);
-	if (check_all_quote(g_ms.cmds_f) == false)
+	if (check_all_quote(g_ms.cmds_f, 0, 0) == false)
 	{
 		printf("minishell: erreur de quote\n");
 		return (false);
@@ -116,7 +112,6 @@ bool	pipe_main(void)
 	pipe_brain(ti, pid);
 	while (ti.a < ti.c)
 	{
-		printf("a\n");
 		waitpid(pid[ti.a], &r, WIFEXITED(pid[ti.a]));
 		ti.a++;
 	}

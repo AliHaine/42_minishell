@@ -118,7 +118,7 @@ void	check_all_cmd(t_cmds *cmd)
 	char **args;
 	char *str;
 
-	str = env_conversion(cmd->cmd_args, g_ms.env);
+	str = env_conversion(cmd->cmd_args, g_ms.env, -1, 0);
 	if (!str)
 		return;
 	args = ft_split(str, ' ');

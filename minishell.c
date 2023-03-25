@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/25 14:11:27 by ayagmur           #+#    #+#             */
+/*   Updated: 2023/03/25 14:11:28 by ayagmur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static bool	check_validity(char *str)
 {
-	int i;
-	int size;
+	int	i;
+	int	size;
 
 	i = 0;
 	size = 0;
@@ -18,7 +30,7 @@ static bool	check_validity(char *str)
 	return (true);
 }
 
-static int run_process(char *line)
+static int	run_process(char *line)
 {
 	int					pid;
 	int					r;
@@ -26,8 +38,6 @@ static int run_process(char *line)
 
 	init_three_int(&ti);
 	main_parsing(line);
-	//exit(1);
-	//et_cmds_to_struct(line, ti, 0);
 	if (g_ms.cmd_nbr > 1)
 		pipe_main();
 	else
@@ -57,25 +67,25 @@ static int	main_process(void)
 	{
 		histo = readline(g_d_e());
 		if (!histo)
-			break;
+			break ;
 		if (check_validity(histo))
 		{
 			add_history(histo_pars(histo));
 			write_to_histo(histo_pars(histo), g_ms.histo_fd);
 		}
 		if (check_is_empty(histo) == 0 || check_exit(histo) == 0)
-			continue;
+			continue ;
 		run_process(histo);
 	}
 	return (1);
 }
 
-int main (int argc, char **argv, char **env)
+int	main (int argc, char **argv, char **env)
 {
 	signal(2, (void *)ctrl_c);
 	signal(SIGQUIT, (void *)ctrl_bs);
 	rl_catch_signals = 0;
-	g_ms.histo_fd =  open(".history", O_RDWR);
+	g_ms.histo_fd = open(".history", O_RDWR);
 	g_ms.stat = 0;
 	if (g_ms.histo_fd == -1)
 	{

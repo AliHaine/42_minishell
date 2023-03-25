@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   file.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/25 14:07:46 by ayagmur           #+#    #+#             */
+/*   Updated: 2023/03/25 14:07:48 by ayagmur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	go_to_end_of_file(int fd)
 {
-	char *str;
+	char	*str;
 
 	str = get_next_line(fd);
 	if (!str)
@@ -18,7 +30,7 @@ void	go_to_end_of_file(int fd)
 
 bool	write_to_histo(char *str, int fd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])

@@ -2645,3 +2645,147 @@ echo bonsoir|cat -e | cat -e
 echo bonsoir|cat -e | cat -e
 echo bonsoir|cat -e | cat -e
 echo bonsoir|cat -e | cat -e
+echo bonsoir|cat -e | cat -e
+echo bonsoir|cat -e | cat -e
+echo bonsoir|cat -e | cat -e
+echo bonsoir|cat -e | cat -e
+echo bonsoir|cat -e | cat -e
+echo bonsoir|cat -e | cat -e
+echo bonsoir|cat -e | cat -e
+echo bonsoir|cat -e | cat -e
+echo bonsoir|cat -e | cat -e
+echo bonsoir|cat -e | cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+cat -e | cat -e
+cat -e | cat -e
+cat -e | cat -e
+cat -e | cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e
+echo bonsoir|cat -e|cat -e
+echo bonsoir|cat -e|cat -e
+echo bonsoir|cat -e|cat -e
+echo bonsoir|cat -e|cat -e
+echo bonsoir|cat -e|cat -e
+echo bonsoir|cat -e|cat -e
+echo bonsoir|cat -e|cat -e
+echo bonsoir|cat -e|cat -e
+echo bonsoir|cat -e|cat -e
+echo bonsoir|cat -e|cat -e
+echo bonsoir|cat -e
+echo bonjour |tr '[:lower:]' '[:upper:]'
+echo bonjour |tr '[:lower:]' '[:upper:]'| cat -e 
+echo bonjour |tr '[:lower:]' '[:upper:]'| cat -e|cat -e
+echo bonjour |tr '[:lower:]' '[:upper:]'| cat -e|cat -e
+echo bonjour |tr '[:lower:]' '[:upper:]'| cat -e|cat -e
+echo bonjour |tr '[:lower:]' '[:upper:]'| cat -e|cat -e
+echo bonjour |tr '[:lower:]' '[:upper:]'| cat -e|cat -e
+echo bonjour |tr '[:lower:]' '[:upper:]'| cat -e|cat -e
+echo bonjour |tr '[:lower:]' '[:upper:]'| cat -e|cat -e
+pwd
+pwd
+echo bonjour |tr '[:lower:]' '[:upper:]'| cat -e|cat -e
+echo bonjour |tr '[:lower:]' < '[:upper:]'| cat -e|cat -e
+echo bonjour |tr '[:lower:]' < '[:upper:]'| cat -e|cat -e
+echo bonjour | << tr '[:lower:]' '[:upper:]'| cat -e|cat -e
+echo bonjour | << tr '[:lower:]' '[:upper:]'| cat -e|cat -e
+echo bonjour | tr '[:lower:]' '[:upper:]'| cat -e|cat -e
+echo bonjour | tr '[:lower:]' '[:upper:]'| cat -e|cat -e
+echo bonjour | << tr '[:lower:]' '[:upper:]'| cat -e|cat -e

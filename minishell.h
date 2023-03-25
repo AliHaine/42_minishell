@@ -29,14 +29,14 @@ typedef struct s_minishell
 	char				**bash;
 	int					exit;
 	int					stat;
-	int 				cmd_nbr;
+	int					cmd_nbr;
 	struct s_cmds		*cmds_f;
 }	t_minishell;
 
 typedef struct s_cmds
 {
-	char			*cmd; //contient la commande (par exemple echo
-	char 			**args; //contient la totalite des args separer par des espaces ou des redirections
+	char			*cmd;
+	char			**args;
 	char			*cmd_args;
 	int				*sb;
 	int				w;
@@ -78,7 +78,7 @@ bool		is_pipe_or_redir(char c);
 
 int			check_all(char *cmds, struct s_three_int ti);
 int			check_all_pipe_cmds(char *cmds, struct s_three_int ti);
-bool		check_all_quote(struct s_cmds *ti);
+bool		check_all_quote(struct s_cmds *ti, int i, int size);
 
 // manager //
 
@@ -92,26 +92,24 @@ void		close_all_pipes(int pipes[][2]);
 
 // redir utile //
 
-void	write_to_file(int fd, char *s);
+void		write_to_file(int fd, char *s);
 
 // parse_utils //
 
-char *ft_strjoin_parse(char *s1, char *s2);
-char	*get_current_word(char *s, int *a);
+char		*ft_strjoin_parse(char *s1, char *s2);
+char		*get_current_word(char *s, int *a);
 
 // cmds_struct //
 
-void		set_cmds_to_struct(char *a_c, t_t_i ti, int h);
+void		connect_struct(t_cmds *new);
 void		free_words_struct(struct s_cmds *cmds);
-bool		new_words_node(struct s_cmds *cmds, char *str, int size);
-bool		first_words_node(struct s_cmds *cmds, char *str, int size);
 void		parc_struct_tester(struct s_cmds *cmds);
 
 // utils //
 
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 int			ft_strcmp(char *a, char *b);
-int 		check_is_empty(char *str);
+int			check_is_empty(char *str);
 void		ft_putstr(char *s, int fd);
 void		free_tt(char **str);
 
@@ -151,7 +149,7 @@ int			var_c(char *s, int i);
 
 // Env_conv //
 
-char		*env_conversion(char *str, char **env);
+char		*env_conversion(char *str, char **env, int i, int j);
 int			simp_char(char c, char *reject);
 
 /* bulltin */

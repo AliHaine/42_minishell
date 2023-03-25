@@ -32,7 +32,6 @@ int	update(char c, int *in_q)
 static int	*size_quote(char *s, int i)
 {
 	int	*tab;
-	int	in_q;
 
 	tab = malloc(sizeof(int) * 2);
 	tab[0] = i;
@@ -106,7 +105,7 @@ static int	update_2(char *s, int *in_q)
 	while (s[i + 1])
 	{
 		if (s[i + 1] == '\'' && *in_q != 2)
-			*in_q = 1 - (1 * (*in_q == 1)); 
+			*in_q = 1 - (1 * (*in_q == 1));
 		else if (s[i + 1] == '\"' && *in_q != 1)
 			*in_q = 2 - (2 * (*in_q == 2));
 		i++;
@@ -116,12 +115,12 @@ static int	update_2(char *s, int *in_q)
 	return (0);
 }
 
-int var_c(char *s, int i)
+int	var_c(char *s, int i)
 {
-	int *size;
-	char *str;
-	int in_q;
-	
+	int		*size;
+	char	*str;
+	int		in_q;
+
 	size = size_quote(s, i);
 	str = ft_substr(s, size[0] + 1, size[1]);
 	if (update_2(str, &in_q) == 1 && quote_count(str) % 2 == 0

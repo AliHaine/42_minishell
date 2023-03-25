@@ -75,13 +75,10 @@ char	*remplace_part(char *s, char *remplace, int start, int end)
 // a normer //
 /* compter le nbr de quote avant et voir si il differe pour le 2eme nbr */
 
-char	*env_conversion(char *s, char **env)
+char	*env_conversion(char *s, char **env, int i, int j)
 {
-	int		i;
-	int		j;
 	char	*var;
 
-	i = -1;
 	var = NULL;
 	while (s[++i])
 	{
@@ -93,7 +90,6 @@ char	*env_conversion(char *s, char **env)
 		else if (s[i] == '$' && (check_env(s, env, i) == 1
 				|| s[i + 1] == '?') && var_c(s, i) == 0)
 		{
-			j = 0;
 			while (s[j + i + 1] && simp_char(s[j + i + 1], " $\'=\"") == 0)
 				j++;
 			var = ft_substr(s, i + 1, j);
