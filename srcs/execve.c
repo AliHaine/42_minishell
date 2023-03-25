@@ -16,7 +16,7 @@ int	ft_execve(t_cmds *cmd, char **env)
 {
 	int		in_q;
 	int		i;
-	char 	**args;
+	char	**args;
 
 	i = 0;
 	args = ft_split(cmd->cmd_args, ' ');

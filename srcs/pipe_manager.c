@@ -70,7 +70,6 @@ static bool	pipe_brain(t_t_i ti, pid_t *pid)
 
 	cmds = g_ms.cmds_f;
 	pipe_init(pipes);
-    parc_struct_tester(cmds);
 	while (cmds)
 	{
 		pid[ti.a] = fork();
@@ -100,14 +99,14 @@ bool	pipe_main(void)
 {
 	struct s_three_int	ti;
 	pid_t				pid[20];
-	int 				r;
+	int					r;
 
 	init_three_int(&ti);
-	if (check_all_quote(g_ms.cmds_f, 0, 0) == false)
+	/*if (check_all_quote(g_ms.cmds_f, 0, 0) == false)
 	{
 		printf("minishell: erreur de quote\n");
 		return (false);
-	}
+	}*/
 	ti.c = g_ms.cmd_nbr;
 	pipe_brain(ti, pid);
 	while (ti.a < ti.c)

@@ -14,10 +14,10 @@
 
 // exit //
 
-static char *select_exit_num(char *line, int i)
+static char	*select_exit_num(char *line, int i)
 {
-	int j;
-	char *str;
+	int		j;
+	char	*str;
 
 	j = 0;
 	i += 4;
@@ -32,12 +32,10 @@ static char *select_exit_num(char *line, int i)
 
 int	check_exit(char *h)
 {
-	int	i;
-	int j;
-	char *num;
+	int		i;
+	char	*num;
 
 	i = 0;
-	j = 0;
 	num = NULL;
 	while (h[i])
 	{

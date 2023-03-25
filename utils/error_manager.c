@@ -12,35 +12,6 @@
 
 #include "../minishell.h"
 
-int	check_all_pipe_cmds(char *cmds, struct s_three_int ti)
-{
-	char	*str;
-
-	while (cmds[ti.a])
-	{
-		while (cmds[ti.a + ti.b] && !is_space(cmds[ti.a + ti.b]))
-			ti.b++;
-		str = ft_substr(cmds, ti.a, ti.b);
-		if (get_cmd(str) == 0)
-			return (free_str_rzero(str));
-		free(str);
-		while (cmds[ti.a])
-		{
-			if (cmds[ti.a] == '|')
-			{
-				if (cmds[ti.a + 1] == '|')
-					ti.a++;
-				ti.a += 2;
-				ti.c++;
-				break ;
-			}
-			ti.a++;
-		}
-		ti.b = 0;
-	}
-	return (ti.c += 1);
-}
-
 bool	check_all_quote(struct s_cmds *cmds, int i, int size)
 {
 	while (cmds)
@@ -64,6 +35,33 @@ bool	check_all_quote(struct s_cmds *cmds, int i, int size)
 		i = 0;
 		size = 0;
 		cmds = cmds->next;
+	}
+	return (true);
+}
+
+bool	check_error_redir(t_cmds *cmd)
+{
+	t_t_i	ti;
+	int		ret;
+
+	init_three_int(&ti);
+	while (ti.c != cmd->w && cmd->args[ti.a])
+	{
+		ti.b = is_redir_char(cmd->args[ti.a][0]);
+		if (ti.b > 0)
+		{
+			if (!cmd->args[ti.a + 1])
+				return (false);
+			if (get_origine(cmd->args[ti.a]) == 4)
+			{
+				ret = open(cmd->args[ti.a + 1], O_RDWR);
+				if (ret < 0)
+					return (false);
+				close (ret);
+			}
+			ti.c++;
+		}
+		ti.a++;
 	}
 	return (true);
 }

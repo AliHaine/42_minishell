@@ -38,10 +38,8 @@ typedef struct s_cmds
 	char			*cmd;
 	char			**args;
 	char			*cmd_args;
-	int				*sb;
 	int				w;
 	struct s_cmds	*next;
-	struct s_cmds	*prev;
 }	t_cmds;
 
 typedef struct s_three_int
@@ -61,8 +59,6 @@ bool		main_parsing(char *line);
 
 // little_func //
 
-bool		is_blank(char *str);
-int			get_allstr_word_size(char *str);
 int			get_origine(char *cmds);
 bool		is_redir_char(char c);
 
@@ -77,13 +73,13 @@ bool		is_pipe_or_redir(char c);
 // error_manager //
 
 int			check_all(char *cmds, struct s_three_int ti);
-int			check_all_pipe_cmds(char *cmds, struct s_three_int ti);
 bool		check_all_quote(struct s_cmds *ti, int i, int size);
+bool		check_error_redir(t_cmds *cmd);
 
 // manager //
 
 bool		pipe_main(void);
-bool		redirection_main(int pipes[][2], t_cmds *cmds, t_t_i ti);
+bool		redirection_main(int pipes[][2], t_cmds *cmd, t_t_i ti);
 
 // pipe_utils //
 
@@ -98,6 +94,7 @@ void		write_to_file(int fd, char *s);
 
 char		*ft_strjoin_parse(char *s1, char *s2);
 char		*get_current_word(char *s, int *a);
+int			get_args_size(char **args);
 
 // cmds_struct //
 

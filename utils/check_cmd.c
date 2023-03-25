@@ -47,39 +47,6 @@ int	get_cmd(char *cmd)
 	return (0);
 }
 
-/*static void	check_bulltin(char **cmd, char **env)
-{
-	if (!cmd[0])
-		return ;
-	else if (get_cmd(cmd[0]) == 1)
-		echo(cmd, env, 1, 0);
-	else if (get_cmd(cmd[0]) == 2)
-		pwd();
-	else if (get_cmd(cmd[0]) == 4)
-	{
-		print_env(env);
-		return ;
-	}
-	else if (get_cmd(cmd[0]) == 5)
-	{
-		if (cmd[1] && env[0])
-			unset(cmd, env, 0, 1);
-		else
-			printf("\n");
-		return;
-	}
-	else if (get_cmd(cmd[0]) == 6)
-	{
-		export(cmd, env, 1);
-		return;
-	}
-	else if (get_cmd(cmd[0]) == 7)
-		cd(cmd, env);
-	else
-		ft_execve(cmd, env);
-	exit(0);
-}*/
-
 static void	check_bulltin(t_cmds *cmd, char **env)
 {
 	if (!cmd->cmd)

@@ -12,45 +12,43 @@
 
 #include "../minishell.h"
 
-static bool	r_exec(int pipes[][2], t_cmds *cmds, t_t_i ti)
+static bool	r_exec(int pipes[][2], t_cmds *cmd, t_t_i ti)
 {
 	/*int		fd;
 	char	*b;
 
 	//printf("la //%s// //%s//\n", cmd_arg[0], cmd_arg[1]);
-	if (cmds->w == 3)
+	if (cmd->w == 3)
 	{
-		fd = open(cmd_arg[1], O_RDWR);
-		if (fd < 0)
-			printf("Error file\n");
+		fd = open(cmd_arg[1], O_CREAT, O_RDWR);
 		dup2(fd, STDIN_FILENO);
-		write_to_file(fd, cmd_arg[0]);
+		check_all_cmd(cmd)
+		//write_to_file(fd, cmd_arg[0]);
 		close(fd);
 		exit(1);
 	}
-	else if (cmds->w == 4)
+	else if (cmd->w == 4)
 	{
 		if (ti.a != g_ms.cmd_nbr - 1)
 			dup2(pipes[ti.a][1], STDOUT_FILENO);
 		close_all_pipes(pipes, (ti.c - 1));
-		check_all_cmd(cmds->line);
+		check_all_cmd(cmd->line);
 	}
-	else if (cmds->w == 1)
+	else if (cmd->w == 1)
 	{
-		fd = open(cmd_arg[1], O_RDWR);
-		if (fd < 0)
-			printf("Error file\n");
+		fd = open(cmd_arg[1], O_CREAT, O_RDWR);
 		dup2(pipes[ti.a - 1][0], STDIN_FILENO);
 		dup2(pipes[ti.a][1], STDOUT_FILENO);
 		close_all_pipes(pipes, (ti.c - 1));
-		check_all_cmd(cmds->line);
+		check_all_cmd(cmd->line);
 		dup2(fd, STDIN_FILENO);
 		go_to_end_of_file(fd);
-		write_to_file(fd, cmd_arg[0]);
+		check_all_cmd(cmd);
+		//write_to_file(fd, cmd_arg[0]);
 		close(fd);
 		exit(1);
 	}
-	else if (cmds->w == 2)
+	else if (cmd->w == 2)
 	{
 		if (ti.a != 0)
 			dup2(pipes[ti.a - 1][0], STDIN_FILENO);
@@ -77,14 +75,8 @@ static bool	r_exec(int pipes[][2], t_cmds *cmds, t_t_i ti)
 	return (true);
 }
 
-bool	redirection_main(int pipes[][2], t_cmds *cmds, t_t_i ti)
+bool	redirection_main(int pipes[][2], t_cmds *cmd, t_t_i ti)
 {
-	//ft_split_redir(cmds, cmds->w);
-	/*if (!cmd_arg)
-		printf("error redir split\n");*/
-	r_exec(pipes, cmds, ti);
-	//printf("//%s// //%s//\n", cmd_arg[0], cmd_arg[1]);
-	//check redir type
-
+	r_exec(pipes, cmd, ti);
 	return (true);
 }

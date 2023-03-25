@@ -30,10 +30,29 @@ static bool	check_validity(char *str)
 	return (true);
 }
 
+static bool	single_cmd_exec(t_t_i ti)
+{
+	int		pid;
+	int		r;
+	t_cmds	*cmd;
+
+	cmd = g_ms.cmds_f;
+	if (get_cmd(cmd->cmd) == 4 || get_cmd(cmd->cmd) == 5
+		|| get_cmd(cmd->cmd) == 6)
+		check_all_cmd(cmd);
+	else
+	{
+		pid = fork();
+		if (pid == 0)
+			check_all_cmd(cmd);
+		waitpid(pid, &r, WIFEXITED(pid));
+		g_ms.stat = WEXITSTATUS(r);
+	}
+	return (true);
+}
+
 static int	run_process(char *line)
 {
-	int					pid;
-	int					r;
 	struct s_three_int	ti;
 
 	init_three_int(&ti);
@@ -41,19 +60,7 @@ static int	run_process(char *line)
 	if (g_ms.cmd_nbr > 1)
 		pipe_main();
 	else
-	{
-		if (get_cmd(g_ms.cmds_f->cmd) == 4 || get_cmd(g_ms.cmds_f->cmd) == 5
-			|| get_cmd(g_ms.cmds_f->cmd) == 6)
-			check_all_cmd(g_ms.cmds_f);
-		else
-		{
-			pid = fork();
-			if (pid == 0)
-				check_all_cmd(g_ms.cmds_f);
-			waitpid(pid, &r, WIFEXITED(pid));
-			g_ms.stat = WEXITSTATUS(r);
-		}
-	}
+		single_cmd_exec(ti);
 	free(line);
 	free_words_struct(g_ms.cmds_f);
 	return (1);
@@ -80,7 +87,7 @@ static int	main_process(void)
 	return (1);
 }
 
-int	main (int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	signal(2, (void *)ctrl_c);
 	signal(SIGQUIT, (void *)ctrl_bs);
@@ -94,7 +101,6 @@ int	main (int argc, char **argv, char **env)
 	}
 	g_ms.env = env;
 	g_ms.bash = ft_split(ft_getenv(env, "PATH"), ':');
-	// verif ?
 	g_ms.exit = 1;
 	go_to_end_of_file(g_ms.histo_fd);
 	main_process();

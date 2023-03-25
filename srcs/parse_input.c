@@ -28,6 +28,13 @@ static bool	set_args(char *line, t_cmds *cmds, int *i)
 			*i = *i + 1;
 	}
 	cmds->args[a] = NULL;
+	a = 0;
+	while (cmds->args[a])
+	{
+		if (is_redir_char(cmds->args[a][0]))
+			cmds->w++;
+		a++;
+	}
 	return (true);
 }
 
@@ -58,29 +65,15 @@ static bool	set_cmd(char *line, t_cmds *cmds, int *i)
 	return (true);
 }
 
-static bool	set_cmd_args(t_cmds *cmd, int b)
+static bool	set_cmd_args_pipe(t_cmds *cmd, int b)
 {
-	if (!cmd->cmd)
-	{
-		if (is_redir_char(cmd->args[0][0]))
-		{
-			if (cmd->args[1])
-				cmd->cmd_args = ft_strdup(cmd->args[1]);
-			else
-				return (cmd->cmd_args = NULL);
-			cmd->w++;
-			b++;
-		}
-		else
-			cmd->cmd_args = ft_strdup(cmd->args[0]);
-		b++;
-	}
+	cmd->cmd_args = ft_strdup(cmd->cmd);
 	while (cmd->args[b])
 	{
 		if (!is_redir_char(cmd->args[b][0]))
 			cmd->cmd_args = ft_strjoin_parse(cmd->cmd_args, cmd->args[b]);
 		else
-			cmd->w++;
+			break ;
 		b++;
 	}
 	return (true);
@@ -105,8 +98,9 @@ bool	main_parsing(char *line)
 		while (line[i] && (line[i] == ' ' || line[i] == '|'))
 			i++;
 		if (cmds->cmd)
-			cmds->cmd_args = ft_strdup(cmds->cmd);
-		set_cmd_args(cmds, 0);
+			set_cmd_args_pipe(cmds, 0);
+		if (check_error_redir(cmds) == false)
+			printf("Error dead\n");
 		connect_struct(cmds);
 		g_ms.cmd_nbr++;
 	}

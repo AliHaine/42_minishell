@@ -2789,3 +2789,40 @@ echo bonjour | << tr '[:lower:]' '[:upper:]'| cat -e|cat -e
 echo bonjour | tr '[:lower:]' '[:upper:]'| cat -e|cat -e
 echo bonjour | tr '[:lower:]' '[:upper:]'| cat -e|cat -e
 echo bonjour | << tr '[:lower:]' '[:upper:]'| cat -e|cat -e
+salut < non
+salut < non
+salut non
+salut < non
+salut < non
+salut < non
+salut < non
+salut < non
+salut < non
+ls
+salut < non
+echo < NON
+echo < NON
+echo < NON
+echo < NON
+echo < NON
+echo < NON > oui
+echo < NON > oui
+echo < NON > oui
+ls
+echo < text.txt > oui
+echo < text.txt > oui
+echo < text.txt > oui
+echo < text.txt > oui
+echo < text.txt > oui
+echo bonjour < text.txt > oui
+echo bonjour < text.txt > oui
+echo bonjour < text.txt > oui
+echo bonjour < text.txt > oui
+echo bonjour < text.txt > oui
+echo bonjour < text.txt > oui
+echo bonjour < text.txt > oui
+echo bonjour < text.txt > oui
+<< salut
+<< salut
+<< salut
+echo salut | echo cava 

@@ -12,24 +12,6 @@
 
 #include "../minishell.h"
 
-bool	is_blank(char *str)
-{
-	int	i;
-	int	size;
-
-	i = 0;
-	size = 0;
-	while (str[i])
-	{
-		if (!is_space(str[i]))
-			size++;
-		i++;
-	}
-	if (size == 0)
-		return (true);
-	return (false);
-}
-
 int	get_origine(char *cmds)
 {
 	int	i;
@@ -48,24 +30,6 @@ int	get_origine(char *cmds)
 		i++;
 	}
 	return (0);
-}
-
-int	get_allstr_word_size(char *str)
-{
-	int	size;
-
-	size = 0;
-	while (str[size])
-	{
-		if (str[size] == '|' || str[size] == '&')
-		{
-			break ;
-		}
-		size++;
-	}
-	if (!str[size])
-		return (size);
-	return (size - 1);
 }
 
 bool	is_redir_char(char c)
