@@ -39,12 +39,22 @@ static bool	single_cmd_exec(t_t_i ti)
 	cmd = g_ms.cmds_f;
 	if (get_cmd(cmd->cmd) == 4 || get_cmd(cmd->cmd) == 5
 		|| get_cmd(cmd->cmd) == 6)
-		check_all_cmd(cmd);
+	{
+		if (cmd->w == 0)
+			check_all_cmd(cmd);
+		else
+			redirection_main(0, cmd, ti);
+	}
 	else
 	{
 		pid = fork();
 		if (pid == 0)
-			check_all_cmd(cmd);
+		{
+			if (cmd->w == 0)
+				check_all_cmd(cmd);
+			else
+				redirection_main(0, cmd, ti);
+		}
 		waitpid(pid, &r, WIFEXITED(pid));
 		g_ms.stat = WEXITSTATUS(r);
 	}

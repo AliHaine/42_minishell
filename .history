@@ -2826,3 +2826,252 @@ echo bonjour < text.txt > oui
 << salut
 << salut
 echo salut | echo cava 
+salut < cava
+salut > cava
+ls
+echo salut > cava
+ls
+ls
+echo salut > cava
+echo salut > cava
+salut <
+salut >
+echo salut > cava
+echo salut > cava
+echo salut > cava
+echo salut > cava
+ls
+cat cava 
+cat cava 
+echo salut > cava
+echo salut > cava
+echo salut > cava
+echo salut > cava
+echo salut > cava
+echo salut > cava
+echo salut > cava
+echo salut > cava
+echo salut > cava
+echo salut > cava
+echo salut > cava
+echo salut > cava
+echo salut > cava
+echo salut > cava
+cat cava 
+echo salut > cava
+cat cava 
+ls
+rm cava
+ls
+remove cava
+rm cava
+ls
+echo salut > cava
+cat cava
+ls
+ls
+echo salut > cava
+cat cava 
+rm cava
+ls
+echo salut > cava
+cat cava 
+cat cava 
+echo salut > cava
+ls
+cat cava 
+echo salut > cava
+cat cava 
+ls
+echo salut > cava.txt
+ls
+cat cava.txt 
+cat cava.txt 
+echo salut > cava.txt
+cat cava.txt 
+rm cava
+rm cava.txt
+echo salut > cava.txt
+cat cava.txt 
+cat cava.txt 
+echo salut > cava.txt
+cat cava.txt 
+cat cava.txt 
+echo salut > cava.txt
+cat cava.txt 
+cat cava.txt 
+echo salut > cava.txt
+cat cava.txt 
+cat cava.txt 
+echo salut > cava.txt
+cat cava.txt 
+cat cava.txt 
+echo salut > cava.txt
+cat cava.txt 
+echo salut > cava.txt 
+cat cava.txt 
+echo salut > cava.txt
+cat cava.txt 
+cat cava.txt 
+echo salut > cava.txt
+echo salut > cava.txt
+echo salut > cava.txt
+ls
+echo salut > t.txt
+cat t.txt 
+echo salut > t.txt
+echo salut > t.txt
+cat t.txt 
+cat t.txt 
+echo salut > t.txt
+cat t.txt 
+echo salut > t.txt
+cat t.txt 
+echo salut > t.txt | cat -e
+echo salut | cat -e
+echo salut | cat -e
+echo salut > t.txt
+cat t.txt 
+cat t.txt 
+echo salut > t.txt
+cat t.txt 
+cat t.txt
+cat t.txt 
+echo salut > t.txt
+echo salut > t.txt
+echo salut > t.txt
+cat t.txt 
+echo salut > t.txt
+cat t.txt 
+cat t.txt 
+cat t.txt 
+cat t.txt 
+echo salut > t.txt
+cat t.txt 
+echo salut > t.txt
+echo salut > t5.txt
+ls
+cat t5.txt 
+echo salut > t5.txt
+echo salut > t5.txt
+echo salut > t5.txt
+echo salut > t5.txt
+echo salut > t5.txt
+cat t5.txt 
+echo salut > t5.txt
+echo salut > t5.txt
+echo salut > t5.txt
+cat t5.txt 
+make
+echo salut > t5.txt
+cat t5.txt 
+echo salut > t5.txt
+echo salut > t5.txt
+echo salut > t5.txt
+echo salut > t5.txt
+echo salut > t5.txt
+echo salut > t5.txt
+echo salut > t5.txt
+cat t5.txt 
+cat t5.txt 
+echo salut > t5.txt
+cat t5.txt 
+make
+echo salut > t5.txt
+cat t5.txt 
+echo salut > t5.txt
+cat t5.txt 
+make
+make
+cat t5.txt 
+echo salut > t5.txt
+cat t5.txt 
+echo salut > t5.txt
+cat t5.txt 
+echo salut > t5.txt
+cat t5.txt 
+cat t5.txt 
+echo salut > t5.txt
+cat t5.txt 
+echo salut > t5.txt
+echo salut > t5.txt
+echo salut > t5.txt
+cat t5.txt 
+cat t5.txt 
+echo salu2t > t5.txt
+echo salu2t > t5.txt
+cat t5.txt 
+echo salu2t > t5.txt
+cat t5.txt 
+echo salu2t >> t5.txt
+cat t5.txt 
+make
+make
+echo salu2t >> t5.txt
+cat t5.txt 
+bonjour << cava
+<< test
+bonjour << cava
+bonjour << cava | cat -e
+bonjour << cava | cat -e
+make
+bonjour << cava | cat -e
+make
+make
+bonjour << cava | cat -e
+bonjour << cava | cat -e
+bonjour << cava | cat -e
+bonjour << cava | cat -e
+bonjour << cava | cat -e
+bonjour << cava | cat -e
+bonjour << cava | cat -e
+bonjour << cava | cat -e
+bonjour << cava | cat -e
+bonjour << cava | cat -e
+bonjour << cava
+bonjour << cava | cat -e
+bonjour << cava | cat -e
+bonjour << cava | cat -e
+bonjour << cava | cat -e
+bonjour << cava | cat -e
+<< acva
+<< acva
+cat << cava
+cat << cava
+cat << cava
+salut > cava > et > toi
+ls
+ls
+echo salut > 1 > 2 > 3 > 4> 5
+echo salut > 1 > 2 > 3 > 4 > 5
+echo salut > 1 > 2 > 3 > 4 > 5
+echo salut > 1 > 2 > 3 > 4 > 5
+echo salut > 1 > 2 > 3 > 4 > 5
+echo salut > 1 > 2 > 3 > 4 > 5
+echo salut > 1 > 2 > 3 > 4 > 5
+echo salut > 1 > 2 > 3 > 4 > 5
+echo salut > 1 > 2 > 3 > 4 > 5
+echo salut > 1 > 2 > 3 > 4 > 5
+echo salut > 1 > 2 > 3 > 4 > 5
+echo salut > 1
+echo salut > 1 > 2 > 3 > 4 > 5
+echo salut > 1 > 2 > 3 > 4
+echo salut > 1 > 2 > 3 > 4 > 5
+cat 5 
+cat 4
+cat 3
+rm 3
+rn 5
+rm 5
+rm 4
+rm 1
+rm 2
+ls
+echo salut > 1 > 2 > 3 > 4 > 5
+cat 5 
+cat 4
+echo salut > 1 > 2 > 3 > 4 >> 5
+echo salut > 1 > 2 > 3 > 4 >> 5
+cat 5
+echo salut > 1 > 2 > 3 > 4 >> 5
+cat 5 
