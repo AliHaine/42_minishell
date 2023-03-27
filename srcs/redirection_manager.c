@@ -54,9 +54,12 @@ static bool	r_exec(int pipes[][2], t_cmds *cmd, t_t_i ti, int origin)
 	}
 	else if (origin == 4)
 	{
+		fd = open(cmd->args[ti.b + 1], O_RDWR);
 		if (ti.a != g_ms.cmd_nbr - 1)
 			dup2(pipes[ti.a][1], STDOUT_FILENO);
+		dup2(fd, STDIN_FILENO);
 		close_all_pipes(pipes);
+		close(fd);
 		check_all_cmd(cmd);
 	}
 	else if (origin == 1)
@@ -83,6 +86,7 @@ static bool	r_exec(int pipes[][2], t_cmds *cmd, t_t_i ti, int origin)
 static bool	r_exec_single(t_cmds *cmd, t_t_i ti, int origin)
 {
 	int		fd;
+	char	*gnl;
 
 	printf("single enter\n");
 	while (cmd->args[ti.b])
@@ -99,6 +103,11 @@ static bool	r_exec_single(t_cmds *cmd, t_t_i ti, int origin)
 	}
 	else if (origin == 4)
 	{
+		fd = open(cmd->args[ti.b + 1], O_RDWR);
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+		//execve("/bin/cat", args, NULL);
+
 		check_all_cmd(cmd);
 	}
 	else if (origin == 1)

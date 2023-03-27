@@ -3075,3 +3075,239 @@ echo salut > 1 > 2 > 3 > 4 >> 5
 cat 5
 echo salut > 1 > 2 > 3 > 4 >> 5
 cat 5 
+cat << salut
+bonjour < cava
+bonjour < cava
+bonjour < cava2
+bonjour < cava2
+cat < cava2
+cat < cava2
+cat < cava2
+cat >
+cat > >
+cat > ca >
+cat > ca <
+cat > ca < safas
+salut < cavafda
+exit
+salut < cava
+exit
+salut < clanflas
+exit
+salut < clanflas
+exit
+alfnlaf < cava
+exit
+fffa < ffafa
+exit
+cat < 5
+echo salut 
+echo salut 
+echo salut 
+echo salut 
+echo < salut
+cat < 5
+cat < 5
+cat < 5
+salut
+echo salut
+echo dknafdaklfa > 5
+act 5 
+cat 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+make
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+cat < 5
+make
+cat < 5
+dknafdaklfaalutsalutdknafdaklfaalutsalutdknafdaklfaalutsalutdknafdaklfaalutsalut
+dknafdaklfaalutsalutdknafdaklfaalutsalutdknafdaklfaalutsalutdknafdaklfaalutsalut
+cat < 5
+cat < 5
+cat < 5
+cat < 5 | cat -s
+cat < 5 | cat -e
+cat < 5 | cat -e
+cat < 5 | cat -e
+cat < 5 | cat -e
+cat < 5 | cat -e | cat -e
+cat < 5 | cat -e
+cat < 5 | cat -e | cat -e
+cat << salut
+echo salut >> 5
+cat 5
+cat < 5 | cat -e
+cat < 5 | cat -e >> 5
+cat 5 
+cat < 5 | cat >> 5
+cat 5 
+cat < 5 | cat >> 5
+cat 5 
+cat < 5 | >> 5
+cat < 5 | > 5
+cat < 5 | < 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat 5
+cat 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+> 5
+> 5
+> 5
+> 5
+> 5
+> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5 | echo salut
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | echo salut
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 | >> 5
+cat < 5 
+cat 5
+cat 5 | cat -e
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+>> 5
+cat > 5
+cat 5
+cat < 5
+cat < 5
+ls
+cat 5
+cat < 5 | cat -e
+cat < 5 | >> 5
+ls
+cat 5
+echo salut | cat -s
+echo salut | cat > 5
+cat 5
+ls
+>> 5
+<< 5
+>> 5
+>> 5
+<< 5
+<< 5 | cat
+fmlkfds
+<< 5
+<< 5 | cat -e

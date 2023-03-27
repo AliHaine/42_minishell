@@ -35,12 +35,14 @@ static void	p_exec(int pipes[][2], t_cmds *cmd, t_t_i ti)
 	}
 }
 
-static void	pipe_brain2(t_t_i ti, int *pid, t_cmds *cmds, int pipes[][2])
+static bool	pipe_brain2(t_t_i ti, int *pid, t_cmds *cmds, int pipes[][2])
 {
 	if (ti.a == (ti.c - 1))
 	{
 		if (pid[ti.a] == 0)
 		{
+			if (!is_unused(cmds))
+				return (false);
 			if (cmds->w == 0)
 				p_exec(pipes, cmds, ti);
 			else
@@ -52,6 +54,8 @@ static void	pipe_brain2(t_t_i ti, int *pid, t_cmds *cmds, int pipes[][2])
 	{
 		if (pid[ti.a] == 0)
 		{
+			if (!is_unused(cmds))
+				return (false);
 			if (cmds->w == 0)
 				p_exec(pipes, cmds, ti);
 			else
@@ -60,6 +64,7 @@ static void	pipe_brain2(t_t_i ti, int *pid, t_cmds *cmds, int pipes[][2])
 		close(pipes[ti.a - 1][0]);
 		close(pipes[ti.a][1]);
 	}
+	return (true);
 }
 
 static bool	pipe_brain(t_t_i ti, pid_t *pid)
@@ -79,6 +84,8 @@ static bool	pipe_brain(t_t_i ti, pid_t *pid)
 		{
 			if (pid[ti.a] == 0)
 			{
+				if (!is_unused(cmds))
+					return (false);
 				if (cmds->w == 0)
 					p_exec(pipes, cmds, ti);
 				else
@@ -87,7 +94,8 @@ static bool	pipe_brain(t_t_i ti, pid_t *pid)
 			close(pipes[0][1]);
 		}
 		else
-			pipe_brain2(ti, pid, cmds, pipes);
+			if (!pipe_brain2(ti, pid, cmds, pipes))
+				return (false);
 		cmds = cmds->next;
 		g_ms.stat = WEXITSTATUS(r);
 		ti.a++;

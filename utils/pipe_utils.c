@@ -12,6 +12,20 @@
 
 #include "../minishell.h"
 
+bool	is_unused(t_cmds *cmds)
+{
+	int	i;
+
+	i = 0;
+	if (cmds->cmd)
+		return (true);
+	while(cmds->args[i] && !is_redir_char(cmds->args[i][0]))
+		i++;
+	if (get_origine(cmds->args[i]) == 1)
+		return (true);
+	return (false);
+}
+
 bool	pipe_init(int pipes[][2])
 {
 	int	i;

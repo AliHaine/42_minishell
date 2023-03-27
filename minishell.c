@@ -66,33 +66,39 @@ static int	run_process(char *line)
 	struct s_three_int	ti;
 
 	init_three_int(&ti);
-	main_parsing(line);
+	if (main_parsing(line) == false)
+		return (0);
 	if (g_ms.cmd_nbr > 1)
 		pipe_main();
 	else
 		single_cmd_exec(ti);
-	free(line);
-	free_words_struct(g_ms.cmds_f);
 	return (1);
 }
 
 static int	main_process(void)
 {
 	char				*histo;
+	char 				*hh;
 
 	while (g_ms.exit > 0)
 	{
-		histo = readline(g_d_e());
+		hh = g_d_e();
+		histo = readline(hh);
 		if (!histo)
 			break ;
+		free(hh);
 		if (check_validity(histo))
 		{
-			add_history(histo_pars(histo));
-			write_to_histo(histo_pars(histo), g_ms.histo_fd);
+			hh = histo_pars(histo);
+			add_history(hh);
+			write_to_histo(hh, g_ms.histo_fd);
+			free(hh);
 		}
 		if (check_is_empty(histo) == 0 || check_exit(histo) == 0)
 			continue ;
 		run_process(histo);
+		free(histo);
+		free_words_struct(g_ms.cmds_f);
 	}
 	return (1);
 }

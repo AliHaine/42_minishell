@@ -102,7 +102,7 @@ char	*get_next_line(int fd)
 	static char	*storage = NULL;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, line, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	storage = str_without_newline(fd, storage);
 	if (!storage)

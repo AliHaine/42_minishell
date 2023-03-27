@@ -51,7 +51,7 @@ static bool	set_cmd(char *line, t_cmds *cmds, int *i)
 		cmds->cmd = NULL;
 		return (true);
 	}
-	cmds->cmd = malloc(sizeof(char) * size);
+	cmds->cmd = malloc(sizeof(char) * size + 1);
 	if (!cmds->cmd)
 		return (false);
 	size = 0;
@@ -61,6 +61,7 @@ static bool	set_cmd(char *line, t_cmds *cmds, int *i)
 		cmds->cmd[size] = line[*i + size];
 		size++;
 	}
+	cmds->cmd[size] = '\0';
 	*i += size;
 	return (true);
 }
@@ -97,11 +98,12 @@ bool	main_parsing(char *line)
 		set_args(line, cmds, &i);
 		while (line[i] && (line[i] == ' ' || line[i] == '|'))
 			i++;
+		cmds->cmd_args = 0;
 		if (cmds->cmd)
 			set_cmd_args_pipe(cmds, 0);
-		if (check_error_redir(cmds) == false)
-			printf("Error dead\n");
 		connect_struct(cmds);
+		if (check_error_redir(cmds) == false)
+			return (false);
 		g_ms.cmd_nbr++;
 	}
 	return (true);

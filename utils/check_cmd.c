@@ -75,8 +75,8 @@ static void	check_bulltin(t_cmds *cmd, char **env)
 	}*/
 	//else if (get_cmd(cmd->cmd) == 7)
 	//	cd(cmd, env);
-	else
-		ft_execve(cmd, env);
+	else {
+		ft_execve(cmd, env); }
 	exit(0);
 }
 

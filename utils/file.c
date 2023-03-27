@@ -15,14 +15,17 @@
 void	go_to_end_of_file(int fd)
 {
 	char	*str;
+	char 	*hh;
 
 	str = get_next_line(fd);
 	if (!str)
 		return ;
 	while (str)
 	{
-		add_history(histo_pars(str));
+		hh = histo_pars(str);
+		add_history(hh);
 		free(str);
+		free(hh);
 		str = get_next_line(fd);
 	}
 	free(str);

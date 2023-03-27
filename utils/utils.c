@@ -92,6 +92,8 @@ void	free_tt(char **str)
 	int	a;
 
 	a = 0;
+	if (!str)
+		return ;
 	while (str[a])
 	{
 		free(str[a]);

@@ -85,6 +85,7 @@ bool		redirection_main(int pipes[][2], t_cmds *cmd, t_t_i ti);
 
 bool		pipe_init(int pipes[][2]);
 void		close_all_pipes(int pipes[][2]);
+bool		is_unused(t_cmds *cmds);
 
 // redir utile //
 
