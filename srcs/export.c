@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:37:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/23 15:43:41 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/27 17:31:36 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,31 +119,31 @@ char	*remplace_env(char **env, char *path)
 
 /* juste export seul marche */
 
-void	export(char **argv, char **env, int i)
+void		export(char *cmd, char **arg,char **env, int i)
 {
 	char	*path;
 
 	path = NULL;
-	if (!argv[i])
+	if (!arg[i])
 	{
 		export_and_nothing(env, 0, 0, 0);
 		return ;
 	}
-	else if (argv[i])
+	else if (arg[i])
 	{
-		if (check_path(argv[i], env, 0) == 1)
+		if (check_path(arg[i], env, 0) == 1)
 		{
-			remplace_env(env, argv[i]);
+			remplace_env(env, arg[i]);
 		}
 		else
 		{
-			if (check_valid(argv[i]) == 0)
-				env = add_env_var(env, argv[i]);
+			if (check_valid(arg[i]) == 0)
+				env = add_env_var(env, arg[i]);
 			else
 				return ((void)check_cmd_is_right(1));
 		}
 	}
-	if (argv[i + 1])
-		export(argv, env, i + 1);
+	if (arg[i + 1])
+		export(cmd, arg, env, i + 1);
 	check_cmd_is_right(0);
 }
