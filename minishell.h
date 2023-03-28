@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:55:32 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/23 16:23:16 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/27 17:27:29 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_cmds
 	char			*cmd;
 	char			**args;
 	char			*cmd_args;
-	char			*args_conv;
 	int				w;
 	struct s_cmds	*next;
 }	t_cmds;
@@ -86,7 +85,6 @@ bool		redirection_main(int pipes[][2], t_cmds *cmd, t_t_i ti);
 
 bool		pipe_init(int pipes[][2]);
 void		close_all_pipes(int pipes[][2]);
-bool		is_unused(t_cmds *cmds);
 
 // redir utile //
 
@@ -185,11 +183,11 @@ int			unset(char **path, char **env, int i, int x);
 
 // export //
 
-void		export(char **argv, char **env, int i);
+void		export(char *cmd, char **arg,char **env, int i);
 char		*remplace_env(char **env, char *path);
 
 // cd //
 
-int			cd(char **cmd, char **env);
+int	cd(char *cmd, char **arg, char **env);
 
 #endif
