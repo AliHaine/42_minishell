@@ -12,30 +12,10 @@
 
 #include "../minishell.h"
 
-int	update(char c, int *in_q)
-{
-	if (c == '\'' && *in_q != 2)
-	{
-		*in_q = 1 - (1 * (*in_q == 1));
-		return (1);
-	}
-	if (c == '\"' && *in_q != 1)
-	{
-		*in_q = 2 - (2 * (*in_q == 2));
-		return (1);
-	}
-	return (0);
-}
-
 // var //
 
-static int	*size_quote(char *s, int i)
+static int	*size_quote(char *s, int i, int *tab)
 {
-	int	*tab;
-
-	tab = malloc(sizeof(int) * 2);
-	tab[0] = i;
-	tab[1] = i;
 	while (tab[0] > 0)
 	{
 		if ((s[tab[0]] == '\'' || s[tab[0]] == '\"'))
@@ -121,16 +101,17 @@ int	var_c(char *s, int i)
 	char	*str;
 	int		in_q;
 
-	size = size_quote(s, i);
+	size = malloc(sizeof(int) * 2);
+	size[0] = i;
+	size[1] = i;
+	size_quote(s, i, size);
 	str = ft_substr(s, size[0] + 1, size[1]);
 	if (update_2(str, &in_q) == 1 && quote_count(str) % 2 == 0
 		&& count_q(s, i) == 0)
 	{
-		if (size)
-			free(size);
+		free(size);
 		return (1);
 	}
-	if (size)
-		free(size);
+	free(size);
 	return (0);
 }

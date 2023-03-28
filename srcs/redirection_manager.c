@@ -14,7 +14,7 @@
 
 static void	exec_waiting(char *word)
 {
-	char 	*b;
+	char	*b;
 	int		i;
 	int		size;
 	char	*tab[50];
@@ -34,27 +34,32 @@ static void	exec_waiting(char *word)
 	exit(1);
 }
 
-static bool	r_exec(int pipes[][2], t_cmds *cmd, t_t_i ti, int origin)
+static void	r_exec2(int pipes[][2], t_t_i ti, t_cmds *cmd, int fd)
+{
+	dup2(pipes[ti.a - 1][0], STDIN_FILENO);
+	dup2(pipes[ti.a][1], STDOUT_FILENO);
+	close_all_pipes(pipes);
+	check_all_cmd(cmd);
+	dup2(fd, STDIN_FILENO);
+	go_to_end_of_file(fd);
+	check_all_cmd(cmd);
+}
+
+static void	r_exec(int pipes[][2], t_cmds *cmd, t_t_i ti, int origin)
 {
 	int		fd;
-	char	*b;
-	char	*file;
 
 	while (cmd->args[ti.b])
 		ti.b++;
 	ti.b--;
 	while (!is_redir_char(cmd->args[ti.b][0]))
 		ti.b--;
-	if (origin == 3)
-	{
+	if (origin != 2)
 		fd = open(cmd->args[ti.b + 1], O_RDWR);
+	if (origin == 3)
 		write_to_file(fd, cmd->args[0]);
-		close(fd);
-		exit(1);
-	}
 	else if (origin == 4)
 	{
-		fd = open(cmd->args[ti.b + 1], O_RDWR);
 		if (ti.a != g_ms.cmd_nbr - 1)
 			dup2(pipes[ti.a][1], STDOUT_FILENO);
 		dup2(fd, STDIN_FILENO);
@@ -63,104 +68,66 @@ static bool	r_exec(int pipes[][2], t_cmds *cmd, t_t_i ti, int origin)
 		check_all_cmd(cmd);
 	}
 	else if (origin == 1)
-	{
-		fd = open(cmd->args[ti.b], O_RDWR);
-		dup2(pipes[ti.a - 1][0], STDIN_FILENO);
-		dup2(pipes[ti.a][1], STDOUT_FILENO);
-		close_all_pipes(pipes);
-		check_all_cmd(cmd);
-		dup2(fd, STDIN_FILENO);
-		go_to_end_of_file(fd);
-		check_all_cmd(cmd);
-		//write_to_file(fd, cmd_arg[0]);
-		close(fd);
-		exit(1);
-	}
+		r_exec2(pipes, ti, cmd, fd);
 	else if (origin == 2)
-	{
 		exec_waiting(cmd->args[ti.b + 1]);
-	}
-	return (true);
+	close(fd);
+	exit(1);
 }
 
-static bool	r_exec_single(t_cmds *cmd, t_t_i ti, int origin)
+static void	r_exec_single(t_cmds *cmd, t_t_i ti, int origin, int fd)
 {
-	int		fd;
-	char	*gnl;
-
-	printf("single enter\n");
 	while (cmd->args[ti.b])
 		ti.b++;
 	ti.b--;
 	while (!is_redir_char(cmd->args[ti.b][0]))
 		ti.b--;
-	if (origin == 3)
-	{
+	if (origin != 2)
 		fd = open(cmd->args[ti.b + 1], O_RDWR);
+	if (origin == 3)
 		write_to_file(fd, cmd->args[0]);
-		close(fd);
-		exit(1);
-	}
 	else if (origin == 4)
 	{
-		fd = open(cmd->args[ti.b + 1], O_RDWR);
 		dup2(fd, STDIN_FILENO);
 		close(fd);
-		//execve("/bin/cat", args, NULL);
-
 		check_all_cmd(cmd);
 	}
 	else if (origin == 1)
 	{
-		fd = open(cmd->args[ti.b + 1], O_RDWR);
 		go_to_end_of_file(fd);
 		write_to_file(fd, cmd->args[0]);
-		close(fd);
-		exit(1);
 	}
 	else if (origin == 2)
-	{
 		exec_waiting(cmd->args[ti.b + 1]);
-	}
-	return (true);
+	close(fd);
+	exit(1);
 }
 
-bool	redirection_main(int pipes[][2], t_cmds *cmd, t_t_i ti)
+void	redirection_main(int pipes[][2], t_cmds *cmd, t_t_i ti)
 {
-	int	i;
-	int ret;
-	int	size;
-	int	fd;
+	t_t_i	ti2;
 
-	i = 0;
-	size = 0;
-	parc_struct_tester(g_ms.cmds_f);
-	while (cmd->args[i] && size != cmd->w)
+	init_three_int(&ti2);
+	while (cmd->args[ti2.a] && ti2.c != cmd->w)
 	{
-		if (is_redir_char(cmd->args[i][0]))
+		if (is_redir_char(cmd->args[ti2.a][0]))
 		{
-			ret = get_origine(cmd->args[i]);
-			if (ret == 2)
+			ti2.b = get_origine(cmd->args[ti2.a]);
+			if (ti2.b == 2)
 			{
 				if (g_ms.cmd_nbr > 1 && cmd->next)
-					r_exec(pipes, cmd, ti, ret);
+					r_exec(pipes, cmd, ti, ti2.b);
 				else
-					r_exec_single(cmd, ti, ret);
+					r_exec_single(cmd, ti, ti2.b, 0);
 			}
-			else if (ret == 3 || ret == 1)
-			{
-				fd = open(cmd->args[i + 1], O_CREAT, S_IRWXU | S_IRWXG | S_IRWXO, O_RDWR);
-				close(fd);
-			}
-			size++;
+			else if (ti2.b == 3 || ti2.b == 1)
+				create_and_close(cmd->args[ti2.a + 1]);
+			ti2.c++;
 		}
-		i++;
+		ti2.a++;
 	}
 	if (!pipes)
-	{
-		r_exec_single(cmd, ti, ret);
-	}
+		r_exec_single(cmd, ti, ti2.b, 0);
 	else
-		r_exec(pipes, cmd, ti, ret);
-	return (true);
+		r_exec(pipes, cmd, ti, ti2.b);
 }

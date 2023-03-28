@@ -53,23 +53,33 @@ static int	cd_extend4(int choice, char **cmd, char **env)
 
 int	cd(char *cmd, char **arg, char **env)
 {
+	char	*gpwd;
+	char	*getenv;
+
+	gpwd = g_pwd();
 	if (cmd && arg[0] && arg[0][0] == '-' && !arg[0][1])
 		return (cd_extend4(0, arg, env));
-	remplace_env(env, ft_sjoin("OLDPWD=", g_pwd()));
+	remplace_env(env, ft_sjoin("OLDPWD=", gpwd));
 	if (cmd && (!arg[0] || (arg[0][0] == '~' && !arg[0][1])))
 	{
-		if (chdir(ft_getenv(env, "HOME")) != 0)
+		getenv = ft_getenv(env, "HOME");
+		if (getenv && chdir(getenv) != 0)
 			return (cd_extend4(1, arg, env));
-		printf("lol = %s\n", ft_getenv(env, "HOME"));
+		if (getenv)
+			free(getenv);
 	}
 	else if (cmd && arg[0][0] == '~' && arg[0][1] == '/')
 	{
-		if (chdir(ft_getenv(env, arg[0])) != 0)
+		getenv = ft_getenv(env, "HOME");
+		if (getenv && chdir(getenv))
 			return (cd_extend(arg));
+		if (getenv)
+			free(getenv);
 	}
 	else
 		if (chdir(arg[0]) != 0)
 			cd_extend2(arg);
-	remplace_env(env, ft_sjoin("PWD=", g_pwd()));
+	remplace_env(env, ft_sjoin("PWD=", gpwd));
+	free(gpwd);
 	return (check_cmd_is_right(0));
 }

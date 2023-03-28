@@ -37,6 +37,8 @@ int	check_exit(char *h)
 
 	i = 0;
 	num = NULL;
+	if (ft_strlen(h) < 4)
+		return (1);
 	while (h[i])
 	{
 		while (h[i] && (h[i] == ' ' || h[i] == '\t'))

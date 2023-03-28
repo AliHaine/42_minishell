@@ -54,7 +54,7 @@ t_minishell	g_ms;
 void		ctrl_c(void);
 void		ctrl_bs(void);
 void		go_to_end_of_file(int fd);
-bool		write_to_histo(char *str, int fd);
+void		histo_main(char *histo);
 bool		main_parsing(char *line);
 
 // little_func //
@@ -65,10 +65,7 @@ bool		is_redir_char(char c);
 // very_little_func //
 
 void		init_three_int(struct s_three_int *ti);
-int			free_str_rzero(char *str);
 bool		is_space(char c);
-bool		is_contain_pipe(char *str);
-bool		is_pipe_or_redir(char c);
 
 // error_manager //
 
@@ -79,16 +76,18 @@ bool		check_error_redir(t_cmds *cmd);
 // manager //
 
 bool		pipe_main(void);
-bool		redirection_main(int pipes[][2], t_cmds *cmd, t_t_i ti);
-bool	is_unused(t_cmds *cmds);
+void		redirection_main(int pipes[][2], t_cmds *cmd, t_t_i ti);
+bool		is_unused(t_cmds *cmds);
 
 // pipe_utils //
 
 bool		pipe_init(int pipes[][2]);
 void		close_all_pipes(int pipes[][2]);
+bool		is_unused(t_cmds *cmds);
 
 // redir utile //
 
+void		create_and_close(char *name);
 void		write_to_file(int fd, char *s);
 
 // parse_utils //
@@ -121,7 +120,7 @@ int			char_cmp(char *str, char *reject);
 
 int			str_copy(char *dst, char *src, int size);
 char		**copy_env(char **env, int size);
-char		**print_sorted_strings(char **env, int size);
+char		**print_sorted_strings(char **env, int size, int i, int j);
 char		*ft_join(char *s1, char *s2);
 char		*ft_sjoin(char *s1, char *s2);
 
@@ -171,7 +170,7 @@ char		*g_pwd(void);
 
 // echo //
 
-void		echo(char **tab, char **env, int i, int j);
+void		echo(char **tab, int i, int j);
 
 // env //
 
@@ -184,11 +183,11 @@ int			unset(char **path, char **env, int i, int x);
 
 // export //
 
-void		export(char *cmd, char **arg,char **env, int i);
+void		export(char *cmd, char **arg, char **env, int i);
 char		*remplace_env(char **env, char *path);
 
 // cd //
 
-int	cd(char *cmd, char **arg, char **env);
+int			cd(char *cmd, char **arg, char **env);
 
 #endif

@@ -68,7 +68,6 @@ char	*ft_getenv(char **env, char *path)
 	char	*get;
 
 	i = 0;
-	j = 0;
 	get = NULL;
 	while (env[i])
 	{	

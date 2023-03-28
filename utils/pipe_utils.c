@@ -19,7 +19,7 @@ bool	is_unused(t_cmds *cmds)
 	i = 0;
 	if (cmds->cmd)
 		return (true);
-	while(cmds->args[i] && !is_redir_char(cmds->args[i][0]))
+	while (cmds->args[i] && !is_redir_char(cmds->args[i][0]))
 		i++;
 	if (get_origine(cmds->args[i]) == 1)
 		return (true);

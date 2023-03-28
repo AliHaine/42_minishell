@@ -103,7 +103,7 @@ static int	echo_2(char **tab, int bulltin)
 	int	i;
 	int	x;
 
-	i = bulltin + 1;
+	i = bulltin;
 	x = 2;
 	if (tab[i][0] == '-' && tab[i][1] == 'n')
 	{
@@ -121,7 +121,7 @@ static int	echo_2(char **tab, int bulltin)
 
 // bulltin echo //
 
-void	echo(char **tab, char **env, int i, int j)
+void	echo(char **tab, int i, int j)
 {
 	int	bulltin;
 	int	in_q;

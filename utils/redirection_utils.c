@@ -12,6 +12,14 @@
 
 #include "../minishell.h"
 
+void	create_and_close(char *name)
+{
+	int	fd;
+
+	fd = open(name, O_CREAT, S_IRWXU | S_IRWXG | S_IRWXO, O_RDWR);
+	close(fd);
+}
+
 void	write_to_file(int fd, char *s)
 {
 	int	i;

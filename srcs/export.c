@@ -14,18 +14,17 @@
 
 // no leaks //
 
-static void	export_and_nothing(char **env, int i, int j, int check)
+static void	export_and_nothing(char **env, int i, int j)
 {
 	char	**sort_env;
 
 	sort_env = NULL;
 	while (env[i])
 		i++;
-	sort_env = print_sorted_strings(env, i);
+	sort_env = print_sorted_strings(env, i, 0 , 0);
 	i = 0;
 	while (sort_env[i])
 	{
-		check = 0;
 		j = 0;
 		write(1, "declare -x ", 11);
 		while (sort_env[i][j])
@@ -103,7 +102,6 @@ char	*remplace_env(char **env, char *path)
 	int	len;
 	int	i;
 
-	len = 0;
 	i = 0;
 	while (env[i])
 	{
@@ -115,13 +113,11 @@ char	*remplace_env(char **env, char *path)
 			else
 				break ;
 			if (path[len] && env[i][len] == '=')
-			{
-				free(env[i]);
 				env[i] = ft_strdup(path);
-			}
 		}
 		i++;
 	}
+	free(path);
 	return (0);
 }
 
@@ -129,27 +125,23 @@ char	*remplace_env(char **env, char *path)
 
 void		export(char *cmd, char **arg,char **env, int i)
 {
-	char	*path;
 	char **copy;
 
-	path = NULL;
 	copy = copy_env(env, ft_tablen(env));
 	if (!arg[i])
 	{
-		export_and_nothing(env, 0, 0, 0);
+		export_and_nothing(env, 0, 0);
+		free_tt(copy);
 		return ;
 	}
 	else if (arg[i])
 	{
 		if (check_path(arg[i], env, 0) == 1)
-		{
 			remplace_env(env, arg[i]);
-		}
 		else
 		{
 			if (check_valid(arg[i]) == 0)
 			{
-				free_tt(env);
 				env = add_env_var(copy, arg[i]);
 				free_tt(copy);
 			}

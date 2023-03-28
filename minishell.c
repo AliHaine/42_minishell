@@ -30,15 +30,14 @@ static bool	check_validity(char *str)
 	return (true);
 }
 
-static bool	single_cmd_exec(t_t_i ti)
+static bool	single_cmd_exec(t_t_i ti, int pid)
 {
-	int		pid;
 	int		r;
 	t_cmds	*cmd;
 
 	cmd = g_ms.cmds_f;
 	if (get_cmd(cmd->cmd) == 4 || get_cmd(cmd->cmd) == 5
-		|| get_cmd(cmd->cmd) == 6)
+		|| get_cmd(cmd->cmd) == 6 || get_cmd(cmd->cmd) == 7)
 	{
 		if (cmd->w == 0)
 			check_all_cmd(cmd);
@@ -71,14 +70,14 @@ static int	run_process(char *line)
 	if (g_ms.cmd_nbr > 1)
 		pipe_main();
 	else
-		single_cmd_exec(ti);
+		single_cmd_exec(ti, 0);
 	return (1);
 }
 
 static int	main_process(void)
 {
-	char				*histo;
-	char 				*hh;
+	char	*histo;
+	char	*hh;
 
 	while (g_ms.exit > 0)
 	{
@@ -88,12 +87,7 @@ static int	main_process(void)
 			break ;
 		free(hh);
 		if (check_validity(histo))
-		{
-			hh = histo_pars(histo);
-			add_history(hh);
-			write_to_histo(hh, g_ms.histo_fd);
-			free(hh);
-		}
+			histo_main(histo);
 		if (check_is_empty(histo) == 0 || check_exit(histo) == 0)
 		{
 			free(histo);
@@ -109,7 +103,7 @@ static int	main_process(void)
 
 int	main(int argc, char **argv, char **env)
 {
-	char *path;
+	char	*path;
 
 	path = ft_getenv(env, "PATH");
 	if (!path)

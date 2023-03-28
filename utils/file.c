@@ -15,7 +15,7 @@
 void	go_to_end_of_file(int fd)
 {
 	char	*str;
-	char 	*hh;
+	char	*hh;
 
 	str = get_next_line(fd);
 	if (!str)
@@ -30,12 +30,12 @@ void	go_to_end_of_file(int fd)
 		free(hh);
 		str = get_next_line(fd);
 		if (!str)
-			break;
+			break ;
 	}
 	free(str);
 }
 
-bool	write_to_histo(char *str, int fd)
+static bool	write_to_histo(char *str, int fd)
 {
 	int	i;
 
@@ -47,4 +47,14 @@ bool	write_to_histo(char *str, int fd)
 	}
 	write(fd, "\n", 1);
 	return (true);
+}
+
+void	histo_main(char *histo)
+{
+	char	*hh;
+
+	hh = histo_pars(histo);
+	add_history(hh);
+	write_to_histo(hh, g_ms.histo_fd);
+	free(hh);
 }

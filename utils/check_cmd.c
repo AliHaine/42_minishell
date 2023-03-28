@@ -14,7 +14,7 @@
 
 static int	contain_export(char *ex, char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (ex[i])
@@ -51,14 +51,15 @@ static void	check_bulltin(t_cmds *cmd, char **env)
 {
 	if (!cmd->cmd)
 		return ;
-	//else if (get_cmd(cmd->cmd) == 1)
-	//	echo(cmd, env, 1, 0);
+	else if (get_cmd(cmd->cmd) == 1)
+		echo(cmd->args, 0, 0);
 	else if (get_cmd(cmd->cmd) == 2)
 		pwd();
 	else if (get_cmd(cmd->cmd) == 4)
 	{
 		print_env(env);
-		return ;
+		if (g_ms.cmd_nbr == 1)
+			return ;
 	}
 	/*else if (get_cmd(cmd->cmd) == 5)
 	{
@@ -71,12 +72,14 @@ static void	check_bulltin(t_cmds *cmd, char **env)
 	else if (get_cmd(cmd->cmd) == 6)
 	{
 		export(g_ms.cmds_f->cmd, g_ms.cmds_f->args, g_ms.env, 0);
-		return;
+		if (g_ms.cmd_nbr == 1)
+			return ;
 	}
 	else if (get_cmd(cmd->cmd) == 7)
 	{
 		cd(g_ms.cmds_f->cmd, g_ms.cmds_f->args, g_ms.env);
-		return;
+		if (g_ms.cmd_nbr == 1)
+			return ;
 	}
 	else
 		ft_execve(cmd, env);
@@ -85,16 +88,15 @@ static void	check_bulltin(t_cmds *cmd, char **env)
 
 void	check_all_cmd(t_cmds *cmd)
 {
-	//char **args;
-	char *str;
+	char	**args;
+	char	*str;
 
 	str = env_conversion(cmd->cmd_args, g_ms.env, -1, 0);
-	//if (!str)
-	//	return;
-	//args = ft_split(str, ' ');
-	//if (!args)
-	//	return;
+	if (!str)
+		return ;
+	args = ft_split(str, ' ');
+	if (!args)
+		return ;
 	check_bulltin(cmd, g_ms.env);
-	//free_tt(args);
-	//free(str);
+	free_tt(args);
 }

@@ -38,3 +38,18 @@ bool	is_redir_char(char c)
 		return (true);
 	return (false);
 }
+
+int	update(char c, int *in_q)
+{
+	if (c == '\'' && *in_q != 2)
+	{
+		*in_q = 1 - (1 * (*in_q == 1));
+		return (1);
+	}
+	if (c == '\"' && *in_q != 1)
+	{
+		*in_q = 2 - (2 * (*in_q == 2));
+		return (1);
+	}
+	return (0);
+}

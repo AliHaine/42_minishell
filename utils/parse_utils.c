@@ -59,5 +59,6 @@ char	*ft_strjoin_parse(char *s1, char *s2)
 	while (s2[b])
 		new[a++] = s2[b++];
 	new[a] = '\0';
+	free(s1);
 	return (new);
 }

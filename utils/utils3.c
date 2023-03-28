@@ -53,20 +53,15 @@ char	**copy_env(char **env, int size)
 
 // leak regles //
 
-char	**print_sorted_strings(char **env, int size)
+char	**print_sorted_strings(char **env, int size, int i, int j)
 {
-	int		i;
-	int		j;
 	char	*temp;
 	char	**strings;
 
-	i = 0;
-	j = 0;
 	temp = NULL;
 	strings = copy_env(env, size);
 	while (i < size - 1)
 	{
-		j = 0;
 		while (j < size - i - 1)
 		{
 			if (strcmp(strings[j], strings[j + 1]) > 0)
