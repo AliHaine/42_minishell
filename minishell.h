@@ -38,6 +38,7 @@ typedef struct s_cmds
 	char			*cmd;
 	char			**args;
 	char			*cmd_args;
+	char			*args_conv;
 	int				w;
 	struct s_cmds	*next;
 }	t_cmds;
