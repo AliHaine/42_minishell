@@ -134,6 +134,7 @@ bool	redirection_main(int pipes[][2], t_cmds *cmd, t_t_i ti)
 
 	i = 0;
 	size = 0;
+	parc_struct_tester(g_ms.cmds_f);
 	while (cmd->args[i] && size != cmd->w)
 	{
 		if (is_redir_char(cmd->args[i][0]))

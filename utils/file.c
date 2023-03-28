@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:07:46 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/25 14:07:48 by ayagmur          ###   ########.fr       */
+/*   Updated: 2023/03/28 15:48:22 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,14 @@ void	go_to_end_of_file(int fd)
 	while (str)
 	{
 		hh = histo_pars(str);
+		if (!hh)
+			return ;
 		add_history(hh);
 		free(str);
 		free(hh);
 		str = get_next_line(fd);
+		if (!str)
+			break;
 	}
 	free(str);
 }

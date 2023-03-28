@@ -6,13 +6,15 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 14:23:35 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/23 15:36:26 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/28 16:39:33 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 /* env env env == env \\ env env eng = error */
+
+// aucun leak //
 
 void	print_env(char **env)
 {

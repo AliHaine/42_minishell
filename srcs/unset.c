@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:40:21 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/23 16:02:18 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/28 16:40:57 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ static int	delete_path(char **env, int i)
 }
 
 // si ya \ il faut \\ donc enleve en un //
+
+// exit if unset LESS
 
 int	unset(char **path, char **env, int i, int x)
 {

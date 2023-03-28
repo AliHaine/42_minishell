@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouaza <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 07:46:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/21 07:49:15 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/28 16:25:53 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char	**copy_env(char **env, int size)
 
 // sort env //
 
+// leak regles //
+
 char	**print_sorted_strings(char **env, int size)
 {
 	int		i;
@@ -70,8 +72,11 @@ char	**print_sorted_strings(char **env, int size)
 			if (strcmp(strings[j], strings[j + 1]) > 0)
 			{
 				temp = ft_strdup(strings[j]);
+				free(strings[j]);
 				strings[j] = ft_strdup(strings[j + 1]);
+				free(strings[j + 1]);
 				strings[j + 1] = ft_strdup(temp);
+				free(temp);
 			}
 			j++;
 		}

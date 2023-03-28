@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_conversion.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:01:26 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/21 07:57:35 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/28 15:59:14 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ char	*env_conversion(char *s, char **env, int i, int j)
 			else
 				s = remplace_part(s, ft_getenv(env, var), i, j);
 			i = -1;
+			free(var);
 		}
 	}
 	return (s);

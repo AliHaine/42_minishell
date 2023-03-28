@@ -6,11 +6,13 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:37:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/27 17:31:36 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/28 16:41:16 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+// no leaks //
 
 static void	export_and_nothing(char **env, int i, int j, int check)
 {
@@ -36,7 +38,7 @@ static void	export_and_nothing(char **env, int i, int j, int check)
 		printf("\"\n");
 		i++;
 	}
-	free(sort_env);
+	free_tt(sort_env);
 	check_cmd_is_right(0);
 }
 
@@ -68,25 +70,30 @@ static int	check_valid(char *path)
 }
 
 /* en cour ... */
-// leak //
+
+// leak !!! //
 
 static char	**add_env_var(char **env, char *path)
 {
 	int	i;
+	char **new_env;
 
-	i = 0;
+	i = ft_tablen(env);
+	new_env = malloc(sizeof(char *) * i + 1);
 	if (env[i])
 	{
-		i = ft_tablen(env);
-		env[i] = ft_strdup(env[i - 1]);
-		if (!env[i])
+		new_env[i] = ft_strdup(env[i - 1]);
+		if (!new_env[i])
 			return (NULL);
-		env[i - 1] = ft_strdup(path);
-		if (!env[i])
+		new_env[i - 1] = ft_strdup(path);
+		if (!new_env[i - 1])
 			return (NULL);
-		env[i + 1] = NULL;
+		new_env[i + 1] = NULL;
 	}
-	return (env);
+	i = -1;
+	while (env[++i + 1])
+		new_env[i] = ft_strdup(env[i]);
+	return (new_env);
 }
 
 /* pret mais il me faut une fonction de verif */
@@ -96,6 +103,7 @@ char	*remplace_env(char **env, char *path)
 	int	len;
 	int	i;
 
+	len = 0;
 	i = 0;
 	while (env[i])
 	{
@@ -108,22 +116,24 @@ char	*remplace_env(char **env, char *path)
 				break ;
 			if (path[len] && env[i][len] == '=')
 			{
+				free(env[i]);
 				env[i] = ft_strdup(path);
 			}
 		}
 		i++;
 	}
-	free(path);
 	return (0);
 }
 
-/* juste export seul marche */
+// leaks tu coco
 
 void		export(char *cmd, char **arg,char **env, int i)
 {
 	char	*path;
+	char **copy;
 
 	path = NULL;
+	copy = copy_env(env, ft_tablen(env));
 	if (!arg[i])
 	{
 		export_and_nothing(env, 0, 0, 0);
@@ -138,7 +148,11 @@ void		export(char *cmd, char **arg,char **env, int i)
 		else
 		{
 			if (check_valid(arg[i]) == 0)
-				env = add_env_var(env, arg[i]);
+			{
+				free_tt(env);
+				env = add_env_var(copy, arg[i]);
+				free_tt(copy);
+			}
 			else
 				return ((void)check_cmd_is_right(1));
 		}

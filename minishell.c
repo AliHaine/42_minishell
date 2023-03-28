@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:11:27 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/25 14:11:28 by ayagmur          ###   ########.fr       */
+/*   Updated: 2023/03/28 16:39:53 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static bool	single_cmd_exec(t_t_i ti)
 
 	cmd = g_ms.cmds_f;
 	if (get_cmd(cmd->cmd) == 4 || get_cmd(cmd->cmd) == 5
-		|| get_cmd(cmd->cmd) == 6 || get_cmd(cmd->cmd) == 7)
+		|| get_cmd(cmd->cmd) == 6)
 	{
 		if (cmd->w == 0)
 			check_all_cmd(cmd);
@@ -95,7 +95,11 @@ static int	main_process(void)
 			free(hh);
 		}
 		if (check_is_empty(histo) == 0 || check_exit(histo) == 0)
+		{
+			free(histo);
+			free_words_struct(g_ms.cmds_f);
 			continue ;
+		}
 		run_process(histo);
 		free(histo);
 		free_words_struct(g_ms.cmds_f);
@@ -105,6 +109,11 @@ static int	main_process(void)
 
 int	main(int argc, char **argv, char **env)
 {
+	char *path;
+
+	path = ft_getenv(env, "PATH");
+	if (!path)
+		return (0);
 	signal(2, (void *)ctrl_c);
 	signal(SIGQUIT, (void *)ctrl_bs);
 	rl_catch_signals = 0;
@@ -116,7 +125,8 @@ int	main(int argc, char **argv, char **env)
 		return (1);
 	}
 	g_ms.env = env;
-	g_ms.bash = ft_split(ft_getenv(env, "PATH"), ':');
+	g_ms.bash = ft_split(path, ':');
+	free(path);
 	g_ms.exit = 1;
 	go_to_end_of_file(g_ms.histo_fd);
 	main_process();

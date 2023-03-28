@@ -60,6 +60,7 @@ int	cd(char *cmd, char **arg, char **env)
 	{
 		if (chdir(ft_getenv(env, "HOME")) != 0)
 			return (cd_extend4(1, arg, env));
+		printf("lol = %s\n", ft_getenv(env, "HOME"));
 	}
 	else if (cmd && arg[0][0] == '~' && arg[0][1] == '/')
 	{

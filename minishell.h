@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:55:32 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/27 17:27:29 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/28 15:36:09 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ bool		check_error_redir(t_cmds *cmd);
 
 bool		pipe_main(void);
 bool		redirection_main(int pipes[][2], t_cmds *cmd, t_t_i ti);
+bool	is_unused(t_cmds *cmds);
 
 // pipe_utils //
 
