@@ -38,7 +38,7 @@ static bool	single_cmd_exec(t_t_i ti)
 
 	cmd = g_ms.cmds_f;
 	if (get_cmd(cmd->cmd) == 4 || get_cmd(cmd->cmd) == 5
-		|| get_cmd(cmd->cmd) == 6)
+		|| get_cmd(cmd->cmd) == 6 || get_cmd(cmd->cmd) == 7)
 	{
 		if (cmd->w == 0)
 			check_all_cmd(cmd);

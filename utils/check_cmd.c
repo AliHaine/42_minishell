@@ -96,5 +96,5 @@ void	check_all_cmd(t_cmds *cmd)
 		return;
 	check_bulltin(cmd, g_ms.env);
 	free_tt(args);
-	free(str);
+	//free(str);
 }

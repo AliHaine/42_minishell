@@ -96,7 +96,6 @@ char	*remplace_env(char **env, char *path)
 	int	len;
 	int	i;
 
-	len = 0;
 	i = 0;
 	while (env[i])
 	{
@@ -114,6 +113,7 @@ char	*remplace_env(char **env, char *path)
 		}
 		i++;
 	}
+	free(path);
 	return (0);
 }
 
