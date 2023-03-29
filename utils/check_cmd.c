@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:58:09 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/28 15:58:54 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/29 12:47:06 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,13 @@ static void	check_bulltin(t_cmds *cmd, char **env)
 		if (g_ms.cmd_nbr == 1)
 			return ;
 	}
-	/*else if (get_cmd(cmd->cmd) == 5)
+	else if (get_cmd(cmd->cmd) == 5)
 	{
-		if (cmd->args[1] && env[0])
-			unset(cmd, env, 0, 1);
-		else
-			printf("\n");
+		if (g_ms.cmds_f->args[0] && env[0])
+			unset(g_ms.cmds_f->args, env, 0, 0);
 		return;
-	}*/
+			
+	}
 	else if (get_cmd(cmd->cmd) == 6)
 	{
 		export(g_ms.cmds_f->cmd, g_ms.cmds_f->args, g_ms.env, 0);
