@@ -16,20 +16,25 @@ char	*get_current_word(char *s, int *a)
 {
 	int		i;
 	char	*new;
+	int		q;
 
 	i = 0;
-	while (s[*a] && s[*a] != ' ' && s[*a] != is_redir_char(s[*a])
-		&& s[*a] != '|')
+	while (s[*a])
 	{
+		update(s[*a], &q);
+		if (q == 0 && (s[*a] == ' ' || s[*a] == is_redir_char(s[*a]) || s[*a] == '|'))
+			break ;
 		i++;
 		*a = *a + 1;
 	}
 	new = malloc(sizeof(char) * i + 1);
 	*a = *a - i;
 	i = 0;
-	while (s[*a] && s[*a] != ' ' && s[*a] != is_redir_char(s[*a])
-		&& s[*a] != '|')
+	while (s[*a])
 	{
+		update(s[*a], &q);
+		if (q == 0 && (s[*a] == ' ' || s[*a] == is_redir_char(s[*a]) || s[*a] == '|'))
+			break ;
 		new[i++] = s[*a];
 		*a = *a + 1;
 	}

@@ -12,18 +12,15 @@
 
 #include "../minishell.h"
 
-//cat | cat | ls
-
 static bool	set_args(char *line, t_cmds *cmds, int *i)
 {
-	int	vide;
 	int	a;
+	int	aw;
 
 	a = 0;
 	cmds->args = malloc(sizeof(char *) * 50);
 	if (!cmds->args)
 		return (false);
-		// oui c gechan //
 	while (line[*i] && line[*i] != '|')
 	{
 		cmds->args[a] = get_current_word(line, i);
