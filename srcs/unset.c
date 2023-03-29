@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:40:21 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/28 16:40:57 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/29 12:47:02 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	unset_extend(char **p, int x)
 {
 	printf("%s: unset: %s: not a valid identifier\n", g_d_e(), p[x]);
 	check_cmd_is_right(1);
-	exit(1);
+	return (0);
 }
 
 static int	check_char(char *s, char *reject)
@@ -56,28 +56,16 @@ static int	check_char(char *s, char *reject)
 
 // $#=+-/@.^%!-?.,;:{}[]&
 
-static int	delete_path(char **env, int i)
+static void delete_path(char **env, int i)
 {
-	char	*tmp;
-
-	if (env[i + 1])
+	while (env[i + 1])
 	{
-		tmp = ft_strdup(env[i + 1]);
-		if (!tmp)
-			return (0);
-		env[i] = tmp;
+		env[i] = env[i + 1];
+		i++;
 	}
-	if (!env[i + 1])
-	{
-		env[i] = NULL;
-		return (0);
-	}
-	return (delete_path(env, i + 1));
+	env[i] = NULL;
+	free(env[i + 1]);
 }
-
-// si ya \ il faut \\ donc enleve en un //
-
-// exit if unset LESS
 
 int	unset(char **path, char **env, int i, int x)
 {
@@ -102,5 +90,6 @@ int	unset(char **path, char **env, int i, int x)
 	}
 	if (path[x + 1])
 		unset(path, env, 0, x + 1);
-	return (check_cmd_is_right(0));
+	check_cmd_is_right(0);
+	return (0);
 }
