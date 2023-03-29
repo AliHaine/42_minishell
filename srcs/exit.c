@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:35:31 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/22 17:37:24 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/29 12:53:05 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,9 @@ char	*histo_pars(char *histo)
 	if (!copy)
 		return (NULL);
 	if (copy[i] && copy[i] == '\n')
-		copy[i] = '\0';
+	{
+		free(copy);
+		copy = ft_substr(histo, 0, (size_t) i);
+	}
 	return (copy);
 }

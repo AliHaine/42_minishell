@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:55:32 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/28 15:36:09 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/29 15:09:45 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ int			unset(char **path, char **env, int i, int x);
 // export //
 
 void		export(char *cmd, char **arg, char **env, int i);
-char		*remplace_env(char **env, char *path);
+void 		remplace_env(char **env, char *path);
 
 // cd //
 

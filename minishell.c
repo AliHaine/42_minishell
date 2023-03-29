@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:11:27 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/28 16:39:53 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/29 14:48:17 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int	main_process(void)
 	while (g_ms.exit > 0)
 	{
 		hh = g_d_e();
-		histo = readline(hh);
+		histo =readline(hh);
 		if (!histo)
 			break ;
 		free(hh);
@@ -119,6 +119,7 @@ int	main(int argc, char **argv, char **env)
 		return (1);
 	}
 	g_ms.env = env;
+	// changer path car faut que sa marche pas si on change le path
 	g_ms.bash = ft_split(path, ':');
 	free(path);
 	g_ms.exit = 1;

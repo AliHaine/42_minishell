@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 12:47:01 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/21 07:44:32 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/29 14:56:12 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*change_path(char *argv)
 	}
 	new_argv[i++] = '=';
 	new_argv[i] = '\0';
-	free(argv);
+	//free(argv);
 	return (new_argv);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 12:18:28 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/22 16:44:32 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/29 13:23:25 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static int	check_is(char *str, char **env, int j, char *reject)
 	int		i;
 	int		x;
 	char	*path;
+	char	*get;
 
 	i = j + 1;
 	x = 0;
-	path = NULL;
 	while (str[i - 1] && path == NULL)
 	{
 		x = 0;
@@ -33,8 +33,10 @@ static int	check_is(char *str, char **env, int j, char *reject)
 			if (str[i] == reject[x] || str[i] == '\0')
 			{
 				path = ft_substr(str, j, i);
-				printf("%s", ft_getenv(env, path + 1));
-				return (i - 1);
+				get = ft_getenv(env, path + 1);
+				printf("%s", get);
+				free(path);
+				return (free(get), i - 1);
 			}
 			x++;
 		}
@@ -120,6 +122,8 @@ static int	echo_2(char **tab, int bulltin)
 }
 
 // bulltin echo //
+
+// no leak //
 
 void	echo(char **tab, int i, int j)
 {

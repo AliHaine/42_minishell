@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:37:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/28 16:41:16 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/29 15:39:50 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,18 @@ static void	export_and_nothing(char **env, int i, int j)
 	check_cmd_is_right(0);
 }
 
+// export hd=d export hd=ds error //ex
+
 static int	check_valid(char *path)
 {
 	int	check;
+	char *gde;
 	int	i;
 
 	check = 0;
 	i = 0;
-	while (path && path[i] != '=')
+	gde = g_d_e();
+	while (path[i] && path[i] != '=')
 	{
 		if (char_cmp(path, " ;\\|$") == 1)
 			check = 1;
@@ -59,13 +63,12 @@ static int	check_valid(char *path)
 		}
 		i++;
 	}
-	if (check == 0)
-		return (check_cmd_is_right(0));
+	if (check == 0 && char_cmp(path, "=") == 1 
+		&& path[ft_strlen(path) - 1] != '=')
+		return (free(gde), check_cmd_is_right(0));
 	else if (check == 2)
-	{
-		printf("%s: export: '%s': not a valid identifier\n", g_d_e(), path);
-	}
-	return (1);
+		printf("%s: export: '%s': not a valid identifier\n", gde, path);
+	return (free(gde), check_cmd_is_right(1));
 }
 
 /* en cour ... */
@@ -75,29 +78,27 @@ static int	check_valid(char *path)
 static char	**add_env_var(char **env, char *path)
 {
 	int	i;
-	char **new_env;
 
-	i = ft_tablen(env);
-	new_env = malloc(sizeof(char *) * i + 1);
+	i = 0;
 	if (env[i])
 	{
-		new_env[i] = ft_strdup(env[i - 1]);
-		if (!new_env[i])
+		i = ft_tablen(env);
+		free(env[i]);
+		env[i] = ft_strdup(env[i - 1]);
+		if (!env[i])
 			return (NULL);
-		new_env[i - 1] = ft_strdup(path);
-		if (!new_env[i - 1])
+		env[i - 1] = ft_strdup(path);
+		if (!env[i])
 			return (NULL);
-		new_env[i + 1] = NULL;
+		env[i + 1] = NULL;
 	}
-	i = -1;
-	while (env[++i + 1])
-		new_env[i] = ft_strdup(env[i]);
-	return (new_env);
+	return (env);
 }
 
 /* pret mais il me faut une fonction de verif */
+// no leaks
 
-char	*remplace_env(char **env, char *path)
+void remplace_env(char **env, char *path)
 {
 	int	len;
 	int	i;
@@ -113,12 +114,11 @@ char	*remplace_env(char **env, char *path)
 			else
 				break ;
 			if (path[len] && env[i][len] == '=')
-				env[i] = ft_strdup(path);
+				env[i] = path;
 		}
 		i++;
 	}
-	free(path);
-	return (0);
+	return ;
 }
 
 // leaks tu coco
@@ -141,14 +141,12 @@ void		export(char *cmd, char **arg,char **env, int i)
 		else
 		{
 			if (check_valid(arg[i]) == 0)
-			{
-				env = add_env_var(copy, arg[i]);
-				free_tt(copy);
-			}
+				env = add_env_var(env, arg[i]);
 			else
-				return ((void)check_cmd_is_right(1));
+				return (free_tt(copy), (void)check_cmd_is_right(1));
 		}
 	}
+	free_tt(copy);
 	if (arg[i + 1])
 		export(cmd, arg, env, i + 1);
 	check_cmd_is_right(0);

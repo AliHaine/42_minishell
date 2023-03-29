@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 13:56:12 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/25 13:56:13 by ayagmur          ###   ########.fr       */
+/*   Updated: 2023/03/29 11:50:39 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static bool	set_args(char *line, t_cmds *cmds, int *i)
 	cmds->args = malloc(sizeof(char *) * 50);
 	if (!cmds->args)
 		return (false);
-	while (line[*i] && line[*i] != '|' && !update(line[*i], &vide))
+		// oui c gechan //
+	while (line[*i] && line[*i] != '|')
 	{
 		cmds->args[a] = get_current_word(line, i);
 		a++;

@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:58:09 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/29 12:47:06 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/29 12:54:30 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,15 @@ static void	check_bulltin(t_cmds *cmd, char **env)
 
 void	check_all_cmd(t_cmds *cmd)
 {
-	char	**args;
-	char	*str;
+	//char	**args;
+	//char	*str;
 
-	str = env_conversion(cmd->cmd_args, g_ms.env, -1, 0);
+	/*str = env_conversion(cmd->cmd_args, g_ms.env, -1, 0);
 	if (!str)
 		return ;
 	args = ft_split(str, ' ');
 	if (!args)
-		return ;
+		return ;*/
 	check_bulltin(cmd, g_ms.env);
-	free_tt(args);
+	//free_tt(args);
 }
