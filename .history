@@ -64,3 +64,40 @@ echo "echo |" | cat -e | echo "salut < | " | cat -e
 exit
 echo 'echo |'
 exit
+echo "salut cava" | cat -e
+cat < s1 |cat -e
+cat < s1 | cat -e | echo "salut
+cat < s1 | cat -e | echo "salut"
+cat < s1 | cat -e | echo "salut"
+cat < s1 | cat -e | echo "salut"
+cat < s1 | cat -e | echo "salut"
+cat < s1 | cat -e | echo "salut"
+cat < s1 | cat -e | echo "salut'
+cat < s1 | cat -e | echo 'salut'
+cat < s1 | cat -e | echo "'"salut"'"
+'cat | cat | ls
+'cat | cat | ls'
+echo salut caa
+echo salut caa |
+echo salut caa | <
+export
+ls
+cat
+exit
+oe la zone
+echo salut
+echo salut | echo cava | cat -e
+echo salut | echo cava | echo " bon et toi les ||" | cat -e
+exit
+echo salut | echo cava | echo " bon et toi les ||" | cat -e
+exit
+echo salut | echo cava | echo " bon et toi les ||" | cat -e
+exit
+exit
+echo salut | echo cava | echo " bon et toi les ||" | cat -e
+exit
+echo salut | echo cava | echo " bon et toi les ||" | cat -e
+echo salut | echo cava | echo " bon et toi les ||" | cat -e
+echo salut | echo cava | echo " bon et toi les ||" | cat -e
+echo salut | echo cava | echo " bon et toi les ||" | cat -e
+exit

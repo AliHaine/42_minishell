@@ -131,6 +131,7 @@ void	echo(char **tab, int i, int j)
 	int	in_q;
 
 	bulltin = 0;
+	in_q = 0;
 	if (tab[i])
 	{
 		bulltin = echo_2(tab, bulltin);

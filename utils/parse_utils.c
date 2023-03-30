@@ -19,6 +19,7 @@ char	*get_current_word(char *s, int *a)
 	int		q;
 
 	i = 0;
+	q = 0;
 	while (s[*a])
 	{
 		update(s[*a], &q);
