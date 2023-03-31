@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:01:26 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/29 15:47:28 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/31 15:25:36 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,11 @@ static int	check_env(char *s, char **env, int i)
 	if (!path)
 		return (0);
 	if (check_path(path, env, 1) == 1)
+	{
+		free(path);
 		return (1);
+	}
+	free(path);
 	return (0);
 }
 
@@ -78,8 +82,11 @@ char	*remplace_part(char *s, char *remplace, int start, int end)
 char	*env_conversion(char *s, char **env, int i, int j)
 {
 	char	*var;
-
-	var = NULL;
+	char	*genv;
+	char	*itoa;
+	char	*copy;
+	
+	copy = ft_strdup(s);
 	while (s[++i])
 	{
 		if (s[i] == '$' && check_env(s, env, i) == 0 && s[i + 1] != '?')
@@ -93,12 +100,16 @@ char	*env_conversion(char *s, char **env, int i, int j)
 			while (s[j + i + 1] && simp_char(s[j + i + 1], " $\'=\"") == 0)
 				j++;
 			var = ft_substr(s, i + 1, j);
+			genv = ft_getenv(env, var);
+			itoa = ft_itoa(g_ms.stat);
 			if (s[i + 1] == '?')
-				s = remplace_part(s, ft_itoa(g_ms.stat), i, j);
+				s = remplace_part(s, itoa, i, j);
 			else
-				s = remplace_part(s, ft_getenv(env, var), i, j);
+				s = remplace_part(s, genv, i, j);
 			i = -1;
 			free(var);
+			free(itoa);
+			free(genv);
 		}
 	}
 	return (s);
