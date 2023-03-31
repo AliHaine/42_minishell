@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:11:27 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/29 14:48:17 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/03/31 15:27:24 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,24 @@ static bool	single_cmd_exec(t_t_i ti, int pid)
 static int	run_process(char *line)
 {
 	struct s_three_int	ti;
+	char *new;
 
+	new = env_conversion(line, g_ms.env, -1, 0);
 	init_three_int(&ti);
-	if (main_parsing(line) == false)
+	if (main_parsing(new) == false)
+	{
+		free(new);
+		new = NULL;
 		return (0);
+	}
+	free(new);
 	if (g_ms.cmd_nbr > 1)
 		pipe_main();
 	else
 		single_cmd_exec(ti, 0);
 	return (1);
 }
-
+ 
 static int	main_process(void)
 {
 	char	*histo;
@@ -82,7 +89,7 @@ static int	main_process(void)
 	while (g_ms.exit > 0)
 	{
 		hh = g_d_e();
-		histo =readline(hh);
+		histo = readline(hh);
 		if (!histo)
 			break ;
 		free(hh);
@@ -103,29 +110,24 @@ static int	main_process(void)
 
 int	main(int argc, char **argv, char **env)
 {
-	char	*path;
-
-	path = ft_getenv(env, "PATH");
-	if (!path)
-		return (0);
+	(void)argc;
+	(void)argv;
 	signal(2, (void *)ctrl_c);
 	signal(SIGQUIT, (void *)ctrl_bs);
 	rl_catch_signals = 0;
-	g_ms.histo_fd = open(".history", O_RDWR);
+	g_ms.histo_fd = open(".history", O_CREAT, S_IRWXU | S_IRWXG | S_IRWXO, O_RDWR);
 	g_ms.stat = 0;
 	if (g_ms.histo_fd == -1)
 	{
 		printf("Error file history\n");
 		return (1);
 	}
-	g_ms.env = env;
-	// changer path car faut que sa marche pas si on change le path
-	g_ms.bash = ft_split(path, ':');
-	free(path);
+	g_ms.env = copy_env(env, ft_tablen(env));
 	g_ms.exit = 1;
 	go_to_end_of_file(g_ms.histo_fd);
 	main_process();
 	close(g_ms.histo_fd);
+	free_tt(g_ms.env);
 	free_tt(g_ms.bash);
 	exit(g_ms.stat);
 }
