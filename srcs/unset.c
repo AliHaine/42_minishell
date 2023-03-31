@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static int	charcmp(char c, char *reject)
+/*static int	charcmp(char c, char *reject)
 {
 	int	i;
 
@@ -24,7 +24,7 @@ static int	charcmp(char c, char *reject)
 		i++;
 	}
 	return (0);
-}
+}*/
 
 static int	unset_extend(char **p, int x)
 {

@@ -20,9 +20,17 @@ int	get_origine(char *cmds)
 	while (cmds[i])
 	{
 		if (cmds[i] == '>' && cmds[i + 1] == '>')
+		{
+			if (cmds[i + 2] && cmds[i + 2] == '>')
+				return (5);
 			return (1);
+		}
 		else if (cmds[i] == '<' && cmds[i + 1] == '<')
+		{
+			if (cmds[i + 2] && cmds[i + 2] == '<')
+				return (5);
 			return (2);
+		}
 		else if (cmds[i] == '>')
 			return (3);
 		else if (cmds[i] == '<')

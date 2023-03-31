@@ -16,7 +16,7 @@
 
 /* var type $PATH and var '"$PATH"' 'PATH' */
 
-static int	check_is(char *str, char **env, int j, char *reject)
+/*static int	check_is(char *str, char **env, int j, char *reject)
 {
 	int		i;
 	int		x;
@@ -96,7 +96,7 @@ static int	get_env_var(char **env, char *var)
 		i++;
 	}
 	return (0);
-}
+}*/
 
 /* bulltin echo part 2 */
 

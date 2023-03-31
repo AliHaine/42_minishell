@@ -15,7 +15,6 @@
 static bool	set_args(char *line, t_cmds *cmds, int *i)
 {
 	int	a;
-	int	aw;
 
 	a = 0;
 	cmds->args = malloc(sizeof(char *) * 50);

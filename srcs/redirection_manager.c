@@ -49,6 +49,7 @@ static void	r_exec(int pipes[][2], t_cmds *cmd, t_t_i ti, int origin)
 {
 	int		fd;
 
+	fd = 0;
 	while (cmd->args[ti.b])
 		ti.b++;
 	ti.b--;

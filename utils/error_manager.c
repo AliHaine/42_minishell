@@ -42,11 +42,11 @@ bool	check_all_quote(struct s_cmds *cmds, int i, int size)
 static	bool	error_msg(int target)
 {
 	if (target == 0)
-		ft_putstr("Votre commande est invalide\n", 0);
+		ft_putstr("Command not found\n", 0);
 	else if (target == 1)
-		ft_putstr("Le fichier n'existe pas\n", 0);
+		ft_putstr("The file doesn't not exist\n", 0);
 	else if (target == 2)
-		ft_putstr("Votre redirection est invalide\n", 0);
+		ft_putstr("Your redirection is invalid\n", 0);
 	return (0);
 }
 
@@ -61,7 +61,7 @@ bool	check_error_redir(t_cmds *cmd)
 		ti.b = is_redir_char(cmd->args[ti.a][0]);
 		if (ti.b > 0)
 		{
-			if (!cmd->args[ti.a + 1])
+			if (!cmd->args[ti.a + 1] || get_origine(cmd->args[ti.a]) == 5)
 				return (error_msg(2));
 			if (get_origine(cmd->args[ti.a]) == 4)
 			{

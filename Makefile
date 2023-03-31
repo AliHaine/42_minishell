@@ -4,7 +4,7 @@ NAME = minishell
 
 CC = @gcc
 
-CFLAGS =
+CFLAGS = -Wall -Werror -Wextra
 
 SRCS =	minishell.c \
 		srcs/parse_input.c \

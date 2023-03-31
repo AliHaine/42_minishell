@@ -56,7 +56,6 @@ char	*remplace_part(char *s, char *remplace, int start, int end)
 
 	i = ft_strlen(remplace);
 	x = 0;
-	j = 0;
 	new_str = NULL;
 	new_str = malloc(sizeof(char) * (ft_strlen(s) - (end - start)) + i + 1);
 	if (!new_str)
@@ -68,7 +67,7 @@ char	*remplace_part(char *s, char *remplace, int start, int end)
 		i++;
 	}
 	j = i + end + 1;
-	while (i < start + ft_strlen(remplace))
+	while (i < start + (int) ft_strlen(remplace))
 		new_str[i++] = remplace[x++];
 	while (s[j])
 		new_str[i++] = s[j++];
@@ -84,13 +83,11 @@ char	*env_conversion(char *s, char **env, int i, int j)
 	char	*var;
 	char	*genv;
 	char	*itoa;
-	char	*copy;
-	
-	copy = ft_strdup(s);
+
 	while (s[++i])
 	{
 		if (s[i] == '$' && check_env(s, env, i) == 0 && s[i + 1] != '?')
-			while (s[i + 1] && (s[i + 1] >= 'a' && s[i + 1] <= 'z')
+			while ((s[i + 1] && (s[i + 1] >= 'a' && s[i + 1] <= 'z'))
 				|| (s[i + 1] >= 'A' && s[i + 1] <= 'Z')
 				|| (s[i + 1] >= '0' && s[i + 1] <= '9'))
 				i++;

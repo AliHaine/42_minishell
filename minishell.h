@@ -153,7 +153,7 @@ int			simp_char(char c, char *reject);
 
 // execve //
 
-int			ft_execve(t_cmds *cmd, char **env);
+int			ft_execve(t_cmds *cmd, char **env, int i);
 
 // exit //
 

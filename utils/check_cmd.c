@@ -81,7 +81,7 @@ static void	check_bulltin(t_cmds *cmd, char **env)
 			return ;
 	}
 	else
-		ft_execve(cmd, env);
+		ft_execve(cmd, env, 0);
 	exit(0);
 }
 

@@ -102,7 +102,6 @@ static int	main_process(void)
 			continue ;
 		}
 		run_process(histo);
-		free(histo);
 		free_words_struct(g_ms.cmds_f);
 	}
 	return (1);
@@ -115,7 +114,7 @@ int	main(int argc, char **argv, char **env)
 	signal(2, (void *)ctrl_c);
 	signal(SIGQUIT, (void *)ctrl_bs);
 	rl_catch_signals = 0;
-	g_ms.histo_fd = open(".history", O_CREAT, S_IRWXU | S_IRWXG | S_IRWXO, O_RDWR);
+	g_ms.histo_fd = open(".history", O_CREAT | O_RDWR, S_IRWXU | S_IRWXG | S_IRWXO);
 	g_ms.stat = 0;
 	if (g_ms.histo_fd == -1)
 	{
