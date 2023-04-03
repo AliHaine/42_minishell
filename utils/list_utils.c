@@ -62,9 +62,9 @@ void	ft_lst_back(t_env **lst)
 		*lst = (*lst)->past;
 }
 
-int ft_lst_size(t_env *lst)
+int	ft_lst_size(t_env *lst)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (lst != NULL)

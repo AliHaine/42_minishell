@@ -19,7 +19,7 @@ static void	export_and_nothing(t_env *list, int i, int j)
 	char	**sort_env;
 
 	printf("%s\n", list->data);
-	sort_env = print_sorted_strings(list, 0 , 0);
+	sort_env = print_sorted_strings(list, 0, 0);
 	while (sort_env[i])
 	{
 		j = 0;
@@ -42,9 +42,9 @@ static void	export_and_nothing(t_env *list, int i, int j)
 
 static int	check_valid(char *path)
 {
-	int	check;
-	char *gde;
-	int	i;
+	int		check;
+	char	*gde;
+	int		i;
 
 	check = 0;
 	i = 0;
@@ -62,17 +62,7 @@ static int	check_valid(char *path)
 	return (free(gde), check_cmd_is_right(1));
 }
 
-static void add_env_var(t_env **lst, char *path)
-{
-	while ((*lst)->next != NULL)
-		*lst = (*lst)->next;
-	ft_lstadd_back(lst, (*lst)->data);
-	free((*lst)->data);
-	(*lst)->data = ft_strdup(path);
-	ft_lst_back(lst);
-}
-
-void remplace_env(char **env, char *path)
+void	remplace_env(char **env, char *path)
 {
 	int	len;
 	int	i;
@@ -98,7 +88,7 @@ void remplace_env(char **env, char *path)
 	return ;
 }
 
-void remplace_lst(t_env *lst, char *path)
+void	remplace_lst(t_env *lst, char *path)
 {
 	int	len;
 	int	i;
@@ -127,7 +117,7 @@ void remplace_lst(t_env *lst, char *path)
 
 // leaks tu coco
 
-void export(char **arg, t_env *list, int i)
+void	export(char **arg, t_env *list, int i)
 {	
 	if (!arg[i])
 		export_and_nothing(list, 0, 0);

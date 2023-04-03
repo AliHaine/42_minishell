@@ -26,3 +26,13 @@ bool	is_space(char c)
 		return (true);
 	return (false);
 }
+
+void	add_env_var(t_env **lst, char *path)
+{
+	while ((*lst)->next != NULL)
+		*lst = (*lst)->next;
+	ft_lstadd_back(lst, (*lst)->data);
+	free((*lst)->data);
+	(*lst)->data = ft_strdup(path);
+	ft_lst_back(lst);
+}

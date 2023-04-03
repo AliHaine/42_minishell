@@ -50,23 +50,3 @@ void	free_words_struct(struct s_cmds *cmds)
 	g_ms.cmds_f = 0;
 	g_ms.cmd_nbr = 0;
 }
-
-void	parc_struct_tester(struct s_cmds *cmds)
-{
-	struct s_cmds	*ite;
-	int i = 0;
-
-	ite = cmds;
-	printf("---------------------\n");
-	while (ite)
-	{
-		printf("Cmd = %s\n", ite->cmd);
-		printf("Cmd args = %s\n", ite->cmd_args);
-        printf("Num of redir = %d\n", ite->w);
-		while (ite->args[i++])
-			printf("args %d = %s\n", i-1, ite->args[i-1]);
-		ite = ite->next;
-		i = 0;
-	}
-	printf("---------------------\n");
-}

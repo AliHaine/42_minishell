@@ -30,9 +30,8 @@ static bool	check_validity(char *str)
 	return (true);
 }
 
-static bool	single_cmd_exec(t_t_i ti, int pid, t_env *list)
+static bool	single_cmd_exec(t_t_i ti, t_env *list)
 {
-	int		r;
 	t_cmds	*cmd;
 
 	cmd = g_ms.cmds_f;
@@ -45,25 +44,14 @@ static bool	single_cmd_exec(t_t_i ti, int pid, t_env *list)
 			redirection_main(0, cmd, ti, list);
 	}
 	else
-	{
-		pid = fork();
-		if (pid == 0)
-		{
-			if (cmd->w == 0)
-				check_all_cmd(cmd, list);
-			else
-				redirection_main(0, cmd, ti, list);
-		}
-		waitpid(pid, &r, WIFEXITED(pid));
-		g_ms.stat = WEXITSTATUS(r);
-	}
+		single_fork(cmd, ti, list);
 	return (true);
 }
 
 static int	run_process(char *line, t_env *list)
 {
 	struct s_three_int	ti;
-	char *new;
+	char				*new;
 
 	new = env_conversion(line, g_ms.env, -1, 0);
 	init_three_int(&ti);
@@ -77,10 +65,10 @@ static int	run_process(char *line, t_env *list)
 	if (g_ms.cmd_nbr > 1)
 		pipe_main(list);
 	else
-		single_cmd_exec(ti, 0, list);
+		single_cmd_exec(ti, list);
 	return (1);
 }
- 
+
 static int	main_process(t_env *list)
 {
 	char	*histo;
@@ -109,14 +97,14 @@ static int	main_process(t_env *list)
 
 int	main(int argc, char **argv, char **env)
 {
+	t_env	*list;
+
 	(void)argc;
 	(void)argv;
-	t_env *list;
-		
 	signal(2, (void *)ctrl_c);
 	signal(SIGQUIT, (void *)ctrl_bs);
 	rl_catch_signals = 0;
-	g_ms.histo_fd = open(".history", O_CREAT | O_RDWR, S_IRWXU | S_IRWXG | S_IRWXO);
+	g_ms.histo_fd = open(".history", O_CREAT | O_RDWR, P1 | P2 | S_IRWXO);
 	g_ms.stat = 0;
 	g_ms.old = 0;
 	if (g_ms.histo_fd == -1)
@@ -124,7 +112,7 @@ int	main(int argc, char **argv, char **env)
 		printf("Error file history\n");
 		return (1);
 	}
-	list = lst_copy_tab(env); 
+	list = lst_copy_tab(env);
 	g_ms.exit = 1;
 	go_to_end_of_file(g_ms.histo_fd);
 	main_process(list);

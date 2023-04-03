@@ -12,12 +12,12 @@
 
 #include "../minishell.h"
 
-t_env 		*lst_copy_tab(char **env)
+t_env	*lst_copy_tab(char **env)
 {
-	int 	i;
+	int		i;
 	t_env	*lst;
-	char *pwd;
-	char *joint;
+	char	*pwd;
+	char	*joint;
 
 	pwd = getcwd(NULL, 0);
 	joint = ft_sjoin("OLDPWD=", pwd);
@@ -29,18 +29,6 @@ t_env 		*lst_copy_tab(char **env)
 		ft_lstadd_back(&lst, env[i]);
 	free(joint);
 	return (lst);
-}
-
-t_env 		*lst_copy(t_env *lst)
-{
-	int 	i;
-	t_env	*copy;
-
-	i = -1;
-	copy = NULL;
-	while (lst != NULL)
-		ft_lstadd_back(&copy, lst->data);
-	return (copy);
 }
 
 /* bulltin echo part 2 */

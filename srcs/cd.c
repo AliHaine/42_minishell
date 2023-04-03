@@ -12,7 +12,8 @@
 
 #include "../minishell.h"
 
-// en fonction de ou se trouve cd le nbr (taille du nom du fichier) de leak augmente
+// en fonction de ou se trouve cd
+// le nbr (taille du nom du fichier) de leak augmente
 
 static int	cd_extend(char **arg)
 {
@@ -24,7 +25,7 @@ static int	cd_extend(char **arg)
 
 static int	cd_extend2(char **arg)
 {
-	char *gde;
+	char	*gde;
 
 	gde = g_d_e();
 	printf("%s: cd: %s: No such file or directory\n", gde, arg[0]);
@@ -34,10 +35,10 @@ static int	cd_extend2(char **arg)
 
 static int	cd_extend3(char **env)
 {
-	char *get;
-	char *pwd_path;
-	char *gwd;
-	char *old;
+	char	*get;
+	char	*pwd_path;
+	char	*gwd;
+	char	*old;
 
 	old = g_d_e();
 	get = ft_getenv(env, "OLDPWD");
@@ -57,8 +58,8 @@ static int	cd_extend3(char **env)
 
 static int	cd_extend4(int choice, char **cmd, char **env)
 {
-	char *get;
-	char *gde;
+	char	*get;
+	char	*gde;
 
 	get = ft_getenv(env, "OLDPWD");
 	gde = g_d_e();
@@ -117,4 +118,3 @@ int	cd(char *cmd, char **arg, char **env, t_env *list)
 	free(gpwd);
 	return (check_cmd_is_right(0));
 }
-

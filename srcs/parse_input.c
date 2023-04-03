@@ -22,7 +22,7 @@ static bool	set_args(char *line, t_cmds *cmds, int *i)
 		return (false);
 	while (line[*i] && line[*i] != '|')
 	{
-		cmds->args[a] = get_current_word(line, i);
+		cmds->args[a] = get_current_word(line, i, 0, 0);
 		a++;
 		while (line[*i] && line[*i] == ' ')
 			*i = *i + 1;

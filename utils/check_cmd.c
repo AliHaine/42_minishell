@@ -47,29 +47,13 @@ int	get_cmd(char *cmd)
 	return (0);
 }
 
-static void	check_bulltin(t_cmds *cmd, t_env *list)
+static void	check_builtin_h(t_cmds *cmd, t_env *list, char **env)
 {
-	char **env;
-
-	env = NULL;
-	if (!cmd->cmd)
-		return ;
-	else if (get_cmd(cmd->cmd) == 1)
-		echo(cmd->args, 0, 0);
-	else if (get_cmd(cmd->cmd) == 2)
-		pwd();
-	else if (get_cmd(cmd->cmd) == 4)
-	{
-		print_env(cmd, list);
-		if (g_ms.cmd_nbr == 1)
-			return ;
-	}
-	else if (get_cmd(cmd->cmd) == 5)
+	if (get_cmd(cmd->cmd) == 5)
 	{
 		if (g_ms.cmds_f->args[0] && list->data)
 			unset(g_ms.cmds_f->args, list, 0);
-		return;
-			
+		return ;
 	}
 	else if (get_cmd(cmd->cmd) == 6)
 	{
@@ -85,6 +69,28 @@ static void	check_bulltin(t_cmds *cmd, t_env *list)
 		if (g_ms.cmd_nbr == 1)
 			return ;
 	}
+}
+
+static void	check_bulltin(t_cmds *cmd, t_env *list)
+{
+	char	**env;
+
+	env = NULL;
+	if (!cmd->cmd)
+		return ;
+	else if (get_cmd(cmd->cmd) == 1)
+		echo(cmd->args, 0, 0);
+	else if (get_cmd(cmd->cmd) == 2)
+		pwd();
+	else if (get_cmd(cmd->cmd) == 4)
+	{
+		print_env(cmd, list);
+		if (g_ms.cmd_nbr == 1)
+			return ;
+	}
+	else if (get_cmd(cmd->cmd) == 5 || get_cmd(cmd->cmd) == 6
+		|| get_cmd(cmd->cmd) == 7)
+		check_builtin_h(cmd, list, env);
 	else
 		ft_execve(cmd, NULL, 0, list);
 	exit(0);
@@ -94,4 +100,3 @@ void	check_all_cmd(t_cmds *cmd, t_env *list)
 {
 	check_bulltin(cmd, list);
 }
-

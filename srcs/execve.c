@@ -37,7 +37,7 @@ int	ft_execve(t_cmds *cmd, char **env, int i, t_env *lst)
 	char	**bash;
 	char	*path;
 
-	env  = copy_with_lst(lst);
+	env = copy_with_lst(lst);
 	path = ft_getenv(env, "PATH");
 	bash = ft_split(path, ':');
 	free(path);

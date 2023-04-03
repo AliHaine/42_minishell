@@ -12,6 +12,8 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# define P1 S_IRWXU
+# define P2 S_IRWXG
 
 # include "utils/get_next_line/get_next_line.h"
 # include <stdbool.h>
@@ -37,7 +39,7 @@ typedef struct s_minishell
 
 typedef struct s_env
 {
-	char	*data;
+	char			*data;
 	struct s_env	*next;
 	struct s_env	*past;
 }	t_env;
@@ -58,8 +60,15 @@ typedef struct s_three_int
 	int	c;
 }	t_t_i;
 
+typedef struct s_helper
+{
+	struct s_cmds	*t_c;
+	t_t_i			ti;
+}	t_helper;
+
 t_minishell	g_ms;
 
+void		parse_helper(char *str);
 void		ctrl_c(void);
 void		ctrl_bs(void);
 void		go_to_end_of_file(int fd);
@@ -75,6 +84,7 @@ bool		is_redir_char(char c);
 
 void		init_three_int(struct s_three_int *ti);
 bool		is_space(char c);
+void		add_env_var(t_env **lst, char *path);
 
 // error_manager //
 
@@ -84,6 +94,9 @@ bool		check_error_redir(t_cmds *cmd);
 
 // manager //
 
+void		origin_four_start(t_helper h, int pipes[][2], t_env *l, int fd);
+void		r_exec_single(t_helper h, int origin, int fd, t_env *l);
+void		r_exec(int pipes[][2], t_helper h, int origin, t_env *l);
 bool		pipe_main(t_env *list);
 void		redirection_main(int pipes[][2], t_cmds *cmd, t_t_i ti, t_env *l);
 bool		is_unused(t_cmds *cmds);
@@ -96,13 +109,14 @@ bool		is_unused(t_cmds *cmds);
 
 // redir utile //
 
+void		redir_main_helper(t_helper h, int pipes[][2], t_t_i ti2, t_env *l);
 void		create_and_close(char *name);
-void		write_to_file(int fd, char *s);
+void		write_to_file(int fd, char **s);
 
 // parse_utils //
 
 char		*ft_strjoin_parse(char *s1, char *s2);
-char		*get_current_word(char *s, int *a);
+char		*get_current_word(char *s, int *a, int i, int q);
 int			get_args_size(char **args);
 
 // cmds_struct //
@@ -128,7 +142,7 @@ int			char_cmp(char *str, char *reject);
 
 // utils3 //
 
-int			str_copy(char *dst, char *src, int size);
+bool		single_fork(t_cmds *cmd, t_t_i ti, t_env *list);
 char		**copy_env(t_env *list, int size);
 char		**print_sorted_strings(t_env *list, int i, int j);
 char		*ft_join(char *s1, char *s2);
@@ -163,7 +177,7 @@ int			simp_char(char c, char *reject);
 
 // execve //
 
-int	ft_execve(t_cmds *cmd, char **env, int i, t_env *lst);
+int			ft_execve(t_cmds *cmd, char **env, int i, t_env *lst);
 
 // exit //
 
@@ -181,37 +195,36 @@ char		*g_pwd(void);
 // echo //
 
 void		echo(char **tab, int i, int j);
-t_env 		*lst_copy_tab(char **env);
+t_env		*lst_copy_tab(char **env);
 
 // env //
 
-void	print_env(t_cmds *cmd, t_env *list);
+void		print_env(t_cmds *cmd, t_env *list);
 char		*ft_getenv(char **env, char *path);
 
 // unset //
 
-int	unset(char **path, t_env *list, int x);
+int			unset(char **path, t_env *list, int x);
 
 // export //
 
-void export(char **arg, t_env *list, int i);
-void 		remplace_env(char **env, char *path);
+void		export(char **arg, t_env *list, int i);
+void		remplace_env(char **env, char *path);
 
 // cd //
 
-int	cd(char *cmd, char **arg, char **env, t_env *list);
+int			cd(char *cmd, char **arg, char **env, t_env *list);
 
 // lst
 
-void	ft_lstadd_back(t_env **list, char *str);
-t_env	*ft_lstlast(t_env *list);
-t_env	*ft_lstnew(char *str);
-t_env 		*lst_copy(t_env *lst);
-t_env 		*lst_copy_tab(char **env);
-void	ft_lst_back(t_env **lst);
-int ft_lst_size(t_env *lst);
-char **copy_with_lst(t_env *lst);
-void remplace_lst(t_env *lst, char *path);
-void	free_list(t_env **head);
+void		ft_lstadd_back(t_env **list, char *str);
+t_env		*ft_lstlast(t_env *list);
+t_env		*ft_lstnew(char *str);
+t_env		*lst_copy_tab(char **env);
+void		ft_lst_back(t_env **lst);
+int			ft_lst_size(t_env *lst);
+char		**copy_with_lst(t_env *lst);
+void		remplace_lst(t_env *lst, char *path);
+void		free_list(t_env **head);
 
 #endif

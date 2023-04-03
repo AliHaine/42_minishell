@@ -14,8 +14,8 @@
 
 void	free_list(t_env **head)
 {
-	t_env *current;
-	t_env *next;
+	t_env	*current;
+	t_env	*next;
 
 	current = *head;
 	while (current != NULL)
@@ -24,15 +24,15 @@ void	free_list(t_env **head)
 		next = current->next;
 		free(current);
 		current = next;
-		if(current != NULL)
+		if (current != NULL)
 			current->past = NULL;
 	}
 }
 
-char **copy_with_lst(t_env *lst)
+char	**copy_with_lst(t_env *lst)
 {
-	int i;
-	char **copy;
+	int		i;
+	char	**copy;
 
 	i = 0;
 	copy = malloc(sizeof(char *) * ft_lst_size(lst) + 1);

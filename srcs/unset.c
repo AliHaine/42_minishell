@@ -14,7 +14,7 @@
 
 static int	unset_extend(char **p, int x)
 {
-	char *gde;
+	char	*gde;
 
 	gde = g_d_e();
 	printf("%s: unset: %s: not a valid identifier\n", gde, p[x]);
@@ -46,10 +46,10 @@ static int	check_char(char *s, char *reject)
 
 // $#=+-/@.^%!-?.,;:{}[]&
 
-static void delete_path(t_env **lst)
+static void	delete_path(t_env **lst)
 {
-	t_env *prevent;
-	t_env *test;
+	t_env	*prevent;
+	t_env	*test;
 
 	prevent = (*lst)->past;
 	test = (*lst)->next;
@@ -66,7 +66,6 @@ int	unset(char **path, t_env *list, int x)
 {
 	int	len;
 
-	len = 0;
 	while (list->next != NULL)
 	{
 		len = 0;
@@ -91,4 +90,3 @@ int	unset(char **path, t_env *list, int x)
 		unset(path, list, x + 1);
 	return (check_cmd_is_right(0));
 }
-

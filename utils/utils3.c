@@ -12,21 +12,24 @@
 
 #include "../minishell.h"
 
-// str_copy //
-
-int	str_copy(char *dst, char *src, int size)
+bool	single_fork(t_cmds *cmd, t_t_i ti, t_env *list)
 {
-	int	i;
+	int	r;
+	int	pid;
 
-	i = 0;
-	while (size > 0)
+	pid = fork();
+	if (pid == -1)
+		return (0);
+	if (pid == 0)
 	{
-		dst[i] = src[i];
-		size--;
-		i++;
+		if (cmd->w == 0)
+			check_all_cmd(cmd, list);
+		else
+			redirection_main(0, cmd, ti, list);
 	}
-	dst[i] = '\0';
-	return (i);
+	waitpid(pid, &r, WIFEXITED(pid));
+	g_ms.stat = WEXITSTATUS(r);
+	return (1);
 }
 
 // copy env //
@@ -59,7 +62,7 @@ char	**print_sorted_strings(t_env *list, int i, int j)
 {
 	char	*temp;
 	char	**strings;
-	int 	size; 
+	int		size;
 
 	size = ft_lst_size(list);
 	temp = NULL;

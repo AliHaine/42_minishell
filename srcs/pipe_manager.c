@@ -46,50 +46,50 @@ static bool	execv_helper(t_t_i ti, t_cmds *cmds, int pipes[][2], t_env *l)
 	return (true);
 }
 
-static bool	pipe_brain2(t_t_i ti, int *pid, t_cmds *cmds, int pipes[][2], t_env *l)
+static bool	pipe_brain2(int *pid, t_helper h, int pipes[][2], t_env *l)
 {
-	if (ti.a == (ti.c - 1))
+	if (h.ti.a == (h.ti.c - 1))
 	{
-		if (pid[ti.a] == 0)
-			if (!execv_helper(ti, cmds, pipes, l))
+		if (pid[h.ti.a] == 0)
+			if (!execv_helper(h.ti, h.t_c, pipes, l))
 				return (false);
-		close(pipes[ti.a - 1][0]);
+		close(pipes[h.ti.a - 1][0]);
 	}
 	else
 	{
-		if (pid[ti.a] == 0)
-			if (!execv_helper(ti, cmds, pipes, l))
+		if (pid[h.ti.a] == 0)
+			if (!execv_helper(h.ti, h.t_c, pipes, l))
 				return (false);
-		close(pipes[ti.a - 1][0]);
-		close(pipes[ti.a][1]);
+		close(pipes[h.ti.a - 1][0]);
+		close(pipes[h.ti.a][1]);
 	}
 	return (true);
 }
 
-static bool	pipe_brain(t_t_i ti, pid_t *pid, t_cmds *cmds, t_env *l)
+static bool	pipe_brain(pid_t *pid, t_helper h, t_env *l)
 {
 	int				pipes[19][2];
 	int				r;
 
 	pipe_init(pipes);
-	while (cmds)
+	while (h.t_c)
 	{
-		pid[ti.a] = fork();
-		if (pid[ti.a] == -1)
+		pid[h.ti.a] = fork();
+		if (pid[h.ti.a] == -1)
 			return (false);
-		if (ti.a == 0)
+		if (h.ti.a == 0)
 		{
-			if (pid[ti.a] == 0)
-				if (!execv_helper(ti, cmds, pipes, l))
+			if (pid[h.ti.a] == 0)
+				if (!execv_helper(h.ti, h.t_c, pipes, l))
 					return (false);
 			close(pipes[0][1]);
 		}
 		else
-			if (!pipe_brain2(ti, pid, cmds, pipes, l))
+			if (!pipe_brain2(pid, h, pipes, l))
 				return (false);
-		cmds = cmds->next;
+		h.t_c = h.t_c->next;
 		g_ms.stat = WEXITSTATUS(r);
-		ti.a++;
+		h.ti.a++;
 	}
 	return (true);
 }
@@ -99,17 +99,13 @@ bool	pipe_main(t_env *list)
 	struct s_three_int	ti;
 	pid_t				pid[20];
 	int					r;
-	t_cmds				*cmds;
+	t_helper			h;
 
 	init_three_int(&ti);
-	cmds = g_ms.cmds_f;
-	/*if (check_all_quote(g_ms.cmds_f, 0, 0) == false)
-	{
-		printf("minishell: erreur de quote\n");
-		return (false);
-	}*/
+	h.t_c = g_ms.cmds_f;
+	h.ti = ti;
 	ti.c = g_ms.cmd_nbr;
-	pipe_brain(ti, pid, cmds, list);
+	pipe_brain(pid, h, list);
 	while (ti.a < ti.c)
 	{
 		waitpid(pid[ti.a], &r, WIFEXITED(pid[ti.a]));

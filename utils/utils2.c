@@ -48,11 +48,10 @@ static char	*change_path(char *argv)
 
 int	check_path(char *argv, char **env, int n)
 {
-	int	i;
-	int	j;
-	char	*copy;
+	int			i;
+	int			j;
+	char		*copy;
 
-	i = 0;
 	j = 0;
 	if (n == 1)
 		copy = change_path(argv);
@@ -97,7 +96,7 @@ int	char_cmp(char *str, char *reject)
 
 int	check_path_lst(char *argv, t_env *lst, int n)
 {
-	int	i;
+	int		i;
 	char	*copy;
 
 	i = 0;

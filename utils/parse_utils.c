@@ -12,18 +12,15 @@
 
 #include "../minishell.h"
 
-char	*get_current_word(char *s, int *a)
+char	*get_current_word(char *s, int *a, int i, int q)
 {
-	int		i;
 	char	*new;
-	int		q;
 
-	i = 0;
-	q = 0;
 	while (s[*a])
 	{
 		update(s[*a], &q);
-		if (q == 0 && (s[*a] == ' ' || s[*a] == is_redir_char(s[*a]) || s[*a] == '|'))
+		if (q == 0 && (s[*a] == ' ' || s[*a] == is_redir_char(s[*a])
+				|| s[*a] == '|'))
 			break ;
 		i++;
 		*a = *a + 1;
@@ -34,7 +31,8 @@ char	*get_current_word(char *s, int *a)
 	while (s[*a])
 	{
 		update(s[*a], &q);
-		if (q == 0 && (s[*a] == ' ' || s[*a] == is_redir_char(s[*a]) || s[*a] == '|'))
+		if (q == 0 && (s[*a] == ' ' || s[*a] == is_redir_char(s[*a])
+				|| s[*a] == '|'))
 			break ;
 		new[i++] = s[*a];
 		*a = *a + 1;
