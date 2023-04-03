@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:11:27 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/31 15:27:24 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/03 17:48:27 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static bool	check_validity(char *str)
 	return (true);
 }
 
-static bool	single_cmd_exec(t_t_i ti, int pid)
+static bool	single_cmd_exec(t_t_i ti, int pid, t_env *list)
 {
 	int		r;
 	t_cmds	*cmd;
@@ -40,9 +40,9 @@ static bool	single_cmd_exec(t_t_i ti, int pid)
 		|| get_cmd(cmd->cmd) == 6 || get_cmd(cmd->cmd) == 7)
 	{
 		if (cmd->w == 0)
-			check_all_cmd(cmd);
+			check_all_cmd(cmd, list);
 		else
-			redirection_main(0, cmd, ti);
+			redirection_main(0, cmd, ti, list);
 	}
 	else
 	{
@@ -50,9 +50,9 @@ static bool	single_cmd_exec(t_t_i ti, int pid)
 		if (pid == 0)
 		{
 			if (cmd->w == 0)
-				check_all_cmd(cmd);
+				check_all_cmd(cmd, list);
 			else
-				redirection_main(0, cmd, ti);
+				redirection_main(0, cmd, ti, list);
 		}
 		waitpid(pid, &r, WIFEXITED(pid));
 		g_ms.stat = WEXITSTATUS(r);
@@ -60,7 +60,7 @@ static bool	single_cmd_exec(t_t_i ti, int pid)
 	return (true);
 }
 
-static int	run_process(char *line)
+static int	run_process(char *line, t_env *list)
 {
 	struct s_three_int	ti;
 	char *new;
@@ -75,13 +75,13 @@ static int	run_process(char *line)
 	}
 	free(new);
 	if (g_ms.cmd_nbr > 1)
-		pipe_main();
+		pipe_main(list);
 	else
-		single_cmd_exec(ti, 0);
+		single_cmd_exec(ti, 0, list);
 	return (1);
 }
  
-static int	main_process(void)
+static int	main_process(t_env *list)
 {
 	char	*histo;
 	char	*hh;
@@ -101,7 +101,7 @@ static int	main_process(void)
 			free_words_struct(g_ms.cmds_f);
 			continue ;
 		}
-		run_process(histo);
+		run_process(histo, list);
 		free_words_struct(g_ms.cmds_f);
 	}
 	return (1);
@@ -111,22 +111,26 @@ int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
+	t_env *list;
+		
 	signal(2, (void *)ctrl_c);
 	signal(SIGQUIT, (void *)ctrl_bs);
 	rl_catch_signals = 0;
 	g_ms.histo_fd = open(".history", O_CREAT | O_RDWR, S_IRWXU | S_IRWXG | S_IRWXO);
 	g_ms.stat = 0;
+	g_ms.old = 0;
 	if (g_ms.histo_fd == -1)
 	{
 		printf("Error file history\n");
 		return (1);
 	}
-	g_ms.env = copy_env(env, ft_tablen(env));
+	list = lst_copy_tab(env); 
 	g_ms.exit = 1;
 	go_to_end_of_file(g_ms.histo_fd);
-	main_process();
+	main_process(list);
 	close(g_ms.histo_fd);
 	free_tt(g_ms.env);
 	free_tt(g_ms.bash);
+	free_list(&list);
 	exit(g_ms.stat);
 }

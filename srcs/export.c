@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:37:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/30 22:48:15 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/03 18:21:32 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 
 // no leaks //
 
-static void	export_and_nothing(char **env, int i, int j)
+static void	export_and_nothing(t_env *list, int i, int j)
 {
 	char	**sort_env;
 
-	sort_env = NULL;
-	while (env[i])
-		i++;
-	sort_env = print_sorted_strings(env, i, 0 , 0);
-	i = 0;
+	printf("%s\n", list->data);
+	sort_env = print_sorted_strings(list, 0 , 0);
 	while (sort_env[i])
 	{
 		j = 0;
@@ -54,49 +51,26 @@ static int	check_valid(char *path)
 	gde = g_d_e();
 	while (path[i] && path[i] != '=')
 	{
-		if (char_cmp(path, " ;\\|$") == 1)
-			check = 1;
-		else if (char_cmp(path, "\t\n\r@&()[]{}%!<>?-*+^~") == 1)
-		{
+		if (char_cmp(path, "\t\n\r@&()[]{}%!<>?-*+^~") == 1)
 			check = 2;
-			break ;
-		}
 		i++;
 	}
-	if (check == 0 && char_cmp(path, "=") == 1 
-		&& path[ft_strlen(path) - 1] != '=')
+	if (check == 0 && char_cmp(path, "=") == 1)
 		return (free(gde), check_cmd_is_right(0));
 	else if (check == 2)
 		printf("%s: export: '%s': not a valid identifier\n", gde, path);
 	return (free(gde), check_cmd_is_right(1));
 }
 
-/* en cour ... */
-
-// leak !!! //
-
-static char	**add_env_var(char **env, char *path)
+static void add_env_var(t_env **lst, char *path)
 {
-	int	i;
-
-	i = 0;
-	if (env[i])
-	{
-		i = ft_tablen(env);
-		free(env[i]);
-		env[i] = ft_strdup(env[i - 1]);
-		if (!env[i])
-			return (NULL);
-		env[i - 1] = ft_strdup(path);
-		if (!env[i])
-			return (NULL);
-		env[i + 1] = NULL;
-	}
-	return (env);
+	while ((*lst)->next != NULL)
+		*lst = (*lst)->next;
+	ft_lstadd_back(lst, (*lst)->data);
+	free((*lst)->data);
+	(*lst)->data = ft_strdup(path);
+	ft_lst_back(lst);
 }
-
-/* pret mais il me faut une fonction de verif */
-// no leaks
 
 void remplace_env(char **env, char *path)
 {
@@ -114,40 +88,59 @@ void remplace_env(char **env, char *path)
 			else
 				break ;
 			if (path[len] && env[i][len] == '=')
-				env[i] = path;
+			{
+				free(env[i]);
+				env[i] = ft_strdup(path);
+			}
 		}
 		i++;
 	}
 	return ;
 }
 
+void remplace_lst(t_env *lst, char *path)
+{
+	int	len;
+	int	i;
+
+	i = 0;
+	while (lst != NULL)
+	{
+		len = 0;
+		while (path[len])
+		{
+			if (lst->data[len] && lst->data[len] == path[len])
+				len++;
+			else
+				break ;
+			if (path[len] && lst->data[len] == '=')
+			{
+				free(lst->data);
+				lst->data = ft_strdup(path);
+			}
+		}
+		i++;
+		lst = lst->next;
+	}
+	return ;
+}
+
 // leaks tu coco
 
-void		export(char *cmd, char **arg,char **env, int i)
-{
-	char **copy;
-
-	copy = copy_env(env, ft_tablen(env));
+void export(char **arg, t_env *list, int i)
+{	
 	if (!arg[i])
+		export_and_nothing(list, 0, 0);
+	while (arg[i])
 	{
-		export_and_nothing(env, 0, 0);
-		free_tt(copy);
-		return ;
-	}
-	else if (arg[i])
-	{
-		if (check_path(arg[i], env, 0) == 1)
-			remplace_env(env, arg[i]);
+		if (check_path_lst(arg[i], list, 0) == 1)
+			remplace_lst(list, arg[i]);
 		else
 		{
 			if (check_valid(arg[i]) == 0)
-				env = add_env_var(env, arg[i]);
-			else
-				return (free_tt(copy), (void)check_cmd_is_right(1));
+				add_env_var(&list, arg[i]);
 		}
+		i++;
 	}
-	free_tt(copy);
-	if (arg[i + 1])
-		export(cmd, arg, env, i + 1);
 	check_cmd_is_right(0);
 }

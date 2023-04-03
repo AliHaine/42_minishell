@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 12:47:01 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/29 14:56:12 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/03 18:17:51 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static char	*change_path(char *argv)
 	}
 	new_argv[i++] = '=';
 	new_argv[i] = '\0';
-	//free(argv);
 	return (new_argv);
 }
 
@@ -51,25 +50,28 @@ int	check_path(char *argv, char **env, int n)
 {
 	int	i;
 	int	j;
+	char	*copy;
 
-	j = 0;
 	i = 0;
+	j = 0;
 	if (n == 1)
-		argv = change_path(argv);
-	if (!argv)
+		copy = change_path(argv);
+	else
+		copy = ft_strdup(argv);
+	if (!copy)
 		return (0);
 	while (env[j])
 	{
 		i = 0;
-		while (argv[i] == env[j][i])
+		while (copy[i] == env[j][i])
 		{
-			if (env[j][i] == '=' && argv[i] == '=')
-				return (1);
+			if (env[j][i] == '=' && copy[i] == '=')
+				return (free(copy), 1);
 			i++;
 		}
 		j++;
 	}
-	return (0);
+	return (/*free(copy),*/ 0);
 }
 
 int	char_cmp(char *str, char *reject)
@@ -91,4 +93,30 @@ int	char_cmp(char *str, char *reject)
 		i++;
 	}
 	return (0);
+}
+
+int	check_path_lst(char *argv, t_env *lst, int n)
+{
+	int	i;
+	char	*copy;
+
+	i = 0;
+	if (n == 1)
+		copy = change_path(argv);
+	else
+		copy = ft_strdup(argv);
+	if (!copy)
+		return (0);
+	while (lst != NULL)
+	{
+		i = 0;
+		while (copy[i] == lst->data[i])
+		{
+			if (lst->data[i] == '=' && copy[i] == '=')
+				return (free(copy), 1);
+			i++;
+		}
+		lst = lst->next;
+	}
+	return (free(copy), 0);
 }

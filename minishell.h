@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:55:32 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/29 15:09:45 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/03 18:21:36 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,21 @@ typedef struct s_minishell
 {
 	int					histo_fd;
 	char				**env;
+	int					old;
 	char				**bash;
 	int					exit;
 	int					stat;
 	int					cmd_nbr;
 	struct s_cmds		*cmds_f;
+	struct s_env		*list_env;
 }	t_minishell;
+
+typedef struct s_env
+{
+	char	*data;
+	struct s_env	*next;
+	struct s_env	*past;
+}	t_env;
 
 typedef struct s_cmds
 {
@@ -75,8 +84,8 @@ bool		check_error_redir(t_cmds *cmd);
 
 // manager //
 
-bool		pipe_main(void);
-void		redirection_main(int pipes[][2], t_cmds *cmd, t_t_i ti);
+bool		pipe_main(t_env *list);
+void		redirection_main(int pipes[][2], t_cmds *cmd, t_t_i ti, t_env *l);
 bool		is_unused(t_cmds *cmds);
 
 // pipe_utils //
@@ -113,14 +122,15 @@ void		free_tt(char **str);
 // utils2 //
 
 int			check_path(char *argv, char **env, int n);
+int			check_path_lst(char *argv, t_env *lst, int n);;
 int			ft_tablen(char **tab);
 int			char_cmp(char *str, char *reject);
 
 // utils3 //
 
 int			str_copy(char *dst, char *src, int size);
-char		**copy_env(char **env, int size);
-char		**print_sorted_strings(char **env, int size, int i, int j);
+char		**copy_env(t_env *list, int size);
+char		**print_sorted_strings(t_env *list, int i, int j);
 char		*ft_join(char *s1, char *s2);
 char		*ft_sjoin(char *s1, char *s2);
 
@@ -137,7 +147,7 @@ int			ft_atoi(const char *str);
 // check_all_cmd //
 
 int			get_cmd(char *cmd);
-void		check_all_cmd(t_cmds *cmd);
+void		check_all_cmd(t_cmds *cmd, t_env *list);
 
 // trime_quotation //
 
@@ -153,7 +163,7 @@ int			simp_char(char c, char *reject);
 
 // execve //
 
-int			ft_execve(t_cmds *cmd, char **env, int i);
+int	ft_execve(t_cmds *cmd, char **env, int i, t_env *lst);
 
 // exit //
 
@@ -171,23 +181,37 @@ char		*g_pwd(void);
 // echo //
 
 void		echo(char **tab, int i, int j);
+t_env 		*lst_copy_tab(char **env);
 
 // env //
 
-void		print_env(char **env);
+void	print_env(t_cmds *cmd, t_env *list);
 char		*ft_getenv(char **env, char *path);
 
 // unset //
 
-int			unset(char **path, char **env, int i, int x);
+int	unset(char **path, t_env *list, int x);
 
 // export //
 
-void		export(char *cmd, char **arg, char **env, int i);
+void export(char **arg, t_env *list, int i);
 void 		remplace_env(char **env, char *path);
 
 // cd //
 
-int			cd(char *cmd, char **arg, char **env);
+int	cd(char *cmd, char **arg, char **env, t_env *list);
+
+// lst
+
+void	ft_lstadd_back(t_env **list, char *str);
+t_env	*ft_lstlast(t_env *list);
+t_env	*ft_lstnew(char *str);
+t_env 		*lst_copy(t_env *lst);
+t_env 		*lst_copy_tab(char **env);
+void	ft_lst_back(t_env **lst);
+int ft_lst_size(t_env *lst);
+char **copy_with_lst(t_env *lst);
+void remplace_lst(t_env *lst, char *path);
+void	free_list(t_env **head);
 
 #endif

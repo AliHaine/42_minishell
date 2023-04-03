@@ -6,29 +6,19 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:40:21 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/29 12:47:02 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/03 18:11:32 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/*static int	charcmp(char c, char *reject)
-{
-	int	i;
-
-	i = 0;
-	while (reject[i])
-	{
-		if (reject[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}*/
-
 static int	unset_extend(char **p, int x)
 {
-	printf("%s: unset: %s: not a valid identifier\n", g_d_e(), p[x]);
+	char *gde;
+
+	gde = g_d_e();
+	printf("%s: unset: %s: not a valid identifier\n", gde, p[x]);
+	free(gde);
 	check_cmd_is_right(1);
 	return (0);
 }
@@ -56,40 +46,49 @@ static int	check_char(char *s, char *reject)
 
 // $#=+-/@.^%!-?.,;:{}[]&
 
-static void delete_path(char **env, int i)
+static void delete_path(t_env **lst)
 {
-	while (env[i + 1])
-	{
-		env[i] = env[i + 1];
-		i++;
-	}
-	env[i] = NULL;
-	free(env[i + 1]);
+	t_env *prevent;
+	t_env *test;
+
+	prevent = (*lst)->past;
+	test = (*lst)->next;
+	free((*lst)->data);
+	free(*lst);
+	prevent->next = test;
+	test->past = prevent;
+	*lst = prevent;
 }
 
-int	unset(char **path, char **env, int i, int x)
+// fonction qui enleve et remonte tous d'un noeud
+
+int	unset(char **path, t_env *list, int x)
 {
 	int	len;
 
 	len = 0;
-	while (env[i])
+	while (list->next != NULL)
 	{
 		len = 0;
 		while (path[x][len])
 		{
 			if (check_char(path[x], "$#=+-/@.^%!-?.,;:{}[]&") == 1)
 				return (unset_extend(path, x));
-			if (env[i][len] && env[i][len] == path[x][len])
+			if (list->data[len] && list->data[len] == path[x][len])
 				len++;
 			else
 				break ;
-			if (!path[x][len] && env[i][len] == '=')
-				delete_path(env, i);
+			if (!path[x][len] && list->data[len] == '=')
+			{
+				delete_path(&list);
+				ft_lst_back(&list);
+			}
 		}
-		i++;
+		list = list->next;
 	}
+	ft_lst_back(&list);
 	if (path[x + 1])
-		unset(path, env, 0, x + 1);
-	check_cmd_is_right(0);
-	return (0);
+		unset(path, list, x + 1);
+	return (check_cmd_is_right(0));
 }
+

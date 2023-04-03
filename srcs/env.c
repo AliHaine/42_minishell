@@ -15,24 +15,28 @@
 
 /* env env env == env \\ env env eng = error */
 
-// aucun leak //
-
-void	print_env(char **env)
+void	print_env(t_cmds *cmd, t_env *list)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	while (env[i])
+	while (cmd->args[i])
 	{
-		printf("%s\n", env[i++]);
+		if (ft_strcmp(cmd->args[i], "env"))
+			i++;
+		else
+		{
+			printf("env: %s: No such file or directory\n", cmd->args[i]);
+			check_cmd_is_right(1);
+			return ;
+		}
 	}
-	if (!env[0])
-	{
-		printf("%s: env: is empty", g_d_e());
-		check_cmd_is_right(1);
+	while (list != NULL)
+	{	
+		printf("%s\n", list->data);
+		list = list->next;
 	}
-	else
-		check_cmd_is_right(0);
+	check_cmd_is_right(0);
 }
 
 static char	*print_v_env(char **env, int i)

@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:58:09 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/29 12:54:30 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/03 18:22:01 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,11 @@ int	get_cmd(char *cmd)
 	return (0);
 }
 
-static void	check_bulltin(t_cmds *cmd, char **env)
+static void	check_bulltin(t_cmds *cmd, t_env *list)
 {
+	char **env;
+
+	env = NULL;
 	if (!cmd->cmd)
 		return ;
 	else if (get_cmd(cmd->cmd) == 1)
@@ -57,45 +60,38 @@ static void	check_bulltin(t_cmds *cmd, char **env)
 		pwd();
 	else if (get_cmd(cmd->cmd) == 4)
 	{
-		print_env(env);
+		print_env(cmd, list);
 		if (g_ms.cmd_nbr == 1)
 			return ;
 	}
 	else if (get_cmd(cmd->cmd) == 5)
 	{
-		if (g_ms.cmds_f->args[0] && env[0])
-			unset(g_ms.cmds_f->args, env, 0, 0);
+		if (g_ms.cmds_f->args[0] && list->data)
+			unset(g_ms.cmds_f->args, list, 0);
 		return;
 			
 	}
 	else if (get_cmd(cmd->cmd) == 6)
 	{
-		export(g_ms.cmds_f->cmd, g_ms.cmds_f->args, g_ms.env, 0);
+		export(g_ms.cmds_f->args, list, 0);
 		if (g_ms.cmd_nbr == 1)
 			return ;
 	}
 	else if (get_cmd(cmd->cmd) == 7)
 	{
-		cd(g_ms.cmds_f->cmd, g_ms.cmds_f->args, g_ms.env);
+		env = copy_with_lst(list);
+		cd(g_ms.cmds_f->cmd, g_ms.cmds_f->args, env, list);
+		free_tt(env);
 		if (g_ms.cmd_nbr == 1)
 			return ;
 	}
 	else
-		ft_execve(cmd, env, 0);
+		ft_execve(cmd, NULL, 0, list);
 	exit(0);
 }
 
-void	check_all_cmd(t_cmds *cmd)
+void	check_all_cmd(t_cmds *cmd, t_env *list)
 {
-	//char	**args;
-	//char	*str;
-
-	/*str = env_conversion(cmd->cmd_args, g_ms.env, -1, 0);
-	if (!str)
-		return ;
-	args = ft_split(str, ' ');
-	if (!args)
-		return ;*/
-	check_bulltin(cmd, g_ms.env);
-	//free_tt(args);
+	check_bulltin(cmd, list);
 }
+

@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 06:59:43 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/31 02:23:41 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/03 16:36:26 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@ static void	ft_execve2(char **args)
 	free_tt(args);
 }
 
-int	ft_execve(t_cmds *cmd, char **env, int i)
+int	ft_execve(t_cmds *cmd, char **env, int i, t_env *lst)
 {
 	char	**args;
 	char	*join;
 	char	**bash;
 	char	*path;
 
+	env  = copy_with_lst(lst);
 	path = ft_getenv(env, "PATH");
 	bash = ft_split(path, ':');
 	free(path);
@@ -49,5 +50,7 @@ int	ft_execve(t_cmds *cmd, char **env, int i)
 	}
 	ft_execve2(args);
 	free_tt(bash);
+	free_tt(env);
+	exit(127);
 	return (0);
 }

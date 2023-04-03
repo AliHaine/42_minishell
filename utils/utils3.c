@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 07:46:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/28 16:25:53 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/03 16:48:56 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	str_copy(char *dst, char *src, int size)
 
 // copy env //
 
-char	**copy_env(char **env, int size)
+char	**copy_env(t_env *list, int size)
 {
 	char	**copy;
 	int		i;
@@ -42,7 +42,9 @@ char	**copy_env(char **env, int size)
 		return (NULL);
 	while (i < size)
 	{
-		copy[i] = ft_strdup(env[i]);
+		copy[i] = ft_strdup(list->data);
+		printf("%s\n", list->data);
+		list = list->next;
 		i++;
 	}
 	copy[i] = NULL;
@@ -53,13 +55,15 @@ char	**copy_env(char **env, int size)
 
 // leak regles //
 
-char	**print_sorted_strings(char **env, int size, int i, int j)
+char	**print_sorted_strings(t_env *list, int i, int j)
 {
 	char	*temp;
 	char	**strings;
+	int 	size; 
 
+	size = ft_lst_size(list);
 	temp = NULL;
-	strings = copy_env(env, size);
+	strings = copy_with_lst(list);
 	while (i < size - 1)
 	{
 		while (j < size - i - 1)

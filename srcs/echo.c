@@ -6,97 +6,42 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 12:18:28 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/29 13:23:25 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/03 16:37:38 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// guillemet // 
-
-/* var type $PATH and var '"$PATH"' 'PATH' */
-
-/*static int	check_is(char *str, char **env, int j, char *reject)
+t_env 		*lst_copy_tab(char **env)
 {
-	int		i;
-	int		x;
-	char	*path;
-	char	*get;
+	int 	i;
+	t_env	*lst;
+	char *pwd;
+	char *joint;
 
-	i = j + 1;
-	x = 0;
-	while (str[i - 1] && path == NULL)
-	{
-		x = 0;
-		while (reject[x])
-		{
-			if (str[i] == reject[x] || str[i] == '\0')
-			{
-				path = ft_substr(str, j, i);
-				get = ft_getenv(env, path + 1);
-				printf("%s", get);
-				free(path);
-				return (free(get), i - 1);
-			}
-			x++;
-		}
-		i++;
-	}
-	return (0);
+	pwd = getcwd(NULL, 0);
+	joint = ft_sjoin("OLDPWD=", pwd);
+	free(pwd);
+	i = -1;
+	lst = NULL;
+	ft_lstadd_back(&lst, joint);
+	while (env[++i])
+		ft_lstadd_back(&lst, env[i]);
+	free(joint);
+	return (lst);
 }
 
-static int	check_is_true(char *str, char **env, int j, char *reject)
+t_env 		*lst_copy(t_env *lst)
 {
-	int		i;
-	int		x;
-	char	*path;
+	int 	i;
+	t_env	*copy;
 
-	i = j + 1;
-	x = 0;
-	path = NULL;
-	while (str[i - 1] && path == NULL)
-	{
-		x = 0;
-		while (reject[x])
-		{
-			if (str[i] == reject[x] || str[i] == '\0')
-			{
-				return (1);
-			}
-			x++;
-		}
-		i++;
-	}
-	return (0);
+	i = -1;
+	copy = NULL;
+	while (lst != NULL)
+		ft_lstadd_back(&copy, lst->data);
+	return (copy);
 }
-
-static int	get_env_var(char **env, char *var)
-{
-	int	len;
-	int	i;
-	int	j;
-
-	j = 0;
-	len = 0;
-	i = 0;
-	while (var[j] != '=' && var[j])
-		j++;
-	while (env[i])
-	{
-		len = 0;
-		while (var[len])
-		{
-			if (env[i][len] && env[i][len] == var[len])
-				len++;
-			else
-				break ;
-			if (env[i][len] && env[i][len] == '=' && len < j)
-				return (1);
-		}
-		i++;
-	}
-	return (0);
-}*/
 
 /* bulltin echo part 2 */
 
