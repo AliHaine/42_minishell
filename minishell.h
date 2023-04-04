@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:55:32 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/04 18:27:38 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 18:32:23 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,9 +152,9 @@ char		*ft_sjoin(char *s1, char *s2);
 
 // cd_utils //
 
-char *grattage(void);
-void get_free(char **get, int i);
-char **get_null(int i);
+char		*grattage(void);
+void		get_free(char **get, int i);
+char		**get_null(int i);
 
 // ft_split //
 

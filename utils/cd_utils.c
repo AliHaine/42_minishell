@@ -6,16 +6,16 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 18:19:49 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/04 18:20:18 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 18:35:26 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char **get_null(int i)
+char	**get_null(int i)
 {
-	char **get;
-	int j;
+	char	**get;
+	int		j;
 
 	j = -1;
 	get = malloc(sizeof(char *) * i + 1);
@@ -25,9 +25,9 @@ char **get_null(int i)
 	return (get);
 }
 
-void get_free(char **get, int i)
+void	get_free(char **get, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (i > j)
@@ -35,10 +35,10 @@ void get_free(char **get, int i)
 	free(get);
 }
 
-char *grattage(void)
+char	*grattage(void)
 {
-	char *get1;
-	char *get2;
+	char	*get1;
+	char	*get2;
 
 	get2 = g_pwd();
 	get1 = ft_sjoin("OLDPWD=", get2);

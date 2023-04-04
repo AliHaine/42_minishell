@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 00:14:14 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/04 18:23:08 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 18:33:25 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static int	cd_extend4(int choice, char **cmd, char **env)
 
 int	cd(char *cmd, char **arg, char **env, t_env *list)
 {
-	char **get;
+	char	**get;
 
 	get = get_null(3);
 	get[0] = grattage();
