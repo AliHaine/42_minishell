@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trime_quotation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 11:04:08 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/21 17:02:41 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 03:42:29 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,10 @@ int	var_c(char *s, int i)
 		&& count_q(s, i) == 0)
 	{
 		free(size);
+		free(str);
 		return (1);
 	}
+	free(str);
 	free(size);
 	return (0);
 }

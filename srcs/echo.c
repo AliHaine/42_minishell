@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 12:18:28 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/03 16:37:38 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:26:01 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	echo(char **tab, int i, int j)
 			while (tab[i][++j])
 				if (!update(tab[i][j], &in_q))
 					printf("%c", tab[i][j]);
-			if (tab[i])
+			if (tab[i] /*&& tab[i + 1][0] != '|'*/)
 				printf(" ");
 			i++;
 		}

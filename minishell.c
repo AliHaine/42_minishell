@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:11:27 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/03 17:48:27 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 03:29:38 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,11 @@ static int	run_process(char *line, t_env *list)
 {
 	struct s_three_int	ti;
 	char				*new;
+	char				**env;
 
-	new = env_conversion(line, g_ms.env, -1, 0);
+	env = copy_with_lst(list);
+	new = env_conversion(line, env, -1, 0);
+	free_tt(env);
 	init_three_int(&ti);
 	if (main_parsing(new) == false)
 	{

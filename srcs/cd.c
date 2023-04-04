@@ -6,9 +6,11 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 00:14:14 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/03 17:48:56 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 14:50:05 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "../minishell.h"
 
@@ -45,7 +47,7 @@ static int	cd_extend3(char **env)
 	gwd = g_pwd();
 	pwd_path = ft_sjoin("PWD=", gwd);
 	if (g_ms.old < 1)
-		printf("%s: cd: OLDPWD not set", old);
+		printf("%s: cd: OLDPWD not set\n", old);
 	else
 		printf("%s\n", get);
 	free(old);

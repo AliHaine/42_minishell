@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 12:47:01 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/03 18:17:51 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 15:33:22 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	check_path(char *argv, char **env, int n)
 		}
 		j++;
 	}
-	return (/*free(copy),*/ 0);
+	return (free(copy), 0);
 }
 
 int	char_cmp(char *str, char *reject)

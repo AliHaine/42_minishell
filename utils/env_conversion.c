@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:01:26 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/03/31 15:25:36 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:25:37 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ static int	check_env(char *s, char **env, int i)
 	return (0);
 }
 
+void rat(char *var, char *itoa, char *genv)
+{
+	free(var);
+	free(itoa);
+	free(genv);
+}
+
 char	*remplace_part(char *s, char *remplace, int start, int end)
 {
 	int		i;
@@ -72,6 +79,7 @@ char	*remplace_part(char *s, char *remplace, int start, int end)
 	while (s[j])
 		new_str[i++] = s[j++];
 	new_str[i] = '\0';
+	free(s);
 	return (new_str);
 }
 
@@ -104,9 +112,7 @@ char	*env_conversion(char *s, char **env, int i, int j)
 			else
 				s = remplace_part(s, genv, i, j);
 			i = -1;
-			free(var);
-			free(itoa);
-			free(genv);
+			rat(var, genv, itoa);
 		}
 	}
 	return (s);

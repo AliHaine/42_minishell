@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:58:09 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/03 18:22:01 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 03:57:54 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	check_bulltin(t_cmds *cmd, t_env *list)
 	}
 	else if (get_cmd(cmd->cmd) == 5 || get_cmd(cmd->cmd) == 6
 		|| get_cmd(cmd->cmd) == 7)
-		check_builtin_h(cmd, list, env);
+		return (check_builtin_h(cmd, list, env));
 	else
 		ft_execve(cmd, NULL, 0, list);
 	exit(0);
