@@ -6,11 +6,9 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 00:14:14 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/04 14:50:05 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 18:23:08 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "../minishell.h"
 
@@ -79,44 +77,33 @@ static int	cd_extend4(int choice, char **cmd, char **env)
 	return (0);
 }
 
-// 25 line //
+// fonction qui free en fonction du nbr de i //
 
 int	cd(char *cmd, char **arg, char **env, t_env *list)
 {
-	char	*gpwd;
-	char	*getenv;
-	char	**get;
+	char **get;
 
-	get = malloc(sizeof(char *) * 1);
-	gpwd = g_pwd();
-	get[0] = ft_sjoin("OLDPWD=", gpwd);
-	get[1] = NULL;
-	getenv = NULL;
+	get = get_null(3);
+	get[0] = grattage();
 	if (cmd && arg[0] && arg[0][0] == '-' && !arg[0][1])
-		return (free_tt(get), free(gpwd), cd_extend4(0, arg, env));
+		return (get_free(get, 1), cd_extend4(0, arg, env));
 	export(get, list, 0);
-	free_tt(get);
+	get[1] = g_pwd();
+	get[2] = ft_getenv(env, "HOME");
 	if (cmd && (!arg[0] || (arg[0][0] == '~' && !arg[0][1])))
 	{
-		getenv = ft_getenv(env, "HOME");
-		if (getenv && chdir(getenv) != 0)
-			return (free(gpwd), cd_extend4(1, arg, env));
-		if (getenv)
-			free(getenv);
+		if (get[2] && chdir(get[2]) != 0)
+			return (get_free(get, 3), cd_extend4(1, arg, env));
 	}
 	else if (cmd && arg[0][0] == '~' && arg[0][1] == '/')
 	{
-		getenv = ft_getenv(env, "HOME");
-		if (getenv && chdir(getenv))
-			return (free(gpwd), free(getenv), cd_extend(arg));
-		if (getenv)
-			free(getenv);
+		if (get[2] && chdir(get[2]))
+			return (get_free(get, 3), cd_extend(arg));
 	}
 	else
 		if (chdir(arg[0]) != 0)
 			cd_extend2(arg);
 	g_ms.old = 1;
-	remplace_env(env, ft_sjoin("PWD=", gpwd));
-	free(gpwd);
-	return (check_cmd_is_right(0));
+	remplace_env(env, get[0]);
+	return (get_free(get, 3), check_cmd_is_right(0));
 }

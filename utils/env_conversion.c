@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:01:26 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/04 16:25:37 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 17:41:24 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,44 +47,21 @@ static int	check_env(char *s, char **env, int i)
 	return (0);
 }
 
-void rat(char *var, char *itoa, char *genv)
+void	rat(char *var, char *itoa, char *genv)
 {
 	free(var);
 	free(itoa);
 	free(genv);
 }
 
-char	*remplace_part(char *s, char *remplace, int start, int end)
+static int	ft_while(char *s, int i)
 {
-	int		i;
-	int		j;
-	int		x;
-	char	*new_str;
-
-	i = ft_strlen(remplace);
-	x = 0;
-	new_str = NULL;
-	new_str = malloc(sizeof(char) * (ft_strlen(s) - (end - start)) + i + 1);
-	if (!new_str)
-		return (NULL);
-	i = 0;
-	while (i < start)
-	{
-		new_str[i] = s[i];
-		i++;
-	}
-	j = i + end + 1;
-	while (i < start + (int) ft_strlen(remplace))
-		new_str[i++] = remplace[x++];
-	while (s[j])
-		new_str[i++] = s[j++];
-	new_str[i] = '\0';
-	free(s);
-	return (new_str);
+	while ((s[i + 1] && (s[i + 1] >= 'a' && s[i + 1] <= 'z'))
+		|| (s[i + 1] >= 'A' && s[i + 1] <= 'Z')
+		|| (s[i + 1] >= '0' && s[i + 1] <= '9'))
+				i++;
+	return (i);
 }
-
-// a normer //
-/* compter le nbr de quote avant et voir si il differe pour le 2eme nbr */
 
 char	*env_conversion(char *s, char **env, int i, int j)
 {
@@ -95,10 +72,7 @@ char	*env_conversion(char *s, char **env, int i, int j)
 	while (s[++i])
 	{
 		if (s[i] == '$' && check_env(s, env, i) == 0 && s[i + 1] != '?')
-			while ((s[i + 1] && (s[i + 1] >= 'a' && s[i + 1] <= 'z'))
-				|| (s[i + 1] >= 'A' && s[i + 1] <= 'Z')
-				|| (s[i + 1] >= '0' && s[i + 1] <= '9'))
-				i++;
+			i += ft_while(s, i);
 		else if (s[i] == '$' && (check_env(s, env, i) == 1
 				|| s[i + 1] == '?') && var_c(s, i) == 0)
 		{

@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 07:46:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/03 16:48:56 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 17:21:20 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,36 @@ bool	single_fork(t_cmds *cmd, t_t_i ti, t_env *list)
 	return (1);
 }
 
-// copy env //
-
-char	**copy_env(t_env *list, int size)
+char	*remplace_part(char *s, char *remplace, int start, int end)
 {
-	char	**copy;
 	int		i;
+	int		j;
+	int		x;
+	char	*new_str;
 
-	i = 0;
-	copy = malloc(sizeof(char *) * (size + 1));
-	if (!copy)
+	i = ft_strlen(remplace);
+	x = 0;
+	new_str = NULL;
+	new_str = malloc(sizeof(char) * (ft_strlen(s) - (end - start)) + i + 1);
+	if (!new_str)
 		return (NULL);
-	while (i < size)
+	i = 0;
+	while (i < start)
 	{
-		copy[i] = ft_strdup(list->data);
-		printf("%s\n", list->data);
-		list = list->next;
+		new_str[i] = s[i];
 		i++;
 	}
-	copy[i] = NULL;
-	return (copy);
+	j = i + end + 1;
+	while (i < start + (int) ft_strlen(remplace))
+		new_str[i++] = remplace[x++];
+	while (s[j])
+		new_str[i++] = s[j++];
+	new_str[i] = '\0';
+	free(s);
+	return (new_str);
 }
 
 // sort env //
-
-// leak regles //
 
 char	**print_sorted_strings(t_env *list, int i, int j)
 {

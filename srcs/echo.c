@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 12:18:28 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/04 16:26:01 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 17:46:38 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ static int	echo_2(char **tab, int bulltin)
 }
 
 // bulltin echo //
-
-// no leak //
+/*&& tab[i + 1][0] != '|'*/
 
 void	echo(char **tab, int i, int j)
 {
@@ -76,7 +75,7 @@ void	echo(char **tab, int i, int j)
 			while (tab[i][++j])
 				if (!update(tab[i][j], &in_q))
 					printf("%c", tab[i][j]);
-			if (tab[i] /*&& tab[i + 1][0] != '|'*/)
+			if (tab[i])
 				printf(" ");
 			i++;
 		}

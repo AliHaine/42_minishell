@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:55:32 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/04 03:38:57 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 18:27:38 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,9 +145,16 @@ int			char_cmp(char *str, char *reject);
 
 bool		single_fork(t_cmds *cmd, t_t_i ti, t_env *list);
 char		**copy_env(t_env *list, int size);
+char		*remplace_part(char *s, char *remplace, int start, int end);
 char		**print_sorted_strings(t_env *list, int i, int j);
 char		*ft_join(char *s1, char *s2);
 char		*ft_sjoin(char *s1, char *s2);
+
+// cd_utils //
+
+char *grattage(void);
+void get_free(char **get, int i);
+char **get_null(int i);
 
 // ft_split //
 

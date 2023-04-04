@@ -38,7 +38,8 @@ SRCS =	minishell.c \
 		utils/utils3.c \
 		utils/ft_itoa.c \
 		utils/list_utils.c \
-		utils/list_utils2.c
+		utils/list_utils2.c \
+		utils/cd_utils.c
 
 #utils/file.c \#
 
