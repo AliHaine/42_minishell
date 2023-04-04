@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 18:19:49 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/04 18:35:26 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 18:49:21 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	*grattage(void)
 	char	*get2;
 
 	get2 = g_pwd();
+	g_ms.stat = 0;
 	get1 = ft_sjoin("OLDPWD=", get2);
 	free(get2);
 	return (get1);

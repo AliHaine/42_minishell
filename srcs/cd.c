@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 00:14:14 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/04 18:33:25 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 18:46:51 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static int	cd_extend(char **arg)
 	if (chdir(arg[0] + 2) != 0)
 		return (check_cmd_is_right(0));
 	printf("cd: %s: No such file or directory: ", arg[0]);
-	return (check_cmd_is_right(1));
+	g_ms.stat = 1;
+	return (1);
 }
 
 static int	cd_extend2(char **arg)
@@ -30,7 +31,8 @@ static int	cd_extend2(char **arg)
 	gde = g_d_e();
 	printf("%s: cd: %s: No such file or directory\n", gde, arg[0]);
 	free(gde);
-	return (check_cmd_is_right(1));
+	g_ms.stat = 1;
+	return (1);
 }
 
 static int	cd_extend3(char **env)
@@ -45,7 +47,10 @@ static int	cd_extend3(char **env)
 	gwd = g_pwd();
 	pwd_path = ft_sjoin("PWD=", gwd);
 	if (g_ms.old < 1)
+	{
+		g_ms.stat = 1;
 		printf("%s: cd: OLDPWD not set\n", old);
+	}
 	else
 		printf("%s\n", get);
 	free(old);
@@ -53,7 +58,7 @@ static int	cd_extend3(char **env)
 	free(gwd);
 	remplace_env(env, pwd_path);
 	free(pwd_path);
-	return (check_cmd_is_right(0));
+	return (0);
 }
 
 static int	cd_extend4(int choice, char **cmd, char **env)
@@ -65,6 +70,7 @@ static int	cd_extend4(int choice, char **cmd, char **env)
 	gde = g_d_e();
 	if (choice == 1)
 	{
+		g_ms.stat = 1;
 		printf("cd: %s: No such file or directory:\n", gde);
 		return (free(get), free(gde), check_cmd_is_right(1));
 	}
@@ -105,5 +111,5 @@ int	cd(char *cmd, char **arg, char **env, t_env *list)
 			cd_extend2(arg);
 	g_ms.old = 1;
 	remplace_env(env, get[0]);
-	return (get_free(get, 3), check_cmd_is_right(0));
+	return (get_free(get, 3), 0);
 }

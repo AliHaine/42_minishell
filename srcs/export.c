@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:37:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/03 18:21:32 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/04 18:42:52 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int	check_valid(char *path)
 		return (free(gde), check_cmd_is_right(0));
 	else if (check == 2)
 		printf("%s: export: '%s': not a valid identifier\n", gde, path);
+	g_ms.stat = 1;
 	return (free(gde), check_cmd_is_right(1));
 }
 
@@ -132,5 +133,5 @@ void	export(char **arg, t_env *list, int i)
 		}
 		i++;
 	}
-	check_cmd_is_right(0);
+	check_cmd_is_right(g_ms.stat);
 }
