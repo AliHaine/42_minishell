@@ -12,13 +12,14 @@
 
 #include "../minishell.h"
 
-static void	ft_execve2(char **args)
+static void	ft_execve2(char **args, char *cmd)
 {
 	int		i;
 	int		in_q;
 	char	*gdee;
 
 	i = -1;
+	execve(cmd, args, NULL);
 	gdee = gde();
 	printf("%s: ", gdee);
 	free(gdee);
@@ -48,7 +49,7 @@ int	ft_execve(t_cmds *cmd, char **env, int i, t_env *lst)
 		execve(join, args, NULL);
 		free(join);
 	}
-	ft_execve2(args);
+	ft_execve2(args, cmd->cmd);
 	free_tt(bash);
 	free_tt(env);
 	exit(127);

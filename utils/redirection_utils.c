@@ -12,6 +12,20 @@
 
 #include "../minishell.h"
 
+void	exec_waiting_helper(char **tab, t_helper h)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		if (h.t_c->args[0] && ft_strcmp(h.t_c->args[0], "-e"))
+			printf("%s$\n", tab[i++]);
+		else
+			printf("%s\n", tab[i++]);
+	}
+}
+
 void	origin_four_start(t_helper h, int pipes[][2], t_env *l, int fd)
 {
 	if (h.ti.a != g_ms.cmd_nbr - 1)
@@ -30,11 +44,14 @@ void	redir_main_helper(t_helper h, int pipes[][2], t_t_i ti2, t_env *l)
 		r_exec_single(h, ti2.b, 0, l);
 }
 
-void	create_and_close(char *name)
+void	create_and_close(char *name, int mode)
 {
 	int	fd;
 
-	fd = open(name, O_CREAT, S_IRWXU | S_IRWXG | S_IRWXO, O_RDWR);
+	if (mode == 3)
+		fd = open(name, O_CREAT | O_RDWR | O_TRUNC, P1 | P2 | S_IRWXO);
+	else
+		fd = open(name, O_CREAT | O_RDWR, P1 | P2 | S_IRWXO);
 	close(fd);
 }
 

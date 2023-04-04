@@ -109,8 +109,9 @@ bool		is_unused(t_cmds *cmds);
 
 // redir utile //
 
+void		exec_waiting_helper(char **tab, t_helper h);
 void		redir_main_helper(t_helper h, int pipes[][2], t_t_i ti2, t_env *l);
-void		create_and_close(char *name);
+void		create_and_close(char *name, int mode);
 void		write_to_file(int fd, char **s);
 
 // parse_utils //

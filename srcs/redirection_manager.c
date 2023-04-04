@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static void	exec_waiting(char *word)
+static void	exec_waiting(t_helper h, char *word, bool mode)
 {
 	char	*b;
 	int		i;
@@ -25,12 +25,15 @@ static void	exec_waiting(char *word)
 		b = readline("> ");
 		size = ft_strlen(b);
 		tab[i] = malloc(sizeof(char) * size + 1);
-		tab[i][size] = '\n';
-		tab[i][size + 1] = '\0';
+		tab[i] = b;
 		if (ft_strcmp(b, word))
 			break ;
+		tab[i][size] = '\0';
 		i++;
 	}
+	tab[i] = 0;
+	if (ft_strcmp(h.t_c->cmd, "cat") && mode > 0)
+		exec_waiting_helper(tab, h);
 	exit(1);
 }
 
@@ -64,7 +67,7 @@ void	r_exec(int pipes[][2], t_helper h, int origin, t_env *l)
 	else if (origin == 1)
 		r_exec2(pipes, h, fd, l);
 	else if (origin == 2)
-		exec_waiting(h.t_c->args[h.ti.b + 1]);
+		exec_waiting(h, h.t_c->args[h.ti.b + 1], 0);
 	close(fd);
 	exit(1);
 }
@@ -92,7 +95,7 @@ void	r_exec_single(t_helper h, int origin, int fd, t_env *l)
 		write_to_file(fd, h.t_c->args);
 	}
 	else if (origin == 2)
-		exec_waiting(h.t_c->args[h.ti.b + 1]);
+		exec_waiting(h, h.t_c->args[h.ti.b + 1], 1);
 	close(fd);
 	exit(1);
 }
@@ -113,7 +116,7 @@ void	redirection_main(int pipes[][2], t_cmds *cmd, t_t_i ti, t_env *l)
 			if (ti2.b == 2)
 				redir_main_helper(h, pipes, ti2, l);
 			else if (ti2.b == 3 || ti2.b == 1)
-				create_and_close(cmd->args[ti2.a + 1]);
+				create_and_close(cmd->args[ti2.a + 1], ti2.b);
 			ti2.c++;
 		}
 		ti2.a++;
