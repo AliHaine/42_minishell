@@ -12,14 +12,14 @@
 
 #include "../minishell.h"
 
-static void	ft_execve2(char **args, char *cmd)
+static void	ft_execve2(char **args)
 {
 	int		i;
 	int		in_q;
 	char	*gdee;
 
 	i = -1;
-	execve(cmd, args, NULL);
+	execve(args[0], args, g_ms.env);
 	gdee = gde();
 	printf("%s: ", gdee);
 	free(gdee);
@@ -31,27 +31,23 @@ static void	ft_execve2(char **args, char *cmd)
 	free_tt(args);
 }
 
-int	ft_execve(t_cmds *cmd, char **env, int i, t_env *lst)
+int	ft_execve(t_cmds *cmd)
 {
 	char	**args;
-	char	*join;
 	char	**bash;
+	char	*join;
 	char	*path;
 
-	env = copy_with_lst(lst);
-	path = ft_getenv(env, "PATH");
-	bash = ft_split(path, ':');
-	free(path);
 	args = ft_split(cmd->cmd_args, ' ');
-	while (bash[i])
+	path = ft_getenv(g_ms.env, "PATH");
+	bash = ft_split(path, ':');
+	while (*bash)
 	{
-		join = ft_join(bash[i++], cmd->cmd);
-		execve(join, args, NULL);
+		join = ft_join(*bash++, args[0]);
+		execve(join, args, g_ms.env);
 		free(join);
 	}
-	ft_execve2(args, cmd->cmd);
-	free_tt(bash);
-	free_tt(env);
+	ft_execve2(args);
 	exit(127);
 	return (0);
 }

@@ -98,29 +98,35 @@ static int	main_process(t_env *list)
 	return (1);
 }
 
+static bool	main_struct_init(char **env)
+{
+	g_ms.histo_fd = open(".history", O_CREAT | O_RDWR, P1 | P2 | S_IRWXO);
+	g_ms.stat = 0;
+	g_ms.old = 0;
+	g_ms.env = env;
+	if (g_ms.histo_fd == -1)
+	{
+		printf("Error file history\n");
+		return (false);
+	}
+	g_ms.exit = 1;
+	return (true);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_env	*list;
 
 	(void)argc;
 	(void)argv;
-	signal(2, (void *)ctrl_c);
-	signal(SIGQUIT, (void *)ctrl_bs);
-	rl_catch_signals = 0;
-	g_ms.histo_fd = open(".history", O_CREAT | O_RDWR, P1 | P2 | S_IRWXO);
-	g_ms.stat = 0;
-	g_ms.old = 0;
-	if (g_ms.histo_fd == -1)
-	{
-		printf("Error file history\n");
+	signal_main();
+	main_struct_init(env);
+	if (main_struct_init(env) == false)
 		return (1);
-	}
 	list = lst_copy_tab(env);
-	g_ms.exit = 1;
 	go_to_end_of_file(g_ms.histo_fd);
 	main_process(list);
 	close(g_ms.histo_fd);
-	free_tt(g_ms.env);
 	free_tt(g_ms.bash);
 	free_list(&list);
 	exit(g_ms.stat);

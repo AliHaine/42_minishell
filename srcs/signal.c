@@ -23,3 +23,10 @@ void	ctrl_c(void)
 void	ctrl_bs(void)
 {
 }
+
+void	signal_main()
+{
+	signal(2, (void *)ctrl_c);
+	signal(SIGQUIT, (void *)ctrl_bs);
+	rl_catch_signals = 0;
+}

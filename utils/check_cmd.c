@@ -64,7 +64,7 @@ static void	check_builtin_h(t_cmds *cmd, t_env *list, char **env)
 	else if (get_cmd(cmd->cmd) == 7)
 	{
 		env = copy_with_lst(list);
-		cd(g_ms.cmds_f->cmd, g_ms.cmds_f->args, env, list);
+		cd(g_ms.cmds_f->cmd, g_ms.cmds_f->args, g_ms.env, list);
 		free_tt(env);
 		if (g_ms.cmd_nbr == 1)
 			return ;
@@ -73,9 +73,6 @@ static void	check_builtin_h(t_cmds *cmd, t_env *list, char **env)
 
 static void	check_bulltin(t_cmds *cmd, t_env *list)
 {
-	char	**env;
-
-	env = NULL;
 	if (!cmd->cmd)
 		return ;
 	else if (get_cmd(cmd->cmd) == 1)
@@ -90,9 +87,9 @@ static void	check_bulltin(t_cmds *cmd, t_env *list)
 	}
 	else if (get_cmd(cmd->cmd) == 5 || get_cmd(cmd->cmd) == 6
 		|| get_cmd(cmd->cmd) == 7)
-		return (check_builtin_h(cmd, list, env));
+		return (check_builtin_h(cmd, list, 0));
 	else
-		ft_execve(cmd, NULL, 0, list);
+		ft_execve(cmd);
 	exit(0);
 }
 

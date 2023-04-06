@@ -50,6 +50,7 @@ typedef struct s_cmds
 	char			**args;
 	char			*cmd_args;
 	int				w;
+	bool			is_q;
 	struct s_cmds	*next;
 }	t_cmds;
 
@@ -71,6 +72,7 @@ t_minishell	g_ms;
 void		parse_helper(char *str);
 void		ctrl_c(void);
 void		ctrl_bs(void);
+void		signal_main();
 void		go_to_end_of_file(int fd);
 void		histo_main(char *histo);
 bool		main_parsing(char *line);
@@ -138,7 +140,6 @@ void		free_tt(char **str);
 
 int			check_path(char *argv, char **env, int n);
 int			check_path_lst(char *argv, t_env *lst, int n);;
-int			ft_tablen(char **tab);
 int			char_cmp(char *str, char *reject);
 
 // utils3 //
@@ -185,7 +186,7 @@ int			simp_char(char c, char *reject);
 
 // execve //
 
-int			ft_execve(t_cmds *cmd, char **env, int i, t_env *lst);
+int			ft_execve(t_cmds *cmd);
 
 // exit //
 
