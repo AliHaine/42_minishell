@@ -51,7 +51,6 @@ typedef struct s_cmds
 	char			**args;
 	char			*cmd_args;
 	int				w;
-	bool			is_q;
 	struct s_cmds	*next;
 }	t_cmds;
 
@@ -67,6 +66,14 @@ typedef struct s_helper
 	struct s_cmds	*t_c;
 	t_t_i			ti;
 }	t_helper;
+
+typedef struct s_pipe
+{
+	pid_t		*pid;
+	int			pipefd[3][2];
+	int			pipered[3][2];
+	t_t_i		ti;
+}	t_pipe;
 
 t_minishell	g_ms;
 
