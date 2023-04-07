@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:58:09 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/04 03:57:54 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/07 17:06:02 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	get_cmd(char *cmd)
 		return (7);
 	else if (contain_export("export", cmd))
 		return (6);
+	else if (contain_export("exit", cmd))
+		return (8);
 	return (0);
 }
 
@@ -64,11 +66,13 @@ static void	check_builtin_h(t_cmds *cmd, t_env *list, char **env)
 	else if (get_cmd(cmd->cmd) == 7)
 	{
 		env = copy_with_lst(list);
-		cd(g_ms.cmds_f->cmd, g_ms.cmds_f->args, g_ms.env, list);
+		cd(g_ms.cmds_f->cmd, g_ms.cmds_f->args, env);
 		free_tt(env);
 		if (g_ms.cmd_nbr == 1)
 			return ;
 	}
+	else if (get_cmd(cmd->cmd) == 8)
+		check_exit(cmd);
 }
 
 static void	check_bulltin(t_cmds *cmd, t_env *list)
@@ -86,10 +90,10 @@ static void	check_bulltin(t_cmds *cmd, t_env *list)
 			return ;
 	}
 	else if (get_cmd(cmd->cmd) == 5 || get_cmd(cmd->cmd) == 6
-		|| get_cmd(cmd->cmd) == 7)
+		|| get_cmd(cmd->cmd) == 7 || get_cmd(cmd->cmd) == 8)
 		return (check_builtin_h(cmd, list, 0));
 	else
-		ft_execve(cmd);
+		ft_execve(cmd, list);
 	exit(0);
 }
 

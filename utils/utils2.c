@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 12:47:01 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/04 15:33:22 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/07 15:52:54 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,18 @@ int	check_path_lst(char *argv, t_env *lst, int n)
 		lst = lst->next;
 	}
 	return (free(copy), 0);
+}
+
+int	char_ccmp(char c, char *reject)
+{
+	int	j;
+
+	j = 0;
+	while (reject[j])
+	{
+		if (c == reject[j])
+			return (1);
+		j++;
+	}
+	return (0);
 }

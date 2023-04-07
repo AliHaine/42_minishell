@@ -6,21 +6,32 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 06:59:43 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/03 16:36:26 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/07 16:04:39 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	ft_execve2(char **args)
+static char **path_ex(char **env)
+{
+	char	**bash;
+	char	*path;
+
+	path = ft_getenv(env, "PATH");
+	bash = ft_split(path, ':');
+	free(path);
+	return (bash);
+}
+
+static void	ft_execve2(char **args, char **env)
 {
 	int		i;
 	int		in_q;
 	char	*gdee;
 
 	i = -1;
-	execve(args[0], args, g_ms.env);
 	gdee = gde();
+	execve(args[0], args, env);
 	printf("%s: ", gdee);
 	free(gdee);
 	while (args[0][++i])
@@ -31,23 +42,24 @@ static void	ft_execve2(char **args)
 	free_tt(args);
 }
 
-int	ft_execve(t_cmds *cmd)
+int	ft_execve(t_cmds *cmd, t_env *lst)
 {
 	char	**args;
 	char	**bash;
 	char	*join;
-	char	*path;
+	char 	**env;
 
+	env = copy_with_lst(lst);
 	args = ft_split(cmd->cmd_args, ' ');
-	path = ft_getenv(g_ms.env, "PATH");
-	bash = ft_split(path, ':');
+	bash = path_ex(env);
 	while (*bash)
 	{
 		join = ft_join(*bash++, args[0]);
-		execve(join, args, g_ms.env);
+		execve(join, args, env);
 		free(join);
 	}
-	ft_execve2(args);
+	ft_execve2(args, env);
+	free_tt(env);
 	exit(127);
 	return (0);
 }

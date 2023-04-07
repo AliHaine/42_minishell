@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:37:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/04 18:42:52 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/07 15:51:27 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	check_valid(char *path)
 	gde = g_d_e();
 	while (path[i] && path[i] != '=')
 	{
-		if (char_cmp(path, "\t\n\r@&()[]{}%!<>?-*+^~") == 1)
+		if (char_ccmp(path[i], "\t\n\r@&()[]{}%!<>?-*+^~") == 1)
 			check = 2;
 		i++;
 	}

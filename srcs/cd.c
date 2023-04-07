@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 00:14:14 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/04 18:46:51 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/07 17:15:50 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	cd_extend4(int choice, char **cmd, char **env)
 
 // fonction qui free en fonction du nbr de i //
 
-int	cd(char *cmd, char **arg, char **env, t_env *list)
+int	cd(char *cmd, char **arg, char **env)
 {
 	char	**get;
 
@@ -93,7 +93,6 @@ int	cd(char *cmd, char **arg, char **env, t_env *list)
 	get[0] = grattage();
 	if (cmd && arg[0] && arg[0][0] == '-' && !arg[0][1])
 		return (get_free(get, 1), cd_extend4(0, arg, env));
-	export(get, list, 0);
 	get[1] = g_pwd();
 	get[2] = ft_getenv(env, "HOME");
 	if (cmd && (!arg[0] || (arg[0][0] == '~' && !arg[0][1])))

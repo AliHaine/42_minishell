@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:55:32 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/04 18:32:23 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/07 16:55:23 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_minishell
 	int					exit;
 	int					stat;
 	int					cmd_nbr;
+	int 				on_cmd;
 	struct s_cmds		*cmds_f;
 	struct s_env		*list_env;
 }	t_minishell;
@@ -141,6 +142,7 @@ void		free_tt(char **str);
 int			check_path(char *argv, char **env, int n);
 int			check_path_lst(char *argv, t_env *lst, int n);;
 int			char_cmp(char *str, char *reject);
+int			char_ccmp(char c, char *reject);
 
 // utils3 //
 
@@ -186,11 +188,11 @@ int			simp_char(char c, char *reject);
 
 // execve //
 
-int			ft_execve(t_cmds *cmd);
+int			ft_execve(t_cmds *cmd, t_env *lst);
 
 // exit //
 
-int			check_exit(char *h);
+int			check_exit(t_cmds *cmd);
 int			check_cmd_is_right(int fd);
 char		*histo_pars(char *histo);
 
@@ -222,7 +224,7 @@ void		remplace_env(char **env, char *path);
 
 // cd //
 
-int			cd(char *cmd, char **arg, char **env, t_env *list);
+int			cd(char *cmd, char **arg, char **env);
 
 // lst
 

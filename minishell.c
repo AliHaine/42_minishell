@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:11:27 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/04 03:29:38 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/07 16:54:40 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static bool	single_cmd_exec(t_t_i ti, t_env *list)
 
 	cmd = g_ms.cmds_f;
 	if (get_cmd(cmd->cmd) == 4 || get_cmd(cmd->cmd) == 5
-		|| get_cmd(cmd->cmd) == 6 || get_cmd(cmd->cmd) == 7)
+		|| get_cmd(cmd->cmd) == 6 || get_cmd(cmd->cmd) == 7
+		|| get_cmd(cmd->cmd) == 8)
 	{
 		if (cmd->w == 0)
 			check_all_cmd(cmd, list);
@@ -72,21 +73,35 @@ static int	run_process(char *line, t_env *list)
 	return (1);
 }
 
+static char *readline_fix(void)
+{
+	char *histo;
+	char	*hh;
+
+	hh = g_d_e();
+	if (g_ms.on_cmd == 0)
+			histo = readline(hh);
+	else
+	{
+		g_ms.on_cmd = 0;
+		histo = readline("");
+	}
+	free(hh);
+	return (histo);
+}
+
 static int	main_process(t_env *list)
 {
 	char	*histo;
-	char	*hh;
 
 	while (g_ms.exit > 0)
 	{
-		hh = g_d_e();
-		histo = readline(hh);
+		histo = readline_fix();
 		if (!histo)
 			break ;
-		free(hh);
 		if (check_validity(histo))
 			histo_main(histo);
-		if (check_is_empty(histo) == 0 || check_exit(histo) == 0)
+		if (check_is_empty(histo) == 0)
 		{
 			free(histo);
 			free_words_struct(g_ms.cmds_f);
@@ -103,6 +118,7 @@ static bool	main_struct_init(char **env)
 	g_ms.histo_fd = open(".history", O_CREAT | O_RDWR, P1 | P2 | S_IRWXO);
 	g_ms.stat = 0;
 	g_ms.old = 0;
+	g_ms.on_cmd = 0;
 	g_ms.env = env;
 	if (g_ms.histo_fd == -1)
 	{
