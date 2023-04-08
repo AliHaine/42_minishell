@@ -30,7 +30,7 @@ static bool	check_validity(char *str)
 	return (true);
 }
 
-static bool	single_cmd_exec(t_t_i ti, t_env *list)
+/*static bool	single_cmd_exec(t_t_i ti, t_env *list)
 {
 	t_cmds	*cmd;
 
@@ -47,7 +47,7 @@ static bool	single_cmd_exec(t_t_i ti, t_env *list)
 	else
 		single_fork(cmd, ti, list);
 	return (true);
-}
+}*/
 
 static int	run_process(char *line, t_env *list)
 {
@@ -66,10 +66,11 @@ static int	run_process(char *line, t_env *list)
 		return (0);
 	}
 	free(new);
-	if (g_ms.cmd_nbr > 1)
+	exec_manager(list);
+	/*if (g_ms.cmd_nbr > 1)
 		pipe_main(list);
 	else
-		single_cmd_exec(ti, list);
+		single_cmd_exec(ti, list);*/
 	return (1);
 }
 

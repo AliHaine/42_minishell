@@ -37,6 +37,38 @@ static void	exec_waiting(t_helper h, char *word, bool mode)
 	exit(1);
 }
 
+void	stdou_redirection(int origin, char *name, t_pipe *pipes)
+{
+	close(pipes->piperedir[1]);
+	if (origin == 3)
+		pipes->piperedir[1] = open(name, O_CREAT | O_RDWR | O_TRUNC, P1 | P2 | S_IRWXO);
+	else
+	{
+		pipes->piperedir[1] = open(name, O_CREAT | O_RDWR, P1 | P2 | S_IRWXO);
+		go_to_end_of_file(pipes->piperedir[1]);
+	}
+	dup2(pipes->piperedir[1], STDOUT_FILENO);
+}
+
+void	stdin_redirection(int origin, char **cmd_args, t_pipe *pipes)
+{
+	int	fd;
+	char *line;
+
+	dup2(pipes->piperedir[0], STDIN_FILENO);
+	if (origin == 2)
+		return;
+		//exec_waiting();
+	else
+	{
+		fd = open(cmd_args[1], O_RDWR, P1 | P2 | S_IRWXO);
+		line = get_next_line(fd);
+		printf("%s", line);
+		free(line);
+		close(fd);
+	}
+}
+
 static void	r_exec2(int pipes[][2], t_helper h, int fd, t_env *l)
 {
 	dup2(pipes[h.ti.a - 1][0], STDIN_FILENO);

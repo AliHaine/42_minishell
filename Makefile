@@ -7,6 +7,8 @@ CC = @gcc
 CFLAGS = -Wall -Werror -Wextra
 
 SRCS =	minishell.c \
+		srcs/execution_manger.c \
+		utils/execution_utils.c \
 		srcs/parse_input.c \
 		srcs/signal.c \
 		utils/get_next_line/get_next_line.c \
