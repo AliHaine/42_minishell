@@ -39,32 +39,29 @@ static void	exec_waiting(t_helper h, char *word, bool mode)
 
 void	stdou_redirection(int origin, char *name, t_pipe *pipes)
 {
-	close(pipes->piperedir[1]);
+	int fd;
 	if (origin == 3)
-		pipes->piperedir[1] = open(name, O_CREAT | O_RDWR | O_TRUNC, P1 | P2 | S_IRWXO);
+		fd = open(name, O_CREAT | O_RDWR | O_TRUNC, P1 | P2 | S_IRWXO);
 	else
 	{
-		pipes->piperedir[1] = open(name, O_CREAT | O_RDWR, P1 | P2 | S_IRWXO);
-		go_to_end_of_file(pipes->piperedir[1]);
+		fd = open(name, O_CREAT | O_RDWR, P1 | P2 | S_IRWXO);
+		go_to_end_of_file(fd);
 	}
-	dup2(pipes->piperedir[1], STDOUT_FILENO);
+	(void)pipes;
+	dup2(fd, STDOUT_FILENO);
 }
 
-void	stdin_redirection(int origin, char **cmd_args, t_pipe *pipes)
+void	stdin_redirection(int origin, char *name, t_pipe *pipes)
 {
 	int	fd;
-	char *line;
 
-	dup2(pipes->piperedir[0], STDIN_FILENO);
+	(void)pipes;
 	if (origin == 2)
 		return;
-		//exec_waiting();
 	else
 	{
-		fd = open(cmd_args[1], O_RDWR, P1 | P2 | S_IRWXO);
-		line = get_next_line(fd);
-		printf("%s", line);
-		free(line);
+		fd = open(name, O_RDONLY, P1 | P2 | S_IRWXO);
+		dup2(fd, STDIN_FILENO);
 		close(fd);
 	}
 }
