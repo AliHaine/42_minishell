@@ -23,7 +23,7 @@ static bool exec_redir_cmd(t_pipe *pipes, t_cmds *cmd)
 		}
 		ti.a++;
 	}
-	close_all_pipes(pipes.pipefd);
+	close_all_pipes(pipes->pipefd);
 	//dup2(pipes->piperedir[1], STDOUT_FILENO);
 	check_all_cmd(cmd, pipes->l);
 	return (true);
@@ -37,7 +37,14 @@ static bool exec_redir_cmd(t_pipe *pipes, t_cmds *cmd)
 	return (true);
 }*/
 
-
+static bool	try_our_basical(t_cmds *cmd)
+{
+	if (get_cmd(cmd->cmd) == 5 || get_cmd(cmd->cmd) == 6
+		|| get_cmd(cmd->cmd) == 7 || get_cmd(cmd->cmd) == 8
+			|| get_cmd(cmd->cmd) == 4)
+		return (true);
+	return (false);
+}
 
 static void exec_setup(t_pipe *pipes, t_env *l)
 {
@@ -54,11 +61,16 @@ bool	exec_manager(t_env *l)
 	t_cmds		*cmd;
 	int r;
 
-	exec_setup(&pipes, l);
 	cmd = g_ms.cmds_f;
+	if (try_our_basical(cmd))
+	{
+		check_all_cmd(cmd, l);
+		return (true);
+	}
+	exec_setup(&pipes, l);
 	while (cmd)
 	{
-		if (pipes.ti.a > 3)
+		if (pipes.ti.a > 2)
 			pipe(pipes.pipefd[(pipes.ti.a % 3)]);
 		//pid_tab_growth(&pipes)
 		pipes.pid[pipes.ti.a] = fork();
@@ -66,7 +78,14 @@ bool	exec_manager(t_env *l)
 		{
 			if (cmd->next)
 				dup2(pipes.pipefd[(pipes.ti.a % 3)][1], STDOUT_FILENO);
-			if (pipes.ti.a > 0)
+			if (pipes.ti.a > 2)
+			{
+				if (pipes.ti.a % 3 == 0)
+					dup2(pipes.pipefd[2][0], STDIN_FILENO);
+				else
+					dup2(pipes.pipefd[(pipes.ti.a % 3) - 1][0], STDIN_FILENO);
+			}
+			else if (pipes.ti.a > 0)
 				dup2(pipes.pipefd[((pipes.ti.a % 3) - 1)][0], STDIN_FILENO);
 			if (cmd->w > 0) {
 				exec_redir_cmd(&pipes, cmd);
