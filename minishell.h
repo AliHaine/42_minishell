@@ -69,7 +69,7 @@ typedef struct s_helper
 
 typedef struct s_pipe
 {
-	pid_t		*pid;
+	pid_t		pid[20];
 	int			pipefd[3][2];
 	int			piperedir[2];
 	t_env		*l;
@@ -78,6 +78,7 @@ typedef struct s_pipe
 
 t_minishell	g_ms;
 
+bool pid_tab_growth(t_pipe *pipes, int val);
 void		parse_helper(char *str);
 void		ctrl_c(void);
 void		ctrl_bs(void);
@@ -105,7 +106,7 @@ bool		check_error_redir(t_cmds *cmd);
 
 // manager //
 
-bool	exec_manager(t_env *l);
+bool		exec_manager(t_env *l);
 void		stdou_redirection(int origin, char *name, t_pipe *pipes);
 void		stdin_redirection(int origin, char *name, t_pipe *pipes);
 void		origin_four_start(t_helper h, int pipes[][2], t_env *l, int fd);

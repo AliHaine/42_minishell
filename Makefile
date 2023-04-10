@@ -56,10 +56,10 @@ OBJS = ${SRCS:.c=.o}
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME)
-	@echo "minshell compiled!"
 
 debug: $(OBJS)
 	$(CC) $(CFLAGS) -fsanitize=address $(OBJS) $(LIB) -o $(NAME)
+	@echo "minshelcompileded!"
 
 all: $(NAME)
 

@@ -23,40 +23,31 @@ void	exec_middle_dup(int p1, int p2, t_cmds *cmd, t_env *l)
 	dup2(p2, STDOUT_FILENO);
 	close_all_pipes(pipes);
 	check_all_cmd(cmd, l);
-}
+} */
 
-bool	is_last_enter(int i, t_cmds *cmd)
+/*bool pid_tab_growth(t_pipe *pipes, int val)
 {
-	int	origin;
+	int	size;
+	int	i;
+	pid_t  *pid;
 
-	while (cmd[i])
-	{
-		if (is_redir_char(cmd->args[i][0]))
-		{
-			origin = get_origine(cmd->args[i]);
-			if (origin == 2 || origin = 4)
-				return (false);
-		}
-		i++;
-	}
-	return (true);
-}
-
-bool	is_last_out(char **args)
-{
-	int	origin;
-	int	i
-
+	size = 0;
 	i = 0;
-	while (args[i])
+	while (pipes->pid[size])
+		size++;
+	if (size == 0)
+		size = 1;
+	else if (size == 1)
+		size = 2;
+	pid = malloc(sizeof(pid_t) * (size + 1));
+	while (pipes->pid[i])
 	{
-		if (is_redir_char(args[i][0]))
-		{
-			origin = get_origine(args[i]);
-			if (origin == 1 || origin = 3)
-				return (false);
-		}
+		pid[i] = pipes->pid[i];
 		i++;
 	}
+	pid[i++] = val;
+	pid[i] = 0;
+	free(pipes->pid);
+	pipes->pid = pid;
 	return (true);
 }*/
