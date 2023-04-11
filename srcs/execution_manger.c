@@ -97,9 +97,9 @@ static bool exec_redir_cmd(t_pipe *pipes, t_cmds *cmd)
 		{
 			ti.b = get_origine(cmd->args[ti.a]);
 			if (ti.b == 2 || ti.b == 4)
-				stdin_redirection(ti.b, cmd->args[ti.a + 1], pipes);
+				stdin_redirection(ti.b, cmd->args[ti.a + 1], cmd->cmd);
 			else if (ti.b == 3 || ti.b == 1)
-				stdou_redirection(ti.b, cmd->args[ti.a + 1], pipes);
+				stdou_redirection(ti.b, cmd->args[ti.a + 1]);
 			ti.c++;
 		}
 		ti.a++;

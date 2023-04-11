@@ -33,7 +33,7 @@ static void	exec_waiting(char *word, int i, int size)
 	close(fd);
 }
 
-void	stdou_redirection(int origin, char *name, t_pipe *pipes)
+void	stdou_redirection(int origin, char *name)
 {
 	int fd;
 	if (origin == 3)
@@ -43,18 +43,18 @@ void	stdou_redirection(int origin, char *name, t_pipe *pipes)
 		fd = open(name, O_CREAT | O_RDWR, P1 | P2 | S_IRWXO);
 		go_to_end_of_file(fd);
 	}
-	(void)pipes;
 	dup2(fd, STDOUT_FILENO);
 }
 
-void	stdin_redirection(int origin, char *name, t_pipe *pipes)
+void	stdin_redirection(int origin, char *name, char *cmd)
 {
 	int	fd;
 
-	(void)pipes;
 	if (origin == 2)
 	{
 		exec_waiting(name, 0, 0);
+		if (!cmd)
+			exit(1);
 		fd = open(".heredoc", O_RDONLY, P1 | P2 | S_IRWXO);
 		dup2(fd, STDIN_FILENO);
 		close(fd);

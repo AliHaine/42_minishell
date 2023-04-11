@@ -125,8 +125,8 @@ bool		is_unused(t_cmds *cmds);
 
 // redir utile //
 
-void		stdou_redirection(int origin, char *name, t_pipe *pipes);
-void		stdin_redirection(int origin, char *name, t_pipe *pipes);
+void		stdou_redirection(int origin, char *name);
+void		stdin_redirection(int origin, char *name, char *cmd);
 
 // parse_utils //
 
