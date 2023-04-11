@@ -12,26 +12,6 @@
 
 #include "../minishell.h"
 
-bool	single_fork(t_cmds *cmd, t_t_i ti, t_env *list)
-{
-	int	r;
-	int	pid;
-
-	pid = fork();
-	if (pid == -1)
-		return (0);
-	if (pid == 0)
-	{
-		if (cmd->w == 0)
-			check_all_cmd(cmd, list);
-		else
-			redirection_main(0, cmd, ti, list);
-	}
-	waitpid(pid, &r, WIFEXITED(pid));
-	g_ms.stat = WEXITSTATUS(r);
-	return (1);
-}
-
 char	*remplace_part(char *s, char *remplace, int start, int end)
 {
 	int		i;

@@ -25,10 +25,8 @@ SRCS =	minishell.c \
 		srcs/unset.c \
 		srcs/export.c \
 		srcs/cd.c \
-		srcs/redirection_manager.c \
 		utils/redirection_utils.c \
 		utils/parse_utils.c \
-		srcs/pipe_manager.c \
 		utils/pipe_utils.c \
 		utils/utils.c \
 		utils/trime_quotation.c \

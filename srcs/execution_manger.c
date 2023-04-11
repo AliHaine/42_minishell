@@ -24,18 +24,9 @@ static bool exec_redir_cmd(t_pipe *pipes, t_cmds *cmd)
 		ti.a++;
 	}
 	close_all_pipes(pipes->pipefd);
-	//dup2(pipes->piperedir[1], STDOUT_FILENO);
 	check_all_cmd(cmd, pipes->l);
 	return (true);
 }
-
-/*static bool	exec_pipe_cmd(t_pipe *pipes, t_cmds *cmd)
-{
-	(void)pipes;
-	(void)cmd;
-
-	return (true);
-}*/
 
 static bool	try_our_basical(t_cmds *cmd)
 {
@@ -55,11 +46,31 @@ static void exec_setup(t_pipe *pipes, t_env *l)
 	pipes->l = l;
 }
 
+static void	kids_execution(t_cmds *cmd, t_pipe *pipes)
+{
+	if (cmd->next)
+		dup2(pipes->pipefd[(pipes->ti.a % 3)][1], STDOUT_FILENO);
+	if (pipes->ti.a > 2)
+	{
+		if (pipes->ti.a % 3 == 0)
+			dup2(pipes->pipefd[2][0], STDIN_FILENO);
+		else
+			dup2(pipes->pipefd[(pipes->ti.a % 3) - 1][0], STDIN_FILENO);
+	}
+	else if (pipes->ti.a > 0)
+		dup2(pipes->pipefd[((pipes->ti.a % 3) - 1)][0], STDIN_FILENO);
+	if (cmd->w > 0) {
+		exec_redir_cmd(pipes, cmd);
+	} else {
+		close_all_pipes(pipes->pipefd);
+		check_all_cmd(cmd, pipes->l);
+	}
+}
+
 bool	exec_manager(t_env *l)
 {
 	t_pipe 		pipes;
 	t_cmds		*cmd;
-	int r;
 
 	cmd = g_ms.cmds_f;
 	if (try_our_basical(cmd))
@@ -75,38 +86,18 @@ bool	exec_manager(t_env *l)
 		//pid_tab_growth(&pipes)
 		pipes.pid[pipes.ti.a] = fork();
 		if (pipes.pid[pipes.ti.a] == 0)
-		{
-			if (cmd->next)
-				dup2(pipes.pipefd[(pipes.ti.a % 3)][1], STDOUT_FILENO);
-			if (pipes.ti.a > 2)
-			{
-				if (pipes.ti.a % 3 == 0)
-					dup2(pipes.pipefd[2][0], STDIN_FILENO);
-				else
-					dup2(pipes.pipefd[(pipes.ti.a % 3) - 1][0], STDIN_FILENO);
-			}
-			else if (pipes.ti.a > 0)
-				dup2(pipes.pipefd[((pipes.ti.a % 3) - 1)][0], STDIN_FILENO);
-			if (cmd->w > 0) {
-				exec_redir_cmd(&pipes, cmd);
-			} else {
-				close_all_pipes(pipes.pipefd);
-				check_all_cmd(cmd, l);
-			}
-		}
-		if (pipes.ti.a > 0) {
+			kids_execution(cmd, &pipes);
+		if (pipes.ti.a > 0)
 			close(pipes.pipefd[((pipes.ti.a % 3) - 1)][0]);
-		}
-		if (cmd->next) {
+		if (cmd->next)
 			close(pipes.pipefd[((pipes.ti.a % 3))][1]);
-		}
 		cmd = cmd->next;
 		pipes.ti.a++;
 	}
 	pipes.pid[pipes.ti.a] = 0;
 	while (pipes.pid[pipes.ti.b])
 	{
-		waitpid(pipes.pid[pipes.ti.b], &r, WIFEXITED(pipes.pid[pipes.ti.b]));
+		waitpid(pipes.pid[pipes.ti.b], &pipes.ti.c, WIFEXITED(pipes.pid[pipes.ti.b]));
 		pipes.ti.b++;
 	}
 	return (true);
