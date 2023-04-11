@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:55:32 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/07 16:55:23 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/11 18:06:53 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,5 +248,10 @@ int			ft_lst_size(t_env *lst);
 char		**copy_with_lst(t_env *lst);
 void		remplace_lst(t_env *lst, char *path);
 void		free_list(t_env **head);
+
+char **convert_args(t_cmds *cmd);
+char *new_line(char *arg);
+int size_tab(char **args);
+char **convert_args_env(t_cmds *cmd, t_env *lst);
 
 #endif

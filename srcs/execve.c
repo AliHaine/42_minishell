@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 06:59:43 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/07 16:04:39 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/11 18:13:20 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	ft_execve2(char **args, char **env)
 	free(gdee);
 	while (args[0][++i])
 		if (!update(args[0][i], &in_q))
-			printf("%c", args[0][i]);
+			printf("%s", args[0][i]);
 	printf(": command not found\n");
 	check_cmd_is_right(127);
 	free_tt(args);
@@ -50,6 +50,10 @@ int	ft_execve(t_cmds *cmd, t_env *lst)
 	char 	**env;
 
 	env = copy_with_lst(lst);
+	/*
+	cmd->cmd_args = convert_args(cmd);
+	cmd->args = convert_args_env(cmd, l);
+	*/
 	args = ft_split(cmd->cmd_args, ' ');
 	bash = path_ex(env);
 	while (*bash)
