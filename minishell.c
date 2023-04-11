@@ -53,7 +53,7 @@ static int	run_process(char *line, t_env *list)
 
 static char *readline_fix(void)
 {
-	char *histo;
+	char	*histo;
 	char	*hh;
 
 	hh = g_d_e();

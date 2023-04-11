@@ -59,9 +59,10 @@ static void	kids_execution(t_cmds *cmd, t_pipe *pipes)
 	}
 	else if (pipes->ti.a > 0)
 		dup2(pipes->pipefd[((pipes->ti.a % 3) - 1)][0], STDIN_FILENO);
-	if (cmd->w > 0) {
+	if (cmd->w > 0)
 		exec_redir_cmd(pipes, cmd);
-	} else {
+	else
+	{
 		close_all_pipes(pipes->pipefd);
 		check_all_cmd(cmd, pipes->l);
 	}
