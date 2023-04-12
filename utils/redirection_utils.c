@@ -12,31 +12,32 @@
 
 #include "../minishell.h"
 
-static void	exec_waiting(char *word, int i, int size)
+static void	exec_waiting(char *word)
 {
 	char	*b;
-	int		fd;
+	int		i;
+	int		size;
+	char	*tab[50];
 
-	signal(SIGINT, SIG_DFL);
-	rl_catch_signals = 1;
-	fd = open(".heredoc", O_CREAT | O_RDWR | O_TRUNC, P1 | P2 | S_IRWXO);
+	i = 0;
 	while (1)
 	{
 		b = readline("> ");
-		write(fd, b, sizeof(char) * ft_strlen(b));
-		write(fd, "\n", 1);
 		size = ft_strlen(b);
+		tab[i] = malloc(sizeof(char) * size + 1);
+		tab[i] = b;
 		if (ft_strcmp(b, word))
 			break ;
+		tab[i][size] = '\0';
 		i++;
 	}
-	close(fd);
+	tab[i] = 0;
+	exit(1);
 }
 
-void	stdou_redirection(int origin, char *name)
+void	stdou_redirection(int origin, char *name, t_pipe *pipes)
 {
-	int	fd;
-
+	int fd;
 	if (origin == 3)
 		fd = open(name, O_CREAT | O_RDWR | O_TRUNC, P1 | P2 | S_IRWXO);
 	else
@@ -44,22 +45,17 @@ void	stdou_redirection(int origin, char *name)
 		fd = open(name, O_CREAT | O_RDWR, P1 | P2 | S_IRWXO);
 		go_to_end_of_file(fd);
 	}
+	(void)pipes;
 	dup2(fd, STDOUT_FILENO);
 }
 
-void	stdin_redirection(int origin, char *name, char *cmd)
+void	stdin_redirection(int origin, char *name, t_pipe *pipes)
 {
 	int	fd;
 
+	(void)pipes;
 	if (origin == 2)
-	{
-		exec_waiting(name, 0, 0);
-		if (!cmd)
-			exit(1);
-		fd = open(".heredoc", O_RDONLY, P1 | P2 | S_IRWXO);
-		dup2(fd, STDIN_FILENO);
-		close(fd);
-	}
+		exec_waiting(name);
 	else
 	{
 		fd = open(name, O_RDONLY, P1 | P2 | S_IRWXO);

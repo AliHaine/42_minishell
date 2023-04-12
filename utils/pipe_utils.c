@@ -45,7 +45,7 @@ void	close_all_pipes(int pipes[3][2])
 	int	i;
 
 	i = 0;
-	while (i < 3)
+	while(i < 3)
 	{
 		close(pipes[i][0]);
 		close(pipes[i][1]);

@@ -36,13 +36,3 @@ void	add_env_var(t_env **lst, char *path)
 	(*lst)->data = ft_strdup(path);
 	ft_lst_back(lst);
 }
-
-int	size_tab(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-		i++;
-	return (i);
-}

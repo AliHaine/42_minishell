@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:11:27 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/11 16:09:34 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/07 16:54:40 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ static int	run_process(char *line, t_env *list)
 		return (0);
 	}
 	free(new);
-	exec_main(list);
+	exec_manager(list);
 	return (1);
 }
 
 static char *readline_fix(void)
 {
-	char	*histo;
+	char *histo;
 	char	*hh;
 
 	hh = g_d_e();
