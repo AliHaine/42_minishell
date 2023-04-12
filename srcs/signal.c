@@ -29,7 +29,7 @@ void	ctrl_bs(void)
 {
 }
 
-void	signal_main()
+void	signal_main(void)
 {
 	signal(2, (void *)ctrl_c);
 	signal(SIGQUIT, (void *)ctrl_bs);

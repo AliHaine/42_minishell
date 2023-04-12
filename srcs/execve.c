@@ -34,7 +34,6 @@ static void	ft_execve2(char **args, char **env)
 	execve(args[0], args, env);
 	printf("%s: ", gdee);
 	free(gdee);
-	while (args[0][++i])
 		if (!update(args[0][i], &in_q))
 			printf("%s", args[0]);
 	printf(": command not found\n");

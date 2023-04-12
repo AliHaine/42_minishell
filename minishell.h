@@ -69,7 +69,7 @@ typedef struct s_helper
 
 typedef struct s_pipe
 {
-	pid_t		pid[20];
+	pid_t		*pid;
 	int			pipefd[3][2];
 	t_env		*l;
 	t_t_i		ti;
@@ -106,12 +106,6 @@ bool		check_error_redir(t_cmds *cmd);
 // manager //
 
 bool		exec_manager(t_env *l);
-void		origin_four_start(t_helper h, int pipes[][2], t_env *l, int fd);
-void		r_exec_single(t_helper h, int origin, int fd, t_env *l);
-void		r_exec(int pipes[][2], t_helper h, int origin, t_env *l);
-bool		pipe_main(t_env *list);
-void		redirection_main(int pipes[][2], t_cmds *cmd, t_t_i ti, t_env *l);
-bool		is_unused(t_cmds *cmds);
 
 // execution_utils //
 

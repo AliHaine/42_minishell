@@ -35,7 +35,8 @@ static void	exec_waiting(char *word, int i, int size)
 
 void	stdou_redirection(int origin, char *name)
 {
-	int fd;
+	int	fd;
+
 	if (origin == 3)
 		fd = open(name, O_CREAT | O_RDWR | O_TRUNC, P1 | P2 | S_IRWXO);
 	else

@@ -1,12 +1,20 @@
-//
-// Created by Ali Yagmur on 4/7/23.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution_manger.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/12 02:14:43 by ayagmur           #+#    #+#             */
+/*   Updated: 2023/04/12 02:14:47 by ayagmur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
-int size_tab(char **args)
+int	size_tab(char **args)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (args[i])
@@ -16,12 +24,12 @@ int size_tab(char **args)
 
 // return new line without quot
 
-char *new_line(char *arg)
+char	*new_line(char *arg)
 {
-	int i;
-	int x;
-	int in_q;
-	char *new;
+	int		i;
+	int		x;
+	int		in_q;
+	char	*new;
 
 	i = 0;
 	x = 0;
@@ -43,10 +51,10 @@ char *new_line(char *arg)
 	return (new);
 }
 
-char **convert_args(t_cmds *cmd)
+char	**convert_args(t_cmds *cmd)
 {
-	char **new;
-	int i;
+	char	**new;
+	int		i;
 
 	i = 0;
 	new = malloc(sizeof(char *) * size_tab(cmd->args) + 1);
@@ -60,15 +68,14 @@ char **convert_args(t_cmds *cmd)
 	i = -1;
 	while (new[++i])
 		cmd->args[i] = ft_strdup(new[i]);
-	
 	return (new);
 }
 
-char **convert_args_env(t_cmds *cmd, t_env *lst)
+char	**convert_args_env(t_cmds *cmd, t_env *lst)
 {
-	char **new;
-	char **env;
-	int i;
+	char	**new;
+	char	**env;
+	int		i;
 
 	i = 0;
 	env = copy_with_lst(lst);
@@ -86,7 +93,7 @@ char **convert_args_env(t_cmds *cmd, t_env *lst)
 	return (new);
 }
 
-static bool exec_redir_cmd(t_pipe *pipes, t_cmds *cmd)
+static bool	exec_redir_cmd(t_pipe *pipes, t_cmds *cmd)
 {
 	t_t_i	ti;
 
@@ -120,8 +127,8 @@ static bool	try_our_basical(t_cmds *cmd)
 
 static void exec_setup(t_pipe *pipes, t_env *l)
 {
-	/*pipes->pid = malloc(sizeof(pid_t) * 1);
-	pipes->pid[0] = 0;*/
+	pipes->pid = malloc(sizeof(pid_t) * 1);
+	pipes->pid[0] = 0;
 	init_three_int(&pipes->ti);
 	pipe_init(pipes->pipefd);
 	pipes->l = l;
@@ -169,7 +176,7 @@ bool	exec_manager(t_env *l)
 	{
 		if (pipes.ti.a > 2)
 			pipe(pipes.pipefd[(pipes.ti.a % 3)]);
-		//pid_tab_growth(&pipes)
+		pid_tab_growth(&pipes, pipes.ti.a);
 		pipes.pid[pipes.ti.a] = fork();
 		if (pipes.pid[pipes.ti.a] == 0)
 			kids_execution(cmd, &pipes);
