@@ -47,7 +47,7 @@ static int	run_process(char *line, t_env *list)
 		return (0);
 	}
 	free(new);
-	exec_manager(list);
+	exec_main(list);
 	return (1);
 }
 

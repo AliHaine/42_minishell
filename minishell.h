@@ -33,7 +33,8 @@ typedef struct s_minishell
 	int					exit;
 	int					stat;
 	int					cmd_nbr;
-	int 				on_cmd;
+	int					on_cmd;
+	int					last_cmd;
 	struct s_cmds		*cmds_f;
 	struct s_env		*list_env;
 }	t_minishell;
@@ -81,7 +82,7 @@ bool		pid_tab_growth(t_pipe *pipes, int val);
 void		parse_helper(char *str);
 void		ctrl_c(void);
 void		ctrl_bs(void);
-void		signal_main();
+void		signal_main(void);
 void		go_to_end_of_file(int fd);
 void		histo_main(char *histo);
 bool		main_parsing(char *line);
@@ -96,6 +97,7 @@ bool		is_redir_char(char c);
 void		init_three_int(struct s_three_int *ti);
 bool		is_space(char c);
 void		add_env_var(t_env **lst, char *path);
+int			size_tab(char **args);
 
 // error_manager //
 
@@ -105,11 +107,8 @@ bool		check_error_redir(t_cmds *cmd);
 
 // manager //
 
-bool		exec_manager(t_env *l);
-
-// execution_utils //
-
-
+bool		exec_main(t_env *l);
+void		exec_setup(t_pipe *pipes, t_env *l);
 
 // pipe_utils //
 
@@ -243,9 +242,8 @@ char		**copy_with_lst(t_env *lst);
 void		remplace_lst(t_env *lst, char *path);
 void		free_list(t_env **head);
 
-char **convert_args(t_cmds *cmd);
-char *new_line(char *arg);
-int size_tab(char **args);
-char **convert_args_env(t_cmds *cmd, t_env *lst);
+char		**convert_args(t_cmds *cmd);
+char		*new_line(char *arg);
+char		**convert_args_env(t_cmds *cmd, t_env *lst);
 
 #endif
