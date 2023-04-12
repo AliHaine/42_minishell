@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:14:29 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/18 15:14:30 by ayagmur          ###   ########.fr       */
+/*   Updated: 2023/04/13 00:45:39 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,4 @@ void	free_words_struct(struct s_cmds *cmds)
 	}
 	g_ms.cmds_f = 0;
 	g_ms.cmd_nbr = 0;
-}
-
-void	parc_struct_tester(struct s_cmds *cmds)
-{
-	struct s_cmds	*ite;
-	int i = 0;
-
-	ite = cmds;
-	printf("---------------------\n");
-	while (ite)
-	{
-		printf("Cmd = %s\n", ite->cmd);
-		printf("Cmd args = %s\n", ite->cmd_args);
-		printf("Num of redir = %d\n", ite->w);
-		while (ite->args[i++])
-			printf("args %d = %s\n", i-1, ite->args[i-1]);
-		printf("---------------------\n");
-		ite = ite->next;
-		i = 0;
-	}
 }

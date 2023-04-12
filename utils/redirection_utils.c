@@ -3,41 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:06:20 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/25 14:06:22 by ayagmur          ###   ########.fr       */
+/*   Updated: 2023/04/13 00:51:48 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	exec_waiting(char *word)
+static void	exec_waiting(char *word, int i, int size)
 {
 	char	*b;
-	int		i;
-	int		size;
-	char	*tab[50];
+	int		fd;
 
-	i = 0;
+	signal(SIGINT, SIG_DFL);
+	rl_catch_signals = 1;
+	fd = open(".heredoc", O_CREAT | O_RDWR | O_TRUNC, P1 | P2 | S_IRWXO);
 	while (1)
 	{
 		b = readline("> ");
+		write(fd, b, sizeof(char) * ft_strlen(b));
+		write(fd, "\n", 1);
 		size = ft_strlen(b);
-		tab[i] = malloc(sizeof(char) * size + 1);
-		tab[i] = b;
 		if (ft_strcmp(b, word))
 			break ;
-		tab[i][size] = '\0';
 		i++;
 	}
-	tab[i] = 0;
-	exit(1);
+	close(fd);
 }
 
-void	stdou_redirection(int origin, char *name, t_pipe *pipes)
+void	stdou_redirection(int origin, char *name)
 {
-	int fd;
+	int	fd;
+
 	if (origin == 3)
 		fd = open(name, O_CREAT | O_RDWR | O_TRUNC, P1 | P2 | S_IRWXO);
 	else
@@ -45,17 +44,22 @@ void	stdou_redirection(int origin, char *name, t_pipe *pipes)
 		fd = open(name, O_CREAT | O_RDWR, P1 | P2 | S_IRWXO);
 		go_to_end_of_file(fd);
 	}
-	(void)pipes;
 	dup2(fd, STDOUT_FILENO);
 }
 
-void	stdin_redirection(int origin, char *name, t_pipe *pipes)
+void	stdin_redirection(int origin, char *name, char *cmd)
 {
 	int	fd;
 
-	(void)pipes;
 	if (origin == 2)
-		exec_waiting(name);
+	{
+		exec_waiting(name, 0, 0);
+		if (!cmd)
+			exit(1);
+		fd = open(".heredoc", O_RDONLY, P1 | P2 | S_IRWXO);
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+	}
 	else
 	{
 		fd = open(name, O_RDONLY, P1 | P2 | S_IRWXO);

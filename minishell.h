@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:55:32 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/07 16:55:23 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/13 01:22:33 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ typedef struct s_minishell
 	int					exit;
 	int					stat;
 	int					cmd_nbr;
-	int 				on_cmd;
+	int					on_cmd;
+	int					last_cmd;
 	struct s_cmds		*cmds_f;
 	struct s_env		*list_env;
 }	t_minishell;
@@ -69,7 +70,7 @@ typedef struct s_helper
 
 typedef struct s_pipe
 {
-	pid_t		pid[20];
+	pid_t		*pid;
 	int			pipefd[3][2];
 	t_env		*l;
 	t_t_i		ti;
@@ -81,7 +82,7 @@ bool		pid_tab_growth(t_pipe *pipes, int val);
 void		parse_helper(char *str);
 void		ctrl_c(void);
 void		ctrl_bs(void);
-void		signal_main();
+void		signal_main(void);
 void		go_to_end_of_file(int fd);
 void		histo_main(char *histo);
 bool		main_parsing(char *line);
@@ -96,6 +97,7 @@ bool		is_redir_char(char c);
 void		init_three_int(struct s_three_int *ti);
 bool		is_space(char c);
 void		add_env_var(t_env **lst, char *path);
+int			size_tab(char **args);
 
 // error_manager //
 
@@ -105,17 +107,8 @@ bool		check_error_redir(t_cmds *cmd);
 
 // manager //
 
-bool		exec_manager(t_env *l);
-void		origin_four_start(t_helper h, int pipes[][2], t_env *l, int fd);
-void		r_exec_single(t_helper h, int origin, int fd, t_env *l);
-void		r_exec(int pipes[][2], t_helper h, int origin, t_env *l);
-bool		pipe_main(t_env *list);
-void		redirection_main(int pipes[][2], t_cmds *cmd, t_t_i ti, t_env *l);
-bool		is_unused(t_cmds *cmds);
-
-// execution_utils //
-
-
+bool		exec_main(t_env *l);
+void		exec_setup(t_pipe *pipes, t_env *l);
 
 // pipe_utils //
 
@@ -125,8 +118,8 @@ bool		is_unused(t_cmds *cmds);
 
 // redir utile //
 
-void		stdou_redirection(int origin, char *name, t_pipe *pipes);
-void		stdin_redirection(int origin, char *name, t_pipe *pipes);
+void		stdou_redirection(int origin, char *name);
+void		stdin_redirection(int origin, char *name, char *cmd);
 
 // parse_utils //
 
@@ -248,5 +241,8 @@ int			ft_lst_size(t_env *lst);
 char		**copy_with_lst(t_env *lst);
 void		remplace_lst(t_env *lst, char *path);
 void		free_list(t_env **head);
+
+char *new_line(char *arg);
+char *convert_args3(char *line);
 
 #endif

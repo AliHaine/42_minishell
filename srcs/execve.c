@@ -6,11 +6,20 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 06:59:43 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/07 16:04:39 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/13 01:23:07 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char *convert_args3(char *line)
+{
+	char *new;
+
+	new = new_line(line);
+	free(line);
+	return (new);
+}
 
 static char **path_ex(char **env)
 {
@@ -26,7 +35,6 @@ static char **path_ex(char **env)
 static void	ft_execve2(char **args, char **env)
 {
 	int		i;
-	int		in_q;
 	char	*gdee;
 
 	i = -1;
@@ -34,9 +42,7 @@ static void	ft_execve2(char **args, char **env)
 	execve(args[0], args, env);
 	printf("%s: ", gdee);
 	free(gdee);
-	while (args[0][++i])
-		if (!update(args[0][i], &in_q))
-			printf("%c", args[0][i]);
+	printf("%s", args[0]);
 	printf(": command not found\n");
 	check_cmd_is_right(127);
 	free_tt(args);
@@ -58,6 +64,7 @@ int	ft_execve(t_cmds *cmd, t_env *lst)
 		execve(join, args, env);
 		free(join);
 	}
+	int i = 0;
 	ft_execve2(args, env);
 	free_tt(env);
 	exit(127);

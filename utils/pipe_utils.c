@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:04:14 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/25 14:04:16 by ayagmur          ###   ########.fr       */
+/*   Updated: 2023/04/13 00:46:02 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	close_all_pipes(int pipes[3][2])
 	int	i;
 
 	i = 0;
-	while(i < 3)
+	while (i < 3)
 	{
 		close(pipes[i][0]);
 		close(pipes[i][1]);

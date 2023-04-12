@@ -4,8 +4,7 @@
 
 #include "../minishell.h"
 
-
-static bool exec_redir_cmd(t_pipe *pipes, t_cmds *cmd)
+static bool	exec_redir_cmd(t_pipe *pipes, t_cmds *cmd)
 {
 	t_t_i	ti;
 
@@ -16,9 +15,9 @@ static bool exec_redir_cmd(t_pipe *pipes, t_cmds *cmd)
 		{
 			ti.b = get_origine(cmd->args[ti.a]);
 			if (ti.b == 2 || ti.b == 4)
-				stdin_redirection(ti.b, cmd->args[ti.a + 1], pipes);
+				stdin_redirection(ti.b, cmd->args[ti.a + 1], cmd->cmd);
 			else if (ti.b == 3 || ti.b == 1)
-				stdou_redirection(ti.b, cmd->args[ti.a + 1], pipes);
+				stdou_redirection(ti.b, cmd->args[ti.a + 1]);
 			ti.c++;
 		}
 		ti.a++;
@@ -32,18 +31,9 @@ static bool	try_our_basical(t_cmds *cmd)
 {
 	if (get_cmd(cmd->cmd) == 5 || get_cmd(cmd->cmd) == 6
 		|| get_cmd(cmd->cmd) == 7 || get_cmd(cmd->cmd) == 8
-			|| get_cmd(cmd->cmd) == 4)
+		|| get_cmd(cmd->cmd) == 4)
 		return (true);
 	return (false);
-}
-
-static void exec_setup(t_pipe *pipes, t_env *l)
-{
-	/*pipes->pid = malloc(sizeof(pid_t) * 1);
-	pipes->pid[0] = 0;*/
-	init_three_int(&pipes->ti);
-	pipe_init(pipes->pipefd);
-	pipes->l = l;
 }
 
 static void	kids_execution(t_cmds *cmd, t_pipe *pipes)
@@ -59,17 +49,38 @@ static void	kids_execution(t_cmds *cmd, t_pipe *pipes)
 	}
 	else if (pipes->ti.a > 0)
 		dup2(pipes->pipefd[((pipes->ti.a % 3) - 1)][0], STDIN_FILENO);
-	if (cmd->w > 0) {
+	if (cmd->w > 0)
 		exec_redir_cmd(pipes, cmd);
-	} else {
+	else
+	{
 		close_all_pipes(pipes->pipefd);
 		check_all_cmd(cmd, pipes->l);
 	}
 }
 
-bool	exec_manager(t_env *l)
+static bool	exec_manager(t_pipe *pipes, t_env *l, t_cmds *cmd)
 {
-	t_pipe 		pipes;
+	while (cmd)
+	{
+		if (pipes->ti.a > 2)
+			pipe(pipes->pipefd[(pipes->ti.a % 3)]);
+		pid_tab_growth(pipes, pipes->ti.a);
+		pipes->pid[pipes->ti.a] = fork();
+		if (pipes->pid[pipes->ti.a] == 0)
+			kids_execution(cmd, pipes);
+		if (pipes->ti.a > 0)
+			close(pipes->pipefd[((pipes->ti.a % 3) - 1)][0]);
+		if (cmd->next)
+			close(pipes->pipefd[((pipes->ti.a % 3))][1]);
+		cmd = cmd->next;
+		pipes->ti.a++;
+	}
+	return (true);
+}
+
+bool	exec_main(t_env *l)
+{
+	t_pipe		p;
 	t_cmds		*cmd;
 
 	cmd = g_ms.cmds_f;
@@ -78,27 +89,12 @@ bool	exec_manager(t_env *l)
 		check_all_cmd(cmd, l);
 		return (true);
 	}
-	exec_setup(&pipes, l);
-	while (cmd)
+	exec_setup(&p, l);
+	exec_manager(&p, l, cmd);
+	while (p.pid[p.ti.b])
 	{
-		if (pipes.ti.a > 2)
-			pipe(pipes.pipefd[(pipes.ti.a % 3)]);
-		//pid_tab_growth(&pipes)
-		pipes.pid[pipes.ti.a] = fork();
-		if (pipes.pid[pipes.ti.a] == 0)
-			kids_execution(cmd, &pipes);
-		if (pipes.ti.a > 0)
-			close(pipes.pipefd[((pipes.ti.a % 3) - 1)][0]);
-		if (cmd->next)
-			close(pipes.pipefd[((pipes.ti.a % 3))][1]);
-		cmd = cmd->next;
-		pipes.ti.a++;
-	}
-	pipes.pid[pipes.ti.a] = 0;
-	while (pipes.pid[pipes.ti.b])
-	{
-		waitpid(pipes.pid[pipes.ti.b], &pipes.ti.c, WIFEXITED(pipes.pid[pipes.ti.b]));
-		pipes.ti.b++;
+		waitpid(p.pid[p.ti.b], &p.ti.c, WIFEXITED(p.pid[p.ti.b]));
+		p.ti.b++;
 	}
 	return (true);
 }

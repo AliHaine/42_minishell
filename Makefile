@@ -4,7 +4,7 @@ NAME = minishell
 
 CC = @gcc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = #-Wall -Werror -Wextra
 
 SRCS =	minishell.c \
 		srcs/execution_manger.c \
