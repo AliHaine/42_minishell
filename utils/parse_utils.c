@@ -6,11 +6,13 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:08:37 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/03/28 15:56:01 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/13 16:57:17 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+// modife faite line 43
 
 char	*get_current_word(char *s, int *a, int i, int q)
 {
@@ -38,6 +40,7 @@ char	*get_current_word(char *s, int *a, int i, int q)
 		*a = *a + 1;
 	}
 	new[i] = '\0';
+	new = convert_args3(new);
 	return (new);
 }
 

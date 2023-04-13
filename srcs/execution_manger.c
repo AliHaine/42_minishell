@@ -65,6 +65,7 @@ static bool	exec_manager(t_pipe *pipes, t_env *l, t_cmds *cmd)
 		if (pipes->ti.a > 2)
 			pipe(pipes->pipefd[(pipes->ti.a % 3)]);
 		pid_tab_growth(pipes, pipes->ti.a);
+		//printf("chib\n");
 		pipes->pid[pipes->ti.a] = fork();
 		if (pipes->pid[pipes->ti.a] == 0)
 			kids_execution(cmd, pipes);

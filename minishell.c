@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:11:27 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/13 01:15:15 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/13 16:57:25 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static int	run_process(char *line, t_env *list)
 
 	env = copy_with_lst(list);
 	new = env_conversion(line, env, -1, 0);
-	new = convert_args3(new);
 	free_tt(env);
 	init_three_int(&ti);
 	g_ms.on_cmd = 1;

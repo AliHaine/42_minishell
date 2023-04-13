@@ -6,9 +6,11 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 12:18:28 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/12 18:19:41 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/13 19:32:29 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// erreur "      l" = fork
 
 #include "../minishell.h"
 
@@ -33,52 +35,75 @@ t_env	*lst_copy_tab(char **env)
 
 /* bulltin echo part 2 */
 
-static int	echo_2(char **tab, int bulltin)
-{
-	int	i;
-	int	x;
+// refaire echo en char *
 
-	i = bulltin;
-	x = 2;
-	if (tab[i][0] == '-' && tab[i][1] == 'n')
+static int	echo_2(char *line, int *bulltin, int i)
+{
+	int j;
+
+	j = 0;
+	if (line[i] == '-' && line[i + 1] == 'n')
 	{
-		while (tab[i][x])
+		j += 2;
+		while (line[i + j] == 'n')
+			j++;
+		if (line[i + j] == ' ')
 		{
-			if (tab[i][x] == 'n')
-				x++;
-			else
-				return (bulltin);
+			while (line[i + j] == ' ')
+				j++;
+			i += j;
+			*bulltin = 1;
 		}
-		return (echo_2(tab, bulltin + 1));
+		else
+			return (i);
+		return (echo_2(line, bulltin, i));
 	}
-	return (bulltin);
+	return (i);
+}
+
+static char *new_echo_line(char *line)
+{
+	char *new;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (line[i] == ' ')
+		i++;
+	i += 4;
+	while (line[i] == ' ')
+		i++;
+	new = malloc(sizeof(char) * (ft_strlen(line) - i) + 1);
+	while (line[i])
+		new[j++] = line[i++];
+	new[j] = '\0';
+	return (new);
 }
 
 // bulltin echo //
 /*&& tab[i + 1][0] != '|'*/
 
-void	echo(char **tab, int i, int j)
+// quote "'$USER'"
+
+void	echo(char *echo_line, int i, int j)
 {
 	int	bulltin;
-	int	in_q;
+	int size;
+	char *line;
 
 	bulltin = 0;
-	in_q = 0;
-	if (tab[i])
+	size = 0;
+	line = new_echo_line(echo_line);
+	if (line[i])
 	{
-		bulltin = echo_2(tab, bulltin);
-		if (bulltin > 0)
-			i += bulltin;
-		while (tab[i])
-		{
-			j = -1;
-			printf("%s", tab[i]);
-			if (tab[i + 1])
-				printf(" ");
-			i++;
-		}
+		size = echo_2(line, &bulltin, 0);
+		i = size;
+		while (line[i])
+			printf("%c", line[i++]);
 	}
 	if (bulltin == 0)
 		printf("\n");
 	check_cmd_is_right(0);
+	free(line);
 }

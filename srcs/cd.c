@@ -6,14 +6,11 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 00:14:14 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/13 00:28:30 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/13 16:32:13 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// en fonction de ou se trouve cd
-// le nbr (taille du nom du fichier) de leak augmente
 
 static int	cd_extend(char **arg)
 {

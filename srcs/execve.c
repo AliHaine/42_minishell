@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 06:59:43 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/13 01:23:07 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/13 19:31:33 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,18 @@ static void	ft_execve2(char **args, char **env)
 	free_tt(args);
 }
 
+static void not_found(char *cmd)
+{
+	char *gdee;
+
+	gdee = gde();
+	printf("%s: ", gdee);
+	free(gdee);
+	printf("%s", cmd);
+	printf(": command not found\n");
+	exit(127);
+}
+
 int	ft_execve(t_cmds *cmd, t_env *lst)
 {
 	char	**args;
@@ -55,8 +67,11 @@ int	ft_execve(t_cmds *cmd, t_env *lst)
 	char	*join;
 	char 	**env;
 
+	cmd->cmd_args = convert_args3(cmd->cmd_args);
 	env = copy_with_lst(lst);
 	args = ft_split(cmd->cmd_args, ' ');
+	if (check_path_lst("PATH=", lst, 0) == 0)
+		not_found(args[0]);
 	bash = path_ex(env);
 	while (*bash)
 	{

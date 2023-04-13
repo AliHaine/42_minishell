@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:55:32 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/13 01:22:33 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/13 18:02:47 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ char		*g_pwd(void);
 
 // echo //
 
-void		echo(char **tab, int i, int j);
+void		echo(char *echo_line, int i, int j);
 t_env		*lst_copy_tab(char **env);
 
 // env //
