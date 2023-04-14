@@ -35,6 +35,8 @@ typedef struct s_minishell
 	int					cmd_nbr;
 	int					on_cmd;
 	int					last_cmd;
+	bool				is_dp;
+	int					def_dup;
 	struct s_cmds		*cmds_f;
 	struct s_env		*list_env;
 }	t_minishell;
@@ -79,6 +81,7 @@ typedef struct s_pipe
 
 t_minishell	g_ms;
 
+bool		try_our_basical(t_cmds *cmd);
 bool		pid_tab_remove_last(t_pipe *pipes);
 bool		pid_tab_growth(t_pipe *pipes, int val);
 void		parse_helper(char *str);
@@ -154,8 +157,7 @@ int			char_ccmp(char c, char *reject);
 
 // utils3 //
 
-bool		single_fork(t_cmds *cmd, t_t_i ti, t_env *list);
-char		**copy_env(t_env *list, int size);
+char		*readline_fix(void);
 char		*remplace_part(char *s, char *remplace, int start, int end);
 char		**print_sorted_strings(t_env *list, int i, int j);
 char		*ft_join(char *s1, char *s2);
@@ -246,7 +248,7 @@ char		**copy_with_lst(t_env *lst);
 void		remplace_lst(t_env *lst, char *path);
 void		free_list(t_env **head);
 
-char *new_line(char *arg);
-char *convert_args3(char *line);
+char		*new_line(char *arg);
+char		*convert_args3(char *line);
 
 #endif

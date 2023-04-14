@@ -47,22 +47,9 @@ static int	run_process(char *line, t_env *list)
 		new = NULL;
 		return (0);
 	}
-	parc_struct_tester(g_ms.cmds_f);
-
 	free(new);
 	exec_main(list);
 	return (1);
-}
-
-static char *readline_fix(void)
-{
-	char *histo;
-	char	*hh;
-
-	hh = g_d_e();
-	histo = readline(hh);
-	free(hh);
-	return (histo);
 }
 
 static int	main_process(t_env *list)
@@ -95,6 +82,9 @@ static bool	main_struct_init(char **env)
 	g_ms.stat = 0;
 	g_ms.old = 0;
 	g_ms.env = env;
+	g_ms.last_cmd = 0;
+	g_ms.def_dup = dup(STDOUT_FILENO);
+	g_ms.is_dp = 0;
 	if (g_ms.histo_fd == -1)
 	{
 		printf("Error file history\n");

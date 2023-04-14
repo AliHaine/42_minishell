@@ -12,8 +12,6 @@
 
 #include "../minishell.h"
 
-
-
 // change path //
 
 static char	*change_path(char *argv)

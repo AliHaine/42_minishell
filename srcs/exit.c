@@ -14,13 +14,13 @@
 
 // exit //
 
-char *converte_line(char *line)
+char	*converte_line(char *line)
 {
-	char *newline;
-	int i;
-	int j;
-	int in_q;
-	int in_q2;
+	char	*newline;
+	int		i;
+	int		j;
+	int		in_q;
+	int		in_q2;
 
 	i = -1;
 	j = 0;
@@ -41,10 +41,10 @@ char *converte_line(char *line)
 	return (newline);
 }
 
-static int select_exit_num(char *line)
+static int	select_exit_num(char *line)
 {
-	int i;
-	char *newline;
+	int		i;
+	char	*newline;
 
 	i = 0;
 	newline = converte_line(line);

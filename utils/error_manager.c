@@ -52,9 +52,9 @@ static bool	error_msg(int target)
 	return (0);
 }
 
-static bool	check_and_or_pipe()
+static bool	check_and_or_pipe(void)
 {
-	t_cmds *cmd;
+	t_cmds	*cmd;
 
 	cmd = g_ms.cmds_f;
 	while (cmd->next)

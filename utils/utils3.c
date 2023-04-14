@@ -12,6 +12,17 @@
 
 #include "../minishell.h"
 
+char	*readline_fix(void)
+{
+	char	*histo;
+	char	*hh;
+
+	hh = g_d_e();
+	histo = readline(hh);
+	free(hh);
+	return (histo);
+}
+
 char	*remplace_part(char *s, char *remplace, int start, int end)
 {
 	int		i;

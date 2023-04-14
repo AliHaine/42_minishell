@@ -12,16 +12,16 @@
 
 #include "../minishell.h"
 
-char *convert_args3(char *line)
+char	*convert_args3(char *line)
 {
-	char *new;
+	char	*new;
 
 	new = new_line(line);
 	free(line);
 	return (new);
 }
 
-static char **path_ex(char **env)
+static char	**path_ex(char **env)
 {
 	char	**bash;
 	char	*path;
@@ -48,9 +48,9 @@ static void	ft_execve2(char **args, char **env)
 	free_tt(args);
 }
 
-static void not_found(char *cmd)
+static void	not_found(char *cmd)
 {
-	char *gdee;
+	char	*gdee;
 
 	gdee = gde();
 	printf("%s: ", gdee);
@@ -65,7 +65,7 @@ int	ft_execve(t_cmds *cmd, t_env *lst)
 	char	**args;
 	char	**bash;
 	char	*join;
-	char 	**env;
+	char	**env;
 
 	cmd->cmd_args = convert_args3(cmd->cmd_args);
 	env = copy_with_lst(lst);
@@ -79,7 +79,6 @@ int	ft_execve(t_cmds *cmd, t_env *lst)
 		execve(join, args, env);
 		free(join);
 	}
-	int i = 0;
 	ft_execve2(args, env);
 	free_tt(env);
 	exit(127);

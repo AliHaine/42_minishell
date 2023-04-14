@@ -1,6 +1,15 @@
-//
-// Created by Ali Yagmur on 4/7/23.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/14 23:35:56 by ayagmur           #+#    #+#             */
+/*   Updated: 2023/04/14 23:35:57 by ayagmur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 bool	pid_tab_growth(t_pipe *pipes, int size)
@@ -30,7 +39,8 @@ bool	pid_tab_remove_last(t_pipe *pipes)
 
 	max = 0;
 	i = 0;
-	while (pipes->pid[max++]);
+	while (pipes->pid[max++])
+		;
 	pid = malloc(sizeof(pid_t) * max);
 	while (i < (max - 1))
 	{
@@ -79,4 +89,13 @@ char	*new_line(char *arg)
 	}
 	new[x] = '\0';
 	return (new);
+}
+
+bool	try_our_basical(t_cmds *cmd)
+{
+	if (get_cmd(cmd->cmd) == 5 || get_cmd(cmd->cmd) == 6
+		|| get_cmd(cmd->cmd) == 7 || get_cmd(cmd->cmd) == 8
+		|| get_cmd(cmd->cmd) == 4)
+		return (true);
+	return (false);
 }

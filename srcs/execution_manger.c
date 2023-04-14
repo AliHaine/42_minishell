@@ -1,6 +1,14 @@
-//
-// Created by Ali Yagmur on 4/7/23.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution_manger.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/14 23:32:00 by ayagmur           #+#    #+#             */
+/*   Updated: 2023/04/14 23:32:04 by ayagmur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
@@ -27,13 +35,21 @@ static bool	exec_redir_cmd(t_pipe *pipes, t_cmds *cmd)
 	return (true);
 }
 
-static bool	try_our_basical(t_cmds *cmd)
+static bool	exec_dp(t_pipe *pipes, t_cmds *cmd)
 {
-	if (get_cmd(cmd->cmd) == 5 || get_cmd(cmd->cmd) == 6
-		|| get_cmd(cmd->cmd) == 7 || get_cmd(cmd->cmd) == 8
-		|| get_cmd(cmd->cmd) == 4)
-		return (true);
-	return (false);
+	if (cmd->sep == 2)
+	{
+		if (g_ms.last_cmd > 0)
+			return (false);
+		waitpid(pipes->pid[pipes->ti.a], &g_ms.last_cmd, 0);
+		while (cmd && cmd->sep != 3)
+		{
+			if (g_ms.last_cmd > 0)
+				break ;
+			cmd = cmd->next;
+		}
+	}
+	return (true);
 }
 
 static void	kids_execution(t_cmds *cmd, t_pipe *pipes)
@@ -54,14 +70,14 @@ static void	kids_execution(t_cmds *cmd, t_pipe *pipes)
 	else
 	{
 		close_all_pipes(pipes->pipefd);
+		if (cmd->sep == 3)
+			dup2(g_ms.def_dup, STDOUT_FILENO);
 		check_all_cmd(cmd, pipes->l);
 	}
 }
 
 static bool	exec_manager(t_pipe *pipes, t_env *l, t_cmds *cmd)
 {
-	int exit_status;
-
 	while (cmd)
 	{
 		if (pipes->ti.a > 2)
@@ -74,10 +90,14 @@ static bool	exec_manager(t_pipe *pipes, t_env *l, t_cmds *cmd)
 			close(pipes->pipefd[((pipes->ti.a % 3) - 1)][0]);
 		if (cmd->next)
 			close(pipes->pipefd[((pipes->ti.a % 3))][1]);
-		if (cmd->sep > 1)
+		if (cmd->sep == 2)
 		{
-			waitpid(pipes->pid[pipes->ti.a], &exit_status, 0);
-			pid_tab_remove_last(pipes);
+			if (exec_dp(pipes, cmd) == false)
+			{
+				cmd = cmd->next;
+				pid_tab_remove_last(pipes);
+				continue ;
+			}
 		}
 		cmd = cmd->next;
 		pipes->ti.a++;

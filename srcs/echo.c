@@ -39,7 +39,7 @@ t_env	*lst_copy_tab(char **env)
 
 static int	echo_2(char *line, int *bulltin, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	if (line[i] == '-' && line[i + 1] == 'n')
@@ -61,11 +61,11 @@ static int	echo_2(char *line, int *bulltin, int i)
 	return (i);
 }
 
-static char *new_echo_line(char *line)
+static char	*new_echo_line(char *line)
 {
-	char *new;
-	int i;
-	int j;
+	char	*new;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -88,9 +88,9 @@ static char *new_echo_line(char *line)
 
 void	echo(char *echo_line, int i, int j)
 {
-	int	bulltin;
-	int size;
-	char *line;
+	int		bulltin;
+	int		size;
+	char	*line;
 
 	bulltin = 0;
 	size = 0;
