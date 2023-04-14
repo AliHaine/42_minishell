@@ -52,6 +52,7 @@ typedef struct s_cmds
 	char			**args;
 	char			*cmd_args;
 	int				w;
+	int				sep;
 	struct s_cmds	*next;
 }	t_cmds;
 
@@ -78,6 +79,7 @@ typedef struct s_pipe
 
 t_minishell	g_ms;
 
+bool		pid_tab_remove_last(t_pipe *pipes);
 bool		pid_tab_growth(t_pipe *pipes, int val);
 void		parse_helper(char *str);
 void		ctrl_c(void);
@@ -89,6 +91,8 @@ bool		main_parsing(char *line);
 
 // little_func //
 
+int			get_pipe_or_and_origine(char *cmds);
+bool		is_and_or_pipe(char c);
 int			get_origine(char *cmds);
 bool		is_redir_char(char c);
 

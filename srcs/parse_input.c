@@ -20,13 +20,14 @@ static bool	set_args(char *line, t_cmds *cmds, int *i)
 	cmds->args = malloc(sizeof(char *) * 50);
 	if (!cmds->args)
 		return (false);
-	while (line[*i] && line[*i] != '|')
+	while (line[*i] && !is_and_or_pipe(line[*i]))
 	{
 		cmds->args[a] = get_current_word(line, i, 0, 0);
 		a++;
 		while (line[*i] && line[*i] == ' ')
 			*i = *i + 1;
 	}
+	cmds->sep = get_pipe_or_and_origine(line + *i);
 	cmds->args[a] = NULL;
 	a = 0;
 	while (cmds->args[a])
@@ -43,6 +44,8 @@ static bool	set_cmd(char *line, t_cmds *cmds, int *i)
 	int	size;
 
 	size = 0;
+	while (line[*i + size] == ' ')
+		*i = *i + 1;
 	while (line[*i + size] && line[*i + size] != ' '
 		&& !is_redir_char(line[*i + size]))
 		size++;
@@ -96,7 +99,7 @@ bool	main_parsing(char *line)
 		while (line[i] && line[i] == ' ')
 			i++;
 		set_args(line, cmds, &i);
-		while (line[i] && (line[i] == ' ' || line[i] == '|'))
+		while (line[i] && (line[i] == ' ' || is_and_or_pipe(line[i])))
 			i++;
 		cmds->cmd_args = 0;
 		if (cmds->cmd)

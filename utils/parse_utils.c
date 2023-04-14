@@ -22,7 +22,7 @@ char	*get_current_word(char *s, int *a, int i, int q)
 	{
 		update(s[*a], &q);
 		if (q == 0 && (s[*a] == ' ' || s[*a] == is_redir_char(s[*a])
-				|| s[*a] == '|'))
+				|| is_and_or_pipe(s[*a])))
 			break ;
 		i++;
 		*a = *a + 1;
@@ -34,7 +34,7 @@ char	*get_current_word(char *s, int *a, int i, int q)
 	{
 		update(s[*a], &q);
 		if (q == 0 && (s[*a] == ' ' || s[*a] == is_redir_char(s[*a])
-				|| s[*a] == '|'))
+				|| is_and_or_pipe(s[*a])))
 			break ;
 		new[i++] = s[*a];
 		*a = *a + 1;

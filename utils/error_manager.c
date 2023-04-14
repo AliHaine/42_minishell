@@ -39,7 +39,7 @@ bool	check_all_quote(struct s_cmds *cmds, int i, int size)
 	return (true);
 }
 
-static	bool	error_msg(int target)
+static bool	error_msg(int target)
 {
 	if (target == 0)
 		ft_putstr("Command not found\n", 0);
@@ -47,7 +47,23 @@ static	bool	error_msg(int target)
 		ft_putstr("The file doesn't not exist\n", 0);
 	else if (target == 2)
 		ft_putstr("Your redirection is invalid\n", 0);
+	else if (target == 3)
+		ft_putstr("Your pipe or & is invalid\n", 0);
 	return (0);
+}
+
+static bool	check_and_or_pipe()
+{
+	t_cmds *cmd;
+
+	cmd = g_ms.cmds_f;
+	while (cmd->next)
+	{
+		if (cmd->sep == 0)
+			return (false);
+		cmd = cmd->next;
+	}
+	return (true);
 }
 
 bool	check_error_redir(t_cmds *cmd)
@@ -56,6 +72,8 @@ bool	check_error_redir(t_cmds *cmd)
 	int		ret;
 
 	init_three_int(&ti);
+	if (!check_and_or_pipe())
+		return (error_msg(3));
 	while (ti.c != cmd->w && cmd->args[ti.a])
 	{
 		ti.b = is_redir_char(cmd->args[ti.a][0]);

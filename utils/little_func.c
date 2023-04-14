@@ -40,6 +40,36 @@ int	get_origine(char *cmds)
 	return (0);
 }
 
+int	get_pipe_or_and_origine(char *cmds)
+{
+	if (!cmds[0])
+		return (0);
+	if (cmds[0] == '|')
+	{
+		if (cmds[1] && cmds[1] == '|')
+		{
+			if (cmds[2] && cmds[2] == '|')
+				return (0);
+			return (2);
+		}
+		return (1);
+	}
+	else if (cmds[0] == '&' && cmds[1] && cmds[1] == '&')
+	{
+		if (cmds[2] && cmds[2] == '&')
+			return (0);
+		return (3);
+	}
+	return (0);
+}
+
+bool	is_and_or_pipe(char c)
+{
+	if (c == '|' || c == '&')
+		return (true);
+	return (false);
+}
+
 bool	is_redir_char(char c)
 {
 	if (c == '>' || c == '<')

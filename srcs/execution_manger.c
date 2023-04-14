@@ -60,12 +60,13 @@ static void	kids_execution(t_cmds *cmd, t_pipe *pipes)
 
 static bool	exec_manager(t_pipe *pipes, t_env *l, t_cmds *cmd)
 {
+	int exit_status;
+
 	while (cmd)
 	{
 		if (pipes->ti.a > 2)
 			pipe(pipes->pipefd[(pipes->ti.a % 3)]);
 		pid_tab_growth(pipes, pipes->ti.a);
-		//printf("chib\n");
 		pipes->pid[pipes->ti.a] = fork();
 		if (pipes->pid[pipes->ti.a] == 0)
 			kids_execution(cmd, pipes);
@@ -73,6 +74,11 @@ static bool	exec_manager(t_pipe *pipes, t_env *l, t_cmds *cmd)
 			close(pipes->pipefd[((pipes->ti.a % 3) - 1)][0]);
 		if (cmd->next)
 			close(pipes->pipefd[((pipes->ti.a % 3))][1]);
+		if (cmd->sep > 1)
+		{
+			waitpid(pipes->pid[pipes->ti.a], &exit_status, 0);
+			pid_tab_remove_last(pipes);
+		}
 		cmd = cmd->next;
 		pipes->ti.a++;
 	}

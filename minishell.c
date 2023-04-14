@@ -47,6 +47,8 @@ static int	run_process(char *line, t_env *list)
 		new = NULL;
 		return (0);
 	}
+	parc_struct_tester(g_ms.cmds_f);
+
 	free(new);
 	exec_main(list);
 	return (1);

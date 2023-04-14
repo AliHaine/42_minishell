@@ -22,6 +22,27 @@ bool	pid_tab_growth(t_pipe *pipes, int size)
 	return (true);
 }
 
+bool	pid_tab_remove_last(t_pipe *pipes)
+{
+	int		i;
+	int		max;
+	pid_t	*pid;
+
+	max = 0;
+	i = 0;
+	while (pipes->pid[max++]);
+	pid = malloc(sizeof(pid_t) * max);
+	while (i < (max - 1))
+	{
+		pid[i] = pipes->pid[i];
+		i++;
+	}
+	pid[i] = 0;
+	free(pipes->pid);
+	pipes->pid = pid;
+	return (true);
+}
+
 void	exec_setup(t_pipe *pipes, t_env *l)
 {
 	pipes->pid = malloc(sizeof(pid_t) * 1);
