@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_manger.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 23:32:00 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/14 23:32:04 by ayagmur          ###   ########.fr       */
+/*   Updated: 2023/04/15 18:39:41 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static void	kids_execution(t_cmds *cmd, t_pipe *pipes)
 
 static bool	exec_manager(t_pipe *pipes, t_env *l, t_cmds *cmd)
 {
-	int	r;
-
+	int r;
+	
 	while (cmd)
 	{
 		if (pipes->ti.a > 2)
@@ -75,7 +75,6 @@ static bool	exec_manager(t_pipe *pipes, t_env *l, t_cmds *cmd)
 			close(pipes->pipefd[((pipes->ti.a % 3) - 1)][0]);
 		if (cmd->next)
 			close(pipes->pipefd[((pipes->ti.a % 3))][1]);
-		g_ms.stat = WEXITSTATUS(r);
 		cmd = cmd->next;
 		pipes->ti.a++;
 	}
@@ -99,6 +98,7 @@ bool	exec_main(t_env *l)
 	{
 		waitpid(p.pid[p.ti.b], &p.ti.c, WIFEXITED(p.pid[p.ti.b]));
 		p.ti.b++;
+		g_ms.stat = WEXITSTATUS(p.ti.c);
 	}
 	return (true);
 }

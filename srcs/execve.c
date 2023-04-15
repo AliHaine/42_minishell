@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 06:59:43 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/13 19:31:33 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/15 18:30:47 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*convert_args3(char *line)
 {
 	char	*new;
 
+	new = NULL;
 	new = new_line(line);
 	free(line);
 	return (new);
@@ -26,6 +27,8 @@ static char	**path_ex(char **env)
 	char	**bash;
 	char	*path;
 
+	path = NULL;
+	bash = NULL;
 	path = ft_getenv(env, "PATH");
 	bash = ft_split(path, ':');
 	free(path);
@@ -42,6 +45,7 @@ static void	ft_execve2(char **args, char **env)
 	execve(args[0], args, env);
 	printf("%s: ", gdee);
 	free(gdee);
+	args[0] = convert_args3(args[0]);
 	printf("%s", args[0]);
 	printf(": command not found\n");
 	check_cmd_is_right(127);
