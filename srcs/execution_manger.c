@@ -35,23 +35,6 @@ static bool	exec_redir_cmd(t_pipe *pipes, t_cmds *cmd)
 	return (true);
 }
 
-static bool	exec_dp(t_pipe *pipes, t_cmds *cmd)
-{
-	if (cmd->sep == 2)
-	{
-		if (g_ms.last_cmd > 0)
-			return (false);
-		waitpid(pipes->pid[pipes->ti.a], &g_ms.last_cmd, 0);
-		while (cmd && cmd->sep != 3)
-		{
-			if (g_ms.last_cmd > 0)
-				break ;
-			cmd = cmd->next;
-		}
-	}
-	return (true);
-}
-
 static void	kids_execution(t_cmds *cmd, t_pipe *pipes)
 {
 	if (cmd->next)
@@ -78,6 +61,8 @@ static void	kids_execution(t_cmds *cmd, t_pipe *pipes)
 
 static bool	exec_manager(t_pipe *pipes, t_env *l, t_cmds *cmd)
 {
+	int	r;
+
 	while (cmd)
 	{
 		if (pipes->ti.a > 2)
@@ -90,15 +75,7 @@ static bool	exec_manager(t_pipe *pipes, t_env *l, t_cmds *cmd)
 			close(pipes->pipefd[((pipes->ti.a % 3) - 1)][0]);
 		if (cmd->next)
 			close(pipes->pipefd[((pipes->ti.a % 3))][1]);
-		if (cmd->sep == 2)
-		{
-			if (exec_dp(pipes, cmd) == false)
-			{
-				cmd = cmd->next;
-				pid_tab_remove_last(pipes);
-				continue ;
-			}
-		}
+		g_ms.stat = WEXITSTATUS(r);
 		cmd = cmd->next;
 		pipes->ti.a++;
 	}

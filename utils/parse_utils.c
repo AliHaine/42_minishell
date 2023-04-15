@@ -14,19 +14,10 @@
 
 // modife faite line 43
 
-char	*get_current_word(char *s, int *a, int i, int q)
+static char	*get_curr_w_helper(int q, int i, int *a, char *s)
 {
 	char	*new;
 
-	while (s[*a])
-	{
-		update(s[*a], &q);
-		if (q == 0 && (s[*a] == ' ' || s[*a] == is_redir_char(s[*a])
-				|| is_and_or_pipe(s[*a])))
-			break ;
-		i++;
-		*a = *a + 1;
-	}
 	new = malloc(sizeof(char) * i + 1);
 	*a = *a - i;
 	i = 0;
@@ -42,6 +33,20 @@ char	*get_current_word(char *s, int *a, int i, int q)
 	new[i] = '\0';
 	new = convert_args3(new);
 	return (new);
+}
+
+char	*get_current_word(char *s, int *a, int i, int q)
+{
+	while (s[*a])
+	{
+		update(s[*a], &q);
+		if (q == 0 && (s[*a] == ' ' || s[*a] == is_redir_char(s[*a])
+				|| is_and_or_pipe(s[*a])))
+			break ;
+		i++;
+		*a = *a + 1;
+	}
+	return (get_curr_w_helper(q, i, a, s));
 }
 
 char	*ft_strjoin_parse(char *s1, char *s2)

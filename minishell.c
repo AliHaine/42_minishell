@@ -82,9 +82,7 @@ static bool	main_struct_init(char **env)
 	g_ms.stat = 0;
 	g_ms.old = 0;
 	g_ms.env = env;
-	g_ms.last_cmd = 0;
 	g_ms.def_dup = dup(STDOUT_FILENO);
-	g_ms.is_dp = 0;
 	if (g_ms.histo_fd == -1)
 	{
 		printf("Error file history\n");

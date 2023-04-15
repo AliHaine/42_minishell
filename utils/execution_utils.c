@@ -19,11 +19,10 @@ bool	pid_tab_growth(t_pipe *pipes, int size)
 
 	i = 0;
 	pid = malloc(sizeof(pid_t) * (size + 2));
-	while (size > 0)
+	while (i < size)
 	{
 		pid[i] = pipes->pid[i];
 		i++;
-		size--;
 	}
 	pid[size + 1] = 0;
 	free(pipes->pid);

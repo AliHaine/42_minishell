@@ -39,11 +39,8 @@ static bool	set_args(char *line, t_cmds *cmds, int *i)
 	return (true);
 }
 
-static bool	set_cmd(char *line, t_cmds *cmds, int *i)
+static bool	set_cmd(char *line, t_cmds *cmds, int *i, int size)
 {
-	int	size;
-
-	size = 0;
 	while (line[*i + size] == ' ')
 		*i = *i + 1;
 	while (line[*i + size] && line[*i + size] != ' '
@@ -95,7 +92,7 @@ bool	main_parsing(char *line)
 		if (!cmds)
 			printf("error\n");
 		cmds->w = 0;
-		set_cmd(line, cmds, &i);
+		set_cmd(line, cmds, &i, 0);
 		while (line[i] && line[i] == ' ')
 			i++;
 		set_args(line, cmds, &i);

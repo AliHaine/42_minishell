@@ -67,7 +67,6 @@ int	ft_execve(t_cmds *cmd, t_env *lst)
 	char	*join;
 	char	**env;
 
-	cmd->cmd_args = convert_args3(cmd->cmd_args);
 	env = copy_with_lst(lst);
 	args = ft_split(cmd->cmd_args, ' ');
 	if (check_path_lst("PATH=", lst, 0) == 0)

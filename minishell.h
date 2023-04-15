@@ -34,8 +34,6 @@ typedef struct s_minishell
 	int					stat;
 	int					cmd_nbr;
 	int					on_cmd;
-	int					last_cmd;
-	bool				is_dp;
 	int					def_dup;
 	struct s_cmds		*cmds_f;
 	struct s_env		*list_env;
