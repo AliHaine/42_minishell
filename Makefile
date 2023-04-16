@@ -4,7 +4,7 @@ NAME = minishell
 
 CC = @gcc
 
-CFLAGS = #-Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 
 SRCS =	minishell.c \
 		srcs/execution_manger.c \
@@ -54,10 +54,11 @@ OBJS = ${SRCS:.c=.o}
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME)
+	@echo "minishell compiled!"
 
 debug: $(OBJS)
 	$(CC) $(CFLAGS) -fsanitize=address $(OBJS) $(LIB) -o $(NAME)
-	@echo "minshelcompileded!"
+	@echo "minishell compiled!"
 
 all: $(NAME)
 
@@ -65,11 +66,11 @@ bonus: all
 
 clean:
 	@rm -rf $(OBJS) $(OBJS_BONUS)
-	@echo "minshell cleaned!"
+	@echo "minishell cleaned!"
 
 fclean: clean
 	@rm -rf $(NAME)
-	@echo "minshell fcleaned!"
+	@echo "minishell fcleaned!"
 
 re: fclean all
 

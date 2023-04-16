@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:50:07 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/11 23:44:59 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/15 22:39:18 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ void	free_list(t_env **head)
 char	**copy_with_lst(t_env *lst)
 {
 	int		i;
+	int		size;
 	char	**copy;
 
 	i = 0;
-	copy = malloc(sizeof(char *) * ft_lst_size(lst) + 1);
+	size = ft_lst_size(lst);
+	copy = malloc(sizeof(char *) * (size + 1));
 	if (!copy)
 		return (NULL);
 	while (lst != NULL)

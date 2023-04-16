@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 23:32:00 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/15 18:39:41 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/16 12:04:48 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,8 @@ static void	kids_execution(t_cmds *cmd, t_pipe *pipes)
 	}
 }
 
-static bool	exec_manager(t_pipe *pipes, t_env *l, t_cmds *cmd)
+static bool	exec_manager(t_pipe *pipes, t_cmds *cmd)
 {
-	int r;
-	
 	while (cmd)
 	{
 		if (pipes->ti.a > 2)
@@ -93,7 +91,7 @@ bool	exec_main(t_env *l)
 		return (true);
 	}
 	exec_setup(&p, l);
-	exec_manager(&p, l, cmd);
+	exec_manager(&p, cmd);
 	while (p.pid[p.ti.b])
 	{
 		waitpid(p.pid[p.ti.b], &p.ti.c, WIFEXITED(p.pid[p.ti.b]));

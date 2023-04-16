@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 12:18:28 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/15 18:38:08 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/16 12:05:17 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static char	*new_echo_line(char *line)
 
 // quote "'$USER'"
 
-void	echo(char *echo_line, int i, int j)
+void	echo(char *echo_line, int i)
 {
 	int		bulltin;
 	int		size;

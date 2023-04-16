@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayagmur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 23:35:56 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/14 23:35:57 by ayagmur          ###   ########.fr       */
+/*   Updated: 2023/04/16 11:34:46 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ bool	pid_tab_growth(t_pipe *pipes, int size)
 	}
 	pid[size + 1] = 0;
 	free(pipes->pid);
+	free(pid);
 	pipes->pid = pid;
 	return (true);
 }

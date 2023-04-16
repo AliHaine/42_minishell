@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:11:27 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/15 18:20:28 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/16 11:23:57 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ static int	run_process(char *line, t_env *list)
 	char				*new;
 	char				**env;
 
+	new = ft_strdup(line);
 	env = copy_with_lst(list);
-	new = env_conversion(line, env, -1, 0);
+	new = env_conversion(new, env, -1, 0);
 	free_tt(env);
 	init_three_int(&ti);
 	g_ms.on_cmd = 1;
@@ -72,6 +73,7 @@ static int	main_process(t_env *list)
 		}
 		run_process(histo, list);
 		free_words_struct(g_ms.cmds_f);
+		free(histo);
 	}
 	return (1);
 }

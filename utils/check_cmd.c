@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:58:09 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/13 18:03:01 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/16 12:09:35 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	check_bulltin(t_cmds *cmd, t_env *list)
 	if (!cmd->cmd)
 		return ;
 	else if (get_cmd(cmd->cmd) == 1)
-		echo(cmd->cmd_args, 0, 0);
+		echo(cmd->cmd_args, 0);
 	else if (get_cmd(cmd->cmd) == 2)
 		pwd();
 	else if (get_cmd(cmd->cmd) == 4)
