@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 06:59:43 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/16 19:17:44 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/16 19:42:26 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ static char	**path_ex(char **env)
 	return (bash);
 }
 
-static void	
-
-ft_execve2(char **args, char **env)
+static void	ft_execve2(char **args, char **env)
 {
 	int		i;
 	char	*gdee;
@@ -66,7 +64,7 @@ int	ft_execve(t_cmds *cmd, t_env *lst)
 	env = copy_with_lst(lst);
 	args = ft_split(cmd->cmd_args, ' ');
 	bash = path_ex(env);
-	if (bash && !((args[0][0] == '.' && args[0][1] 
+	if (bash && !((args[0][0] == '.' && args[0][1]
 		&& args[0][1] == '/') || args[0][0] == '/'))
 	{
 		while (*bash)

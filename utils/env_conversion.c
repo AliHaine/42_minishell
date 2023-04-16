@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:01:26 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/16 19:13:13 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/16 19:41:52 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,15 @@ static int	check_env(char *s, char **env, int i)
 	return (0);
 }
 
-void	rat(char *var, char *itoa, char *genv)
+void	rat(char *var, char *genv)
 {
 	free(var);
-	free(itoa);
 	free(genv);
 }
 
 static int	ft_while(char *s, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (char_ccmp(s[i], " $\"\'="))
@@ -71,11 +70,11 @@ char	*env_conversion(char *s, char **env, int i, int j)
 {
 	char	*var;
 	char	*genv;
-	char	*itoa;
 
 	while (s[++i])
 	{
-		if (s[i] == '$' && check_env(s, env, i) == 0 && s[i + 1] != '?')
+		if (s[i] == '$' && check_env(s, env, i) == 0 && s[i + 1] != '?'
+			&& var_c(s, i) == 0)
 			s = remplace_part(s, " ", i, ft_while(s, i));
 		else if (s[i] == '$' && (check_env(s, env, i) == 1
 				|| s[i + 1] == '?') && var_c(s, i) == 0)
@@ -83,14 +82,13 @@ char	*env_conversion(char *s, char **env, int i, int j)
 			while (s[j + i + 1] && simp_char(s[j + i + 1], " $\'=\"") == 0)
 				j++;
 			var = ft_substr(s, i + 1, j);
-			genv = ft_getenv(env, var);
-			itoa = ft_itoa(g_ms.stat);
 			if (s[i + 1] == '?')
-				s = remplace_part(s, itoa, i, j);
+				genv = ft_itoa(g_ms.stat);
 			else
-				s = remplace_part(s, genv, i, j);
+				genv = ft_getenv(env, var);
+			s = remplace_part(s, genv, i, j);
 			i = -1;
-			rat(var, genv, itoa);
+			rat(var, genv);
 		}
 	}
 	return (s);
