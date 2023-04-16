@@ -136,7 +136,6 @@ int			get_args_size(char **args);
 
 void		connect_struct(t_cmds *new);
 void		free_words_struct(struct s_cmds *cmds);
-void		parc_struct_tester(struct s_cmds *cmds);
 
 // utils //
 
