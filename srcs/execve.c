@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 06:59:43 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/15 18:30:47 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/16 19:17:44 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,16 @@ static char	**path_ex(char **env)
 	path = NULL;
 	bash = NULL;
 	path = ft_getenv(env, "PATH");
+	if (!path)
+		return (NULL);
 	bash = ft_split(path, ':');
 	free(path);
 	return (bash);
 }
 
-static void	ft_execve2(char **args, char **env)
+static void	
+
+ft_execve2(char **args, char **env)
 {
 	int		i;
 	char	*gdee;
@@ -52,18 +56,6 @@ static void	ft_execve2(char **args, char **env)
 	free_tt(args);
 }
 
-static void	not_found(char *cmd)
-{
-	char	*gdee;
-
-	gdee = gde();
-	printf("%s: ", gdee);
-	free(gdee);
-	printf("%s", cmd);
-	printf(": command not found\n");
-	exit(127);
-}
-
 int	ft_execve(t_cmds *cmd, t_env *lst)
 {
 	char	**args;
@@ -73,14 +65,16 @@ int	ft_execve(t_cmds *cmd, t_env *lst)
 
 	env = copy_with_lst(lst);
 	args = ft_split(cmd->cmd_args, ' ');
-	if (check_path_lst("PATH=", lst, 0) == 0)
-		not_found(args[0]);
 	bash = path_ex(env);
-	while (*bash)
+	if (bash && !((args[0][0] == '.' && args[0][1] 
+		&& args[0][1] == '/') || args[0][0] == '/'))
 	{
-		join = ft_join(*bash++, args[0]);
-		execve(join, args, env);
-		free(join);
+		while (*bash)
+		{
+			join = ft_join(*bash++, args[0]);
+			execve(join, args, env);
+			free(join);
+		}
 	}
 	ft_execve2(args, env);
 	free_tt(env);
