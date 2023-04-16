@@ -98,5 +98,6 @@ bool	exec_main(t_env *l)
 		p.ti.b++;
 		g_ms.stat = WEXITSTATUS(p.ti.c);
 	}
+	free(p.pid);
 	return (true);
 }

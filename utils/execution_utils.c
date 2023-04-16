@@ -26,7 +26,6 @@ bool	pid_tab_growth(t_pipe *pipes, int size)
 	}
 	pid[size + 1] = 0;
 	free(pipes->pid);
-	free(pid);
 	pipes->pid = pid;
 	return (true);
 }

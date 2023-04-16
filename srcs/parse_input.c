@@ -17,7 +17,7 @@ static bool	set_args(char *line, t_cmds *cmds, int *i)
 	int	a;
 
 	a = 0;
-	cmds->args = malloc(sizeof(char *) * 50);
+	cmds->args = malloc(sizeof(char *) * 70);
 	if (!cmds->args)
 		return (false);
 	while (line[*i] && !is_and_or_pipe(line[*i]))

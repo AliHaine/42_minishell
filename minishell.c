@@ -44,6 +44,8 @@ static int	run_process(char *line, t_env *list)
 	g_ms.on_cmd = 1;
 	if (main_parsing(new) == false)
 	{
+		parc_struct_tester(g_ms.cmds_f);
+		exit(1);
 		free(new);
 		new = NULL;
 		return (0);
