@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:01:26 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/12 02:15:02 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/16 19:13:13 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,15 @@ void	rat(char *var, char *itoa, char *genv)
 
 static int	ft_while(char *s, int i)
 {
-	while ((s[i + 1] && (s[i + 1] >= 'a' && s[i + 1] <= 'z'))
-		|| (s[i + 1] >= 'A' && s[i + 1] <= 'Z')
-		|| (s[i + 1] >= '0' && s[i + 1] <= '9'))
-				i++;
-	return (i);
+	int j;
+
+	j = 0;
+	while (char_ccmp(s[i], " $\"\'="))
+	{
+		i++;
+		j++;
+	}
+	return (j);
 }
 
 char	*env_conversion(char *s, char **env, int i, int j)
@@ -72,7 +76,7 @@ char	*env_conversion(char *s, char **env, int i, int j)
 	while (s[++i])
 	{
 		if (s[i] == '$' && check_env(s, env, i) == 0 && s[i + 1] != '?')
-			i += ft_while(s, i);
+			s = remplace_part(s, " ", i, ft_while(s, i));
 		else if (s[i] == '$' && (check_env(s, env, i) == 1
 				|| s[i + 1] == '?') && var_c(s, i) == 0)
 		{
