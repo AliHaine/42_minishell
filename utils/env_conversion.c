@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:01:26 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/16 19:41:52 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/17 15:02:31 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,12 @@ static int	ft_while(char *s, int i)
 	int	j;
 
 	j = 0;
-	while (char_ccmp(s[i], " $\"\'="))
-	{
-		i++;
+	if (s[i + j] == '$')
 		j++;
-	}
+	while (s[i + j] && char_ccmp(s[i + j], " =$\"\'") == 0)
+		j++;
+	if (j > 0)
+		j--;
 	return (j);
 }
 

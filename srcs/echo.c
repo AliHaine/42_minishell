@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 12:18:28 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/16 12:05:17 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/17 15:03:15 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ static int	echo_2(char *line, int *bulltin, int i)
 	j = 0;
 	if (line[i] == '-' && line[i + 1] == 'n')
 	{
-		j += 2;
+		j += 1;
 		while (line[i + j] == 'n')
 			j++;
-		if (line[i + j] == ' ')
+		if (line[i + j] == ' ' || !line[i + j])
 		{
-			while (line[i + j] == ' ')
+			while (line[i + j] && line[i + j] == ' ')
 				j++;
 			i += j;
 			*bulltin = 1;
@@ -80,9 +80,6 @@ static char	*new_echo_line(char *line)
 }
 
 // bulltin echo //
-/*&& tab[i + 1][0] != '|'*/
-
-// quote "'$USER'"
 
 void	echo(char *echo_line, int i)
 {

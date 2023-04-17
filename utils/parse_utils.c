@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:08:37 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/16 19:22:29 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/17 12:22:00 by ayagmur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*get_curr_w_helper(int q, int i, int *a, char *s)
 			break ;
 		new[i++] = s[*a];
 		*a = *a + 1;
-		if (is_redir_char(s[*a - 1]))
+		if (q == 0 && is_redir_char(s[*a - 1]))
 			break ;
 	}
 	new[i] = '\0';
@@ -47,7 +47,7 @@ char	*get_current_word(char *s, int *a, int i, int q)
 			break ;
 		i++;
 		*a = *a + 1;
-		if (is_redir_char(s[*a - 1]))
+		if (q == 0 && is_redir_char(s[*a - 1]))
 			break ;
 	}
 	return (get_curr_w_helper(q, i, a, s));
