@@ -30,11 +30,17 @@ static char	*get_curr_w_helper(int q, int i, int *a, char *s)
 		new[i++] = s[*a];
 		*a = *a + 1;
 		if (q == 0 && is_redir_char(s[*a - 1]))
+		{
+			if (is_redir_char(s[*a]))
+			{
+				new[i++] = s[*a];
+				*a = *a + 1;
+			}
 			break ;
+		}
 	}
 	new[i] = '\0';
-	new = convert_args3(new);
-	return (new);
+	return (convert_args3(new));
 }
 
 char	*get_current_word(char *s, int *a, int i, int q)
@@ -48,7 +54,14 @@ char	*get_current_word(char *s, int *a, int i, int q)
 		i++;
 		*a = *a + 1;
 		if (q == 0 && is_redir_char(s[*a - 1]))
+		{
+			if (is_redir_char(s[*a]))
+			{
+				i++;
+				*a = *a + 1;
+			}
 			break ;
+		}
 	}
 	return (get_curr_w_helper(q, i, a, s));
 }
