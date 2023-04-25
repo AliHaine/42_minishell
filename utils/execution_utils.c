@@ -93,8 +93,7 @@ char	*new_line(char *arg)
 bool	try_our_basical(t_cmds *cmd)
 {
 	if (get_cmd(cmd->cmd) == 5 || get_cmd(cmd->cmd) == 6
-		|| get_cmd(cmd->cmd) == 7 || get_cmd(cmd->cmd) == 8
-		|| get_cmd(cmd->cmd) == 4)
+		|| get_cmd(cmd->cmd) == 7 || get_cmd(cmd->cmd) == 8)
 		return (true);
 	return (false);
 }
