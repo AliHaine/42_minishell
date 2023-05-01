@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 06:59:43 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/05/01 04:36:07 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/05/01 04:45:01 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	**shlvl(t_env *lst, char **env)
 	j++;
 	free(level);
 	level = ft_itoa(j);
-	Shlvl = ft_sjoin("SHLVL=", level);
+	shlvl = ft_sjoin("SHLVL=", level);
 	remplace_lst(lst, shlvl);
 	free(level);
 	free(shlvl);
