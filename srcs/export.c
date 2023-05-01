@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:37:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/13 00:32:52 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/05/01 04:37:29 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ static void	export_and_nothing(t_env *list, int i, int j)
 {
 	char	**sort_env;
 
-	printf("%s\n", list->data);
-	sort_env = print_sorted_strings(list, 0, 0);
+	sort_env = print_sorted_strings(list, 0, -1);
 	while (sort_env[i])
 	{
 		j = 0;
@@ -51,7 +50,8 @@ static int	check_valid(char *path)
 	gde = g_d_e();
 	while (path[i] && path[i] != '=')
 	{
-		if (char_ccmp(path[i], "\t\n\r@&()[]{}%!<>?-*+^~") == 1)
+		if (char_ccmp(path[i], "\t\n\r@&()[]{}%!<>?-*+^~") == 1
+			|| (path[0] >= '0' && path[0] <= '9'))
 			check = 2;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 06:59:43 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/16 19:42:26 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/05/01 04:45:01 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,37 @@ static char	**path_ex(char **env)
 	return (bash);
 }
 
-static void	ft_execve2(char **args, char **env)
+static char	**shlvl(t_env *lst, char **env)
+{
+	char	*level;
+	char	*shlvl;
+	int		j;
+
+	level = NULL;
+	shlvl = NULL;
+	level = ft_getenv(env, "SHLVL");
+	j = ft_atoi(level);
+	j++;
+	free(level);
+	level = ft_itoa(j);
+	shlvl = ft_sjoin("SHLVL=", level);
+	remplace_lst(lst, shlvl);
+	free(level);
+	free(shlvl);
+	free_tt(env);
+	env = copy_with_lst(lst);
+	return (env);
+}
+
+static void	ft_execve2(char **args, t_env *lst, char **env)
 {
 	int		i;
 	char	*gdee;
 
 	i = -1;
 	gdee = gde();
+	if (ft_strcmp(args[0], "minishell") || ft_strcmp(args[0], "./minishell"))
+		env = shlvl(lst, env);
 	execve(args[0], args, env);
 	printf("%s: ", gdee);
 	free(gdee);
@@ -74,7 +98,7 @@ int	ft_execve(t_cmds *cmd, t_env *lst)
 			free(join);
 		}
 	}
-	ft_execve2(args, env);
+	ft_execve2(args, lst, env);
 	free_tt(env);
 	exit(127);
 	return (0);

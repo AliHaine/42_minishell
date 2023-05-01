@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 23:35:56 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/16 11:34:46 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/05/01 01:19:24 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ char	*new_line(char *arg)
 	new[x] = '\0';
 	return (new);
 }
+
+// modifier 
 
 bool	try_our_basical(t_cmds *cmd)
 {

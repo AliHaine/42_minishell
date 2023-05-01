@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 18:19:49 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/04 18:49:21 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/05/01 04:40:02 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ char	**get_null(int i)
 	char	**get;
 	int		j;
 
-	j = -1;
-	get = malloc(sizeof(char *) * i + 1);
+	j = 0;
+	get = malloc(sizeof(char *) * (i + 1));
 	while (j < i)
 		get[j++] = NULL;
 	get[j] = NULL;

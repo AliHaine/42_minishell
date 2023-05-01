@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:11:27 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/16 19:19:52 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/05/01 04:24:51 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	run_process(char *line, t_env *list)
 	free_tt(env);
 	init_three_int(&ti);
 	g_ms.on_cmd = 1;
-	if (main_parsing(new) == false)
+	if (check_is_empty(new) == 0 || main_parsing(new) == false)
 	{
 		free(new);
 		new = NULL;
@@ -65,7 +65,7 @@ static int	main_process(t_env *list)
 			break ;
 		if (check_validity(histo))
 			histo_main(histo);
-		if (check_is_empty(histo) == 0)
+		if (check_is_empty(histo) == 0 || check_quote(histo) != 0)
 		{
 			free(histo);
 			free_words_struct(g_ms.cmds_f);
@@ -98,8 +98,9 @@ int	main(int argc, char **argv, char **env)
 {
 	t_env	*list;
 
-	(void)argc;
 	(void)argv;
+	if (argc != 1)
+		return (printf("Too many arguments ...\n"), 0);
 	signal_main();
 	main_struct_init(env);
 	if (main_struct_init(env) == false)

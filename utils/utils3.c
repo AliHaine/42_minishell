@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 07:46:17 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/13 00:46:26 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/05/01 04:41:42 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ char	**print_sorted_strings(t_env *list, int i, int j)
 	strings = copy_with_lst(list);
 	while (i < size - 1)
 	{
-		while (j < size - i - 1)
+		while (++j < size - i - 2)
 		{
-			if (strcmp(strings[j], strings[j + 1]) > 0)
+			if (asciicmp(strings[j], strings[j + 1]) == 0)
 			{
 				temp = ft_strdup(strings[j]);
 				free(strings[j]);
@@ -75,8 +75,8 @@ char	**print_sorted_strings(t_env *list, int i, int j)
 				free(strings[j + 1]);
 				strings[j + 1] = ft_strdup(temp);
 				free(temp);
+				j = -1;
 			}
-			j++;
 		}
 		i++;
 	}

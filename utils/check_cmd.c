@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:58:09 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/16 12:09:35 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/05/01 04:40:34 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	get_cmd(char *cmd)
 		return (6);
 	else if (ft_strcmp("cd", cmd))
 		return (7);
-	else if (contain_export("export", cmd))
-		return (6);
 	else if (contain_export("exit", cmd))
 		return (8);
 	return (0);

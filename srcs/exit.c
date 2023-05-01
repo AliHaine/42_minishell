@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:35:31 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/07 17:15:22 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/05/01 04:36:47 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,23 @@ static int	select_exit_num(char *line)
 int	check_exit(t_cmds *cmd)
 {
 	int		i;
+	int		a;
 
 	i = 0;
+	a = 0;
 	if (cmd->args[0] != NULL)
 	{
 		if (select_exit_num(cmd->args[0]) == 1)
-			printf("exit: %s: numeric argument required\n", cmd->args[0]);
+			printf("exit: %s: numeric argument required\n", cmd->args[a++]);
 	}
 	if (cmd->args[0] != NULL && cmd->args[1] != NULL)
 	{
-		printf("exit: too many arguments\n");
 		g_ms.stat = 1;
+		if (a == 0)
+		{
+			printf("exit: too many arguments\n");
+			return (0);
+		}
 	}
 	g_ms.exit = -1;
 	return (0);

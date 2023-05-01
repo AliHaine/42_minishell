@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:55:32 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/16 12:06:46 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/05/01 04:33:36 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,8 +244,10 @@ int			ft_lst_size(t_env *lst);
 char		**copy_with_lst(t_env *lst);
 void		remplace_lst(t_env *lst, char *path);
 void		free_list(t_env **head);
-
+int			asciicmp(char *s1, char *s2);
 char		*new_line(char *arg);
 char		*convert_args3(char *line);
+int			check_quote(char *s);
+int			update_sd(char c, int *in_q, int *qs, int *qd);
 
 #endif
