@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:58:09 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/16 12:09:35 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/05/01 04:40:34 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	get_cmd(char *cmd)
 		return (6);
 	else if (ft_strcmp("cd", cmd))
 		return (7);
-	else if (contain_export("export", cmd))
-		return (6);
 	else if (contain_export("exit", cmd))
 		return (8);
 	return (0);
@@ -84,11 +82,7 @@ static void	check_bulltin(t_cmds *cmd, t_env *list)
 	else if (get_cmd(cmd->cmd) == 2)
 		pwd();
 	else if (get_cmd(cmd->cmd) == 4)
-	{
 		print_env(cmd, list);
-		if (g_ms.cmd_nbr == 1)
-			return ;
-	}
 	else if (get_cmd(cmd->cmd) == 5 || get_cmd(cmd->cmd) == 6
 		|| get_cmd(cmd->cmd) == 7 || get_cmd(cmd->cmd) == 8)
 		return (check_builtin_h(cmd, list, 0));

@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 07:43:14 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/16 19:29:13 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/04/30 17:31:25 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	check_is_empty(char *str)
 		return (0);
 	while (str[i])
 	{
-		if (str[i] != ' ')
+		if (str[i] != ' ' && str[i] != '\t')
 			return (1);
 		i++;
 	}

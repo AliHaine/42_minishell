@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 23:35:56 by ayagmur           #+#    #+#             */
-/*   Updated: 2023/04/16 11:34:46 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/05/01 01:19:24 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,13 @@ char	*new_line(char *arg)
 	return (new);
 }
 
+// modifier 
+
 bool	try_our_basical(t_cmds *cmd)
 {
 	if (get_cmd(cmd->cmd) == 5 || get_cmd(cmd->cmd) == 6
 		|| get_cmd(cmd->cmd) == 7 || get_cmd(cmd->cmd) == 8
-		|| get_cmd(cmd->cmd) == 4)
+		/*|| get_cmd(cmd->cmd) == 4*/)
 		return (true);
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 12:18:28 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/04/17 15:03:15 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/05/01 04:34:31 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,13 @@ t_env	*lst_copy_tab(char **env)
 	int		i;
 	t_env	*lst;
 	char	*pwd;
-	char	*joint;
 
 	pwd = getcwd(NULL, 0);
-	joint = ft_sjoin("OLDPWD=", pwd);
 	free(pwd);
 	i = -1;
 	lst = NULL;
-	ft_lstadd_back(&lst, joint);
 	while (env[++i])
 		ft_lstadd_back(&lst, env[i]);
-	free(joint);
 	return (lst);
 }
 
